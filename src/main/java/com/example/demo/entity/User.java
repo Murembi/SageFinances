@@ -13,8 +13,11 @@ public class User {
     @Column(name = "user_id")
     private Integer userId;
 
+    @Column(nullable = false)
     private String name;
     private String department;
+
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)

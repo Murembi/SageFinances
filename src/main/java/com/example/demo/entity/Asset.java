@@ -18,7 +18,7 @@ public class Asset {
     private String title;
     private String category;
 
-    @Column(name = "serial_number", unique = true)
+    @Column(name = "serial_number", unique = true, nullable = false)
     private String serialNumber;
 
     @Column(name = "acquisition_date")

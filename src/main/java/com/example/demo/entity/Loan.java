@@ -13,11 +13,11 @@ public class Loan {
     @Column(name = "loan_id")
     private Integer loanId;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "asset_id")
     private Asset asset;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -35,6 +35,10 @@ public class Loan {
 
     @Column(name = "return_date")
     private LocalDateTime returnDate;
+
+    @ManyToOne
+    @JoinColumn(name = "approved_by")
+    private User approvedBy;
 
     public enum Status {
         pending, approved, rejected
