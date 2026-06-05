@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class AssetEntity {
 
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.IDENTITY) //yea dawg
    @Column(name = "asset_id")
    private Integer assetId;
 
