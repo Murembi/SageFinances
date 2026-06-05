@@ -33,7 +33,7 @@ public class AssetEntity {
    @Column(name = "location",nullable = false)
    private String location;
 
-   @Column(name = "condition", nullable = false) //added for safety
+   @Column(name = "condition", nullable = true) //added for safety
    private String condition;
 
    @Column(name = "photo_path", nullable = false)
