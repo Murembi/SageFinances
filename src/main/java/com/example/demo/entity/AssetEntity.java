@@ -1,44 +1,52 @@
-package com.example.demo.assets.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "asset") //Comment to
-public class Asset {
+public class AssetEntity {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int assetId;
+   @Column(name = "asset_id")
+   private Integer assetId;
 
-   @Column(nullable = false, length = 150)   // making sure were not sending wrong data to the db
+   @Column(name = "title",nullable = false, length = 150)   // making sure were not sending wrong data to the db
    private String title;
 
-   @Column(nullable = false, length = 100)
+   @Column(name = "category",nullable = false, length = 100)
    private String category;
 
-   @Column(nullable = false, unique = true, length = 100)  // every serial number has to be unique
+   @Column(name = "serial_number",nullable = false, unique = true, length = 100)  // every serial number has to be unique
    private String serialNumber;
 
+   @Column(name = "acquisition_date",nullable = false)
    private LocalDate acquisitionDate;
 
+   @Column(name = "cost",nullable = false)
    private BigDecimal cost;
 
+   @Column(name = "location",nullable = false)
    private String location;
 
-   @Column(name = "condition") //added for safety
+   @Column(name = "condition", nullable = false) //added for safety
    private String condition;
 
-   @Column(name = "photo_path")
-   private String photoUpload;
+   @Column(name = "photo_path", nullable = false)
+   private String photoPath;
 
+   @Column(name = "created_at", insertable = false, updatable = false)
+   private LocalDateTime createdAt;
+
+   @Column(name = "status",nullable = false)
    @Enumerated(EnumType.STRING)
-   @Column(nullable = false)
-   private AssetStatus status;
+   private AssetStatus status = AssetStatus.AVAILABLE;
+
+
 
 
    public enum AssetStatus {
@@ -48,11 +56,11 @@ public class Asset {
       RETIRED
    }
 
-   public int getAssetId() {
+   public Integer getAssetId() {
       return assetId;
    }
 
-   public void setAssetId(int assetId) {
+   public void setAssetId(Integer assetId) {
       this.assetId = assetId;
    }
 
@@ -112,12 +120,12 @@ public class Asset {
       this.condition = condition;
    }
 
-   public String getPhotoUpload() {
-      return photoUpload;
+   public String getPhotoPath() {
+      return photoPath;
    }
 
-   public void setPhotoUpload(String photoUpload) {
-      this.photoUpload = photoUpload;
+   public void setPhotoPath(String photoPath) {
+      this.photoPath = photoPath;
    }
 
    public AssetStatus getStatus() {
