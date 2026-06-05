@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "asset") //Comment to check
+@Table(name = "asset") //Comment to
 public class Asset {
 
    @Id
