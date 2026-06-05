@@ -1,10 +1,16 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "user")
 public class User {
 
@@ -15,14 +21,15 @@ public class User {
 
     private String name;
     private String department;
+
+    @Email(message = "Email should be valid")
     private String email;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters")
     @Column(name = "password_hash")
     private String passwordHash;
 
@@ -33,7 +40,4 @@ public class User {
         Admin, Manager, Borrower
     }
 
-    public enum Status {
-        ACTIVE, WARNING, BANNED
-    }
 }

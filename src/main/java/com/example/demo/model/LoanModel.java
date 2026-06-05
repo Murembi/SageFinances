@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 
-public class Loan {
+public class LoanModel {
 
     // just incase the id is null
     private Long loanId;
@@ -21,14 +21,14 @@ public class Loan {
     }
 
     //Full constructor (everything included)
-    public Loan(Long loanId,
-                Long assetId,
-                Long userId,
-                LocalDate requestDate,
-                LocalDate checkoutDate,
-                LocalDate dueDate,
-                LocalDate returnDate,
-                Status status) {
+    public LoanModel(Long loanId,
+                     Long assetId,
+                     Long userId,
+                     LocalDate requestDate,
+                     LocalDate checkoutDate,
+                     LocalDate dueDate,
+                     LocalDate returnDate,
+                     Status status) {
 
         this.loanId = loanId;
         this.assetId = assetId;
@@ -41,11 +41,11 @@ public class Loan {
     }
 
     //Constructor WITHOUT loanId
-    public Loan(Long assetId,
-                Long userId,
-                LocalDate requestDate,
-                LocalDate dueDate,
-                Status status) {
+    public LoanModel(Long assetId,
+                     Long userId,
+                     LocalDate requestDate,
+                     LocalDate dueDate,
+                     Status status) {
 
         this.assetId = assetId;
         this.userId = userId;
@@ -58,11 +58,11 @@ public class Loan {
     }
 
     //no arguments contructor
-    public Loan() {
+    public LoanModel() {
     }
 
     // minimal loan request
-    public Loan(Long assetId, Long userId) {
+    public LoanModel(Long assetId, Long userId) {
         this.assetId = assetId;
         this.userId = userId;
         this.requestDate = LocalDate.now();
