@@ -4,7 +4,6 @@ import com.example.demo.entity.Loan;
 import com.example.demo.repository.LoanRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -32,26 +31,35 @@ public class LoanService {
     //then the manager will approve to approved/rejected
     public Loan createLoanRequest(Loan loan){
         loan.setStatus(Loan.Status.PENDING);
-        //loan.setRequestDate(LocalDate.now());
         return loanRepository.save(loan);
     }
 
     // different methods for approving and rejecting a loan
     //APPROVING A LOAN
     public Loan approveLoan(Long loanId) {
-
         Loan loan = getLoanById(loanId);
+
+        //only
+        if (loan.getStatus() != Loan.Status.PENDING) {
+            throw new IllegalStateException("Only pending loans can be processed");
+        }
+
         loan.setStatus(Loan.Status.APPROVED);
         return loanRepository.save(loan); //writes the updated loan back to the database
     }
 
     //REJECTING A LOAN
     public Loan rejectLoan(Long loanId){
-
         Loan loan = getLoanById(loanId);
-            //loan.getStatus(Loan.Status.REJECTED);
-            return loanRepository.save(loan);
+
+        if (loan.getStatus() != Loan.Status.PENDING) {
+            throw new IllegalStateException("Only pending loans can be processed");
+        }
+        loan.setStatus(Loan.Status.REJECTED);
+        return loanRepository.save(loan);
     }
 
-
+    public void deleteLoan(Long id) {
+        loanRepository.deleteById(id);
+    }
 }
