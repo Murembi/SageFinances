@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MECER INTER-ED | ASSET MANAGEMENT SYSTEM</title>
+
+<!-- External CSS -->
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<div id="customAlert" class="alert"></div>
+
+<!-- LOGO -->
+<header class="header">
+    <div class="logo">
+        <i class="fa-brands fa-first-order-alt"></i>
+        <img src="images/mecer-inter-ed-logo.jpg" alt="MECER INTER-ED Logo" class="logo-img">
+    </div>
+    <span class="header-text"> ASSET MANAGEMENT SYSTEM</span>
+</header>
+
+<!-- AUTH CARD -->
+<div class="auth-container">
+    
+    <div class="toggle-buttons">
+        <button id="logInBtn" class="toggle">Log In</button>
+    </div>
+
+    <!-- LOG IN -->
+    <div id="logInForm">
+        <h1>Welcome!</h1>
+        <form autocomplete="off">
+            <div class="input-group">
+                <input type="email" id="loginEmail" required>
+                <label>Email</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="loginPassword" required>
+                <label>Password</label>
+                <i id="toggleIcon" class="fa-solid fa-eye-slash toggle-password" onclick="togglePassword('loginPassword', this)"></i>
+            </div>
+            
+            <button class="submit-btn">Log In <span class="arrow">&#8594;</span></button>
+        </form>
+    </div>
+
+    
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-bottom">
+        <a href="https://mecerintered.co.za/terms-and-conditions">Terms & Conditions</a>
+        <a id="contactLink">Contact Us</a>
+    </div>
+</footer>
+
+<!-- CONTACT POPUP -->
+<div id="contactPopup" class="popup">
+    <h3>Contact Us</h3>
+    <p><i class="fa-solid fa-envelope"></i> info@mecerintered.co.za</p>
+    <p><i class="fa-solid fa-phone"></i> (+27) 10 730 0860</p>
+    <button onclick="closePopup()">Close</button>
+</div>
+
+<!-- Firebase + JS -->
+<script type="module" src="scripts/script.js"></script>
+
+</body>
+</html>
