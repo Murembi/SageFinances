@@ -1,20 +1,15 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Loan;
-import org.slf4j.LoggerFactory;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import com.example.demo.entity.Loan;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import org.slf4j.Logger;
-
-import org.springframework.jdbc.core.RowMapper;
-
+import java.util.List;
 
 @Repository
-public interface LoanRepository {
-
-
+public interface LoanRepository extends JpaRepository<Loan, Long> {
 
 }
+
 
 

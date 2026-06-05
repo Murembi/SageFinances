@@ -1,9 +1,12 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "loan")
 public class Loan {
@@ -41,6 +44,6 @@ public class Loan {
     private User approvedBy;
 
     public enum Status {
-        pending, approved, rejected
+        PENDING, APPROVED, REJECTED
     }
 }
