@@ -105,7 +105,55 @@ public class AssetController {
         return service.editAsset(id, asset);
     }
 
-    // update status of asset//15//DONE
+    // update title //15//
+    @PatchMapping("/{id}/title")
+    public Asset updateTitle(@PathVariable Integer id, @RequestParam String title) {
+        return service.updateTitle(id, title);
+    }
+
+    // update category //16//
+    @PatchMapping("/{id}/category")
+    public Asset updateCategory(@PathVariable Integer id, @RequestParam String category) {
+        return service.updateCategory(id, category);
+    }
+
+    // update serial //17//
+    @PatchMapping("/{id}/serial")
+    public Asset updateSerial(@PathVariable Integer id, @RequestParam String serialNumber) {
+        return service.updateSerialNumber(id, serialNumber);
+    }
+
+    // update acquisition-date //18//
+    @PatchMapping("/{id}/acquisition-date")
+    public Asset updateAcquisitionDate(@PathVariable Integer id, @RequestParam LocalDate date) {
+        return service.updateAcquisitionDate(id, date);
+    }
+
+    // update cost //19//
+    @PatchMapping("/{id}/cost")
+    public Asset updateCost(@PathVariable Integer id, @RequestParam BigDecimal cost) {
+        return service.updateCost(id, cost);
+    }
+
+    // update location //20//
+    @PatchMapping("/{id}/location")
+    public Asset updateLocation(@PathVariable Integer id, @RequestParam String location) {
+        return service.updateLocation(id, location);
+    }
+
+    // update condition//21//
+    @PatchMapping("/{id}/condition")
+    public Asset updateCondition(@PathVariable Integer id, @RequestParam String condition) {
+        return service.updateCondition(id, condition);
+    }
+
+    //update photo //22//
+    @PatchMapping("/{id}/photo")
+    public Asset updatePhoto(@PathVariable Integer id, @RequestParam String photoPath) {
+        return service.updatePhotoPath(id, photoPath);
+    }
+
+    // update status of asset//23//DONE
     @PatchMapping("/{id}/status")
     public Asset updateStatus(
             @PathVariable Integer id,
@@ -113,7 +161,7 @@ public class AssetController {
         return service.updateStatus(id, status);
     }
 
-    // delete asset //16//DONE but when deleting for example id 1, id 2 does not become id 1 and so forth
+    // delete asset //24//DONE but when deleting for example id 1, id 2 does not become id 1 and so forth
     @DeleteMapping("/{id}")
     public void deleteAsset(@PathVariable Integer id) {
         service.deleteAsset(id);

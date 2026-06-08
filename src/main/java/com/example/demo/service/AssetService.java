@@ -4,6 +4,8 @@ import com.example.demo.entity.Asset;
 import com.example.demo.repository.AssetRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -129,14 +131,70 @@ import java.util.List;
             return repository.save(existing);
         }
 
-        // update status of asset //15
+        // update title //15
+        public Asset updateTitle(Integer id, String title) {
+            Asset asset = getAssetById(id);
+            asset.setTitle(title);
+            return repository.save(asset);
+        }
+
+        // update category //16
+        public Asset updateCategory(Integer id, String category) {
+            Asset asset = getAssetById(id);
+            asset.setCategory(category);
+            return repository.save(asset);
+        }
+
+        // update serial number //17
+        public Asset updateSerialNumber(Integer id, String serialNumber) {
+            Asset asset = getAssetById(id);
+            asset.setSerialNumber(serialNumber);
+            return repository.save(asset);
+        }
+
+        // update acquisition date //18
+        public Asset updateAcquisitionDate(Integer id, LocalDate date) {
+            Asset asset = getAssetById(id);
+            asset.setAcquisitionDate(date);
+            return repository.save(asset);
+        }
+
+        // update cost //19
+        public Asset updateCost(Integer id, BigDecimal cost) {
+            Asset asset = getAssetById(id);
+            asset.setCost(cost);
+            return repository.save(asset);
+        }
+
+        // update location //20
+        public Asset updateLocation(Integer id, String location) {
+            Asset asset = getAssetById(id);
+            asset.setLocation(location);
+            return repository.save(asset);
+        }
+
+        // update condition //21
+        public Asset updateCondition(Integer id, String condition) {
+            Asset asset = getAssetById(id);
+            asset.setCondition(condition);
+            return repository.save(asset);
+        }
+
+        // update photo path //22
+        public Asset updatePhotoPath(Integer id, String photoPath) {
+            Asset asset = getAssetById(id);
+            asset.setPhotoPath(photoPath);
+            return repository.save(asset);
+        }
+
+        // update status //23
         public Asset updateStatus(Integer id, Asset.Status status) {
             Asset asset = getAssetById(id);
             asset.setStatus(status);
             return repository.save(asset);
         }
 
-        // delete asset //16
+        // delete asset //24
         public void deleteAsset(Integer id) {
             if (!repository.existsById(id)) {
                 throw new RuntimeException("Asset not found with id: " + id);
