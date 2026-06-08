@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-
+@RequestMapping("/assets")
 public class AssetController {
 
     private final AssetService service;
@@ -31,25 +31,25 @@ public class AssetController {
         return service.addMultipleAssets(assets);
     }
 
-    // list all assets //3
+    // list all assets //3//DONE
     @GetMapping
     public List<Asset> getAllAssets() {
         return service.getAllAssets();
     }
 
-    // search by ID //4
+    // search by ID //4//DONE
     @GetMapping("/{id}")
     public Asset getAssetById(@PathVariable Integer id){
         return service.getAssetById(id);
     }
 
-    // search by title //5
+    // search by title //5//DONE
     @GetMapping("/search/title")
     public List<Asset> searchByTitle(@RequestParam String title) {
         return service.searchByTitle(title);
     }
 
-    // search by serial number //6
+    // search by serial number //6//DONE
     @GetMapping("/search/serial")
     public Asset searchBySerialNumber(@RequestParam String serialNumber) {
         return service.searchBySerial(serialNumber);
@@ -98,7 +98,7 @@ public class AssetController {
         return service.filterByStatus(status);
     }
 
-    // update entire asset //14
+    // update entire asset //14//DONE
     @PutMapping("/{id}")
     public Asset updateAsset(
             @PathVariable Integer id,
@@ -106,7 +106,7 @@ public class AssetController {
         return service.editAsset(id, asset);
     }
 
-    // update status of asset //15
+    // update status of asset//15//DONE
     @PatchMapping("/{id}/status")
     public Asset updateStatus(
             @PathVariable Integer id,
@@ -114,7 +114,7 @@ public class AssetController {
         return service.updateStatus(id, status);
     }
 
-    // delete asset //16
+    // delete asset //
     @DeleteMapping("/{id}")
     public void deleteAsset(@PathVariable Integer id) {
         service.deleteAsset(id);

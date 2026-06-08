@@ -31,7 +31,7 @@ public class Asset {
     private BigDecimal cost;
     private String location;
 
-    @Column(name = "`condition`")
+    @Column(name = "asset_condition")
     private String condition;
 
     @Column(name = "photo_path")
