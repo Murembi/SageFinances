@@ -14,7 +14,7 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "loan_id")
-    private Integer loanId;
+    private Long loanId;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "asset_id")
