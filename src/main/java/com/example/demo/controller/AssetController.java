@@ -105,49 +105,49 @@ public class AssetController {
         return service.editAsset(id, asset);
     }
 
-    // update title //15//
+    // update title //15//DONE
     @PatchMapping("/{id}/title")
     public Asset updateTitle(@PathVariable Integer id, @RequestParam String title) {
         return service.updateTitle(id, title);
     }
 
-    // update category //16//
+    // update category //16//DONE
     @PatchMapping("/{id}/category")
     public Asset updateCategory(@PathVariable Integer id, @RequestParam String category) {
         return service.updateCategory(id, category);
     }
 
-    // update serial //17//
+    // update serial //17//DONE
     @PatchMapping("/{id}/serial")
     public Asset updateSerial(@PathVariable Integer id, @RequestParam String serialNumber) {
         return service.updateSerialNumber(id, serialNumber);
     }
 
-    // update acquisition-date //18//
+    // update acquisition-date //18//DONE
     @PatchMapping("/{id}/acquisition-date")
     public Asset updateAcquisitionDate(@PathVariable Integer id, @RequestParam LocalDate date) {
         return service.updateAcquisitionDate(id, date);
     }
 
-    // update cost //19//
+    // update cost //19//DONE
     @PatchMapping("/{id}/cost")
     public Asset updateCost(@PathVariable Integer id, @RequestParam BigDecimal cost) {
         return service.updateCost(id, cost);
     }
 
-    // update location //20//
+    // update location //20//DONE
     @PatchMapping("/{id}/location")
     public Asset updateLocation(@PathVariable Integer id, @RequestParam String location) {
         return service.updateLocation(id, location);
     }
 
-    // update condition//21//
+    // update condition//21//DONE
     @PatchMapping("/{id}/condition")
     public Asset updateCondition(@PathVariable Integer id, @RequestParam String condition) {
         return service.updateCondition(id, condition);
     }
 
-    //update photo //22//
+    //update photo //22//DONE
     @PatchMapping("/{id}/photo")
     public Asset updatePhoto(@PathVariable Integer id, @RequestParam String photoPath) {
         return service.updatePhotoPath(id, photoPath);
