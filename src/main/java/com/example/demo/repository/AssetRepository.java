@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.AssetEntity;
+import com.example.demo.entity.Asset;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AssetRepository extends JpaRepository<AssetEntity, Integer> {
+public interface AssetRepository extends JpaRepository<Asset, Integer> {
 }

@@ -1,14 +1,16 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.AssetEntity;
+import com.example.demo.entity.Asset;
 import com.example.demo.service.AssetService;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/assets")
-@CrossOrigin(origins = "*") // allows frontend access (you can restrict later)
+
 public class AssetController {
 
     private final AssetService service;
@@ -17,86 +19,105 @@ public class AssetController {
         this.service = service;
     }
 
-    // =========================
-    // 1. CREATE ASSET
-    // =========================
+    // add 1 asset //1
     @PostMapping
-    public AssetEntity createAsset(@RequestBody AssetEntity asset) {
+    public Asset createAsset(@RequestBody Asset asset){
         return service.addAsset(asset);
     }
 
-    // =========================
-    // 2. GET ALL ASSETS
-    // =========================
+    // add multiple assets //2
+    @PostMapping("/bulk")
+    public List<Asset> createAssets(@RequestBody List<Asset> assets){
+        return service.addMultipleAssets(assets);
+    }
+
+    // list all assets //3
     @GetMapping
-    public List<AssetEntity> getAllAssets() {
+    public List<Asset> getAllAssets() {
         return service.getAllAssets();
     }
 
-    // =========================
-    // 3. EDIT ASSET
-    // =========================
+    // search by ID //4
+    @GetMapping("/{id}")
+    public Asset getAssetById(@PathVariable Integer id){
+        return service.getAssetById(id);
+    }
+
+    // search by title //5
+    @GetMapping("/search/title")
+    public List<Asset> searchByTitle(@RequestParam String title) {
+        return service.searchByTitle(title);
+    }
+
+    // search by serial number //6
+    @GetMapping("/search/serial")
+    public Asset searchBySerialNumber(@RequestParam String serialNumber) {
+        return service.searchBySerial(serialNumber);
+    }
+
+    // search by creation time //7
+    @GetMapping("/search/created")
+    public List<Asset> searchByCreatedAt(@RequestParam LocalDateTime createdAt) {
+        return service.searchByCreatedAt(createdAt);
+    }
+
+    // filter by category //8
+    @GetMapping("/filter/category")
+    public List<Asset> filterByCategory(@RequestParam String category) {
+        return service.filterByCategory(category);
+    }
+
+    // filter by acquisition date //9
+    @GetMapping("/filter/acquisition-date")
+    public List<Asset> filterByAcquisitionDate(@RequestParam LocalDate date) {
+        return service.filterByAcquisitionDate(date);
+    }
+
+    // filter by cost //10
+    @GetMapping("/filter/cost")
+    public List<Asset> filterByCost(@RequestParam BigDecimal cost) {
+        return service.filterByCost(cost);
+    }
+
+    // filter by location //11
+    @GetMapping("/filter/location")
+    public List<Asset> filterByLocation(@RequestParam String location) {
+        return service.filterByLocation(location);
+    }
+
+    // filter by condition //12
+    @GetMapping("/filter/condition")
+    public List<Asset> filterByCondition(@RequestParam String condition) {
+        return service.filterByCondition(condition);
+    }
+
+
+    // filter by status //13
+    @GetMapping("/filter/status")
+    public List<Asset> filterByStatus(@RequestParam Asset.Status status) {
+        return service.filterByStatus(status);
+    }
+
+    // update entire asset //14
     @PutMapping("/{id}")
-    public AssetEntity updateAsset(
+    public Asset updateAsset(
             @PathVariable Integer id,
-            @RequestBody AssetEntity asset
-    ) {
+            @RequestBody Asset asset) {
         return service.editAsset(id, asset);
     }
 
-    // =========================
-    // 4. DELETE ASSET
-    // =========================
+    // update status of asset //15
+    @PatchMapping("/{id}/status")
+    public Asset updateStatus(
+            @PathVariable Integer id,
+            @RequestParam Asset.Status status) {
+        return service.updateStatus(id, status);
+    }
+
+    // delete asset //16
     @DeleteMapping("/{id}")
     public void deleteAsset(@PathVariable Integer id) {
         service.deleteAsset(id);
     }
 
-    // =========================
-    // 5. RETIRE ASSET
-    // =========================
-    @PutMapping("/{id}/retire")
-    public AssetEntity retireAsset(@PathVariable Integer id) {
-        return service.retireAsset(id);
-    }
-
-    // =========================
-    // 6. SEARCH BY NAME
-    // =========================
-    @GetMapping("/search/name")
-    public List<AssetEntity> searchByName(@RequestParam String name) {
-        return service.searchByName(name);
-    }
-
-    // =========================
-    // 7. SEARCH BY CATEGORY
-    // =========================
-    @GetMapping("/search/category")
-    public List<AssetEntity> searchByCategory(@RequestParam String category) {
-        return service.searchByCategory(category);
-    }
-
-    // =========================
-    // 8. SEARCH BY STATUS
-    // =========================
-    @GetMapping("/search/status")
-    public List<AssetEntity> searchByStatus(@RequestParam AssetEntity.AssetStatus status) {
-        return service.searchByStatus(status);
-    }
-
-    // =========================
-    // 9. FILTER BY LOCATION
-    // =========================
-    @GetMapping("/filter/location")
-    public List<AssetEntity> filterByLocation(@RequestParam String location) {
-        return service.filterByLocation(location);
-    }
-
-    // =========================
-    // 10. FILTER BY CONDITION
-    // =========================
-    @GetMapping("/filter/condition")
-    public List<AssetEntity> filterByCondition(@RequestParam String condition) {
-        return service.filterByCondition(condition);
-    }
 }
