@@ -62,12 +62,6 @@ public class LoanController {
         return loanService.rejectLoan(id);
     }
 
-    // get by status
-    @GetMapping("/status/{status}")
-    public List<Loan> getByStatus(@PathVariable Loan.Status status) {
-        return loanService.getLoansByStatus(status);
-    }
-
     //get by status
     @GetMapping("/user/{userId}")
     public List<Loan> getByUser(@PathVariable Long userId) {
