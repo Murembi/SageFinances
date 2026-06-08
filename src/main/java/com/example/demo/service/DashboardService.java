@@ -4,7 +4,9 @@ import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Loan;
 import com.example.demo.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class DashboardService {
     //dashboard service has acess to the loan data
@@ -22,7 +24,7 @@ public class DashboardService {
         );
 
         dto.setApprovedLoans(
-                //retrieves all the data were status is approved
+                //retrieves all the data approved
                 loanRepository.countByStatus(Loan.Status.APPROVED)
         );
 
@@ -39,8 +41,6 @@ public class DashboardService {
         return dto;
     }
     // asset dto
-    //user dta
-
-
+    // user dta
 
 }
