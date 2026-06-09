@@ -1,9 +1,12 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "loan")
 public class Loan {
@@ -11,13 +14,13 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "loan_id")
-    private Integer loanId;
+    private Long loanId;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "asset_id")
     private Asset asset;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -36,7 +39,11 @@ public class Loan {
     @Column(name = "return_date")
     private LocalDateTime returnDate;
 
+    @ManyToOne
+    @JoinColumn(name = "approved_by")
+    private User approvedBy;
+
     public enum Status {
-        pending, approved, rejected
+        PENDING, APPROVED, REJECTED
     }
 }

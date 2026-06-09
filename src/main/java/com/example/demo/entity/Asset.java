@@ -17,12 +17,12 @@ public class Asset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "asset_id")
-    private Integer assetId;
+    private Long assetId;
 
     private String title;
     private String category;
 
-    @Column(name = "serial_number", unique = true)
+    @Column(name = "serial_number", unique = true, nullable = false)
     private String serialNumber;
 
     @Column(name = "acquisition_date")
