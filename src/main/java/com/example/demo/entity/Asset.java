@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -30,7 +31,7 @@ public class Asset {
     private BigDecimal cost;
     private String location;
 
-    @Column(name = "`condition`")
+    @Column(name = "asset_condition")
     private String condition;
 
     @Column(name = "photo_path")
