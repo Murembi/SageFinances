@@ -121,7 +121,7 @@ public class Loan {
         this.returnDate = returnDate;
     }
 
-    public Status getStatus() {
+    public Status getStatus(Status rejected) {
         return status;
     }
     public void setStatus(Status status) {
