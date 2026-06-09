@@ -26,9 +26,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
     @Column(name = "password_hash")
     private String passwordHash;
 
@@ -39,7 +36,4 @@ public class User {
         Admin, Manager, Borrower
     }
 
-    public enum Status {
-        ACTIVE, WARNING, BANNED
-    }
 }
