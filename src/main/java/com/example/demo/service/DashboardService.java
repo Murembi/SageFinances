@@ -15,8 +15,15 @@ public class DashboardService {
     private final LoanRepository loanRepository;
     private final AssetRepository assetRepository;
 
+    public DashboardDTO getAdminDashboard() {
+        return buildDashboard();
+    }
 
     public DashboardDTO getManagerDashboard() {
+        return buildDashboard();
+    }
+
+    private DashboardDTO buildDashboard() {
 
         DashboardDTO dto = new DashboardDTO();
 
@@ -42,27 +49,31 @@ public class DashboardService {
                 loanRepository.count()
         );
 
+        //the total number of assest
         dto.setTotalAssets(assetRepository.count());
 
         dto.setAvailableAssets(
+                // retrieve all the available assest
                 assetRepository.countByStatus(Asset.Status.AVAILABLE)
         );
 
         dto.setLoanedAssets(
+                //retrieve number of assest loaned
                 assetRepository.countByStatus(Asset.Status.LOANED)
         );
 
         dto.setDamagedAssets(
+                //retrieve all assets that are damaged
                 assetRepository.countByStatus(Asset.Status.DAMAGED)
         );
 
         dto.setRetiredAssets(
+                //retriee all the assest that are retired
                 assetRepository.countByStatus(Asset.Status.RETIRED)
         );
 
         return dto;
     }
-    // asset dto
     // user dta
 
 }

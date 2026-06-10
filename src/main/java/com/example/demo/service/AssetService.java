@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.repository.AssetRepository;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,11 @@ import java.util.List;
 
         public AssetService(AssetRepository repository) {
             this.repository = repository;
+        }
+
+        public Asset addAsset(Asset asset) {
+            asset.setCreatedAt(LocalDateTime.now());
+            return repository.save(asset);
         }
 
         // add multiple assets //2
