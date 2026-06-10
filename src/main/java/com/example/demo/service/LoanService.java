@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.LoanRequestDTO;
+import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
+import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.LoanRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,10 @@ public class LoanService {
     //Dependency injection (Loan repo)constructor
     //enables the service to communicate with the database
     private final LoanRepository loanRepository;
-    public LoanService (LoanRepository loanRepository) {
+    private final AssetRepository assetRepository;
+    public LoanService (LoanRepository loanRepository,AssetRepository assetRepository ) {
         this.loanRepository = loanRepository;
+        this.assetRepository= assetRepository;
     }
 
     //Get all loans in the db
@@ -71,7 +75,8 @@ public class LoanService {
         //         TODO
         // set user and asset once repositories are available
         // User user = userRepository.findById(dto.getUserId())
-        // Asset asset = assetRepository.findById(dto.getAssetId())
+        Asset asset = assetRepository.findById(dto.getAssetId())
+                .orElseThrow(() -> new RuntimeException("Asset not found"));
 
         loan.setStatus(Loan.Status.PENDING);
         return loanRepository.save(loan);

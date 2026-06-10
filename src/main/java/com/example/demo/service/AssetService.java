@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.repository.AssetRepository;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,6 @@ import java.util.List;
             this.repository = repository;
         }
 
-        // add 1 asset //1
-        public Asset addAsset(Asset asset) {
-            asset.setCreatedAt(LocalDateTime.now());
-            return repository.save(asset);
-        }
-
         // add multiple assets //2
         public List<Asset> addMultipleAssets(List<Asset> assets) {
             assets.forEach(a -> a.setCreatedAt(LocalDateTime.now()));
@@ -36,7 +31,7 @@ import java.util.List;
         }
 
         // search by ID //4
-        public Asset getAssetById(Integer id) {
+        public Asset getAssetById(Long id) {
             return repository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Asset not found with id: " + id));
         }
@@ -115,7 +110,7 @@ import java.util.List;
         }
 
         // update entire asset //14
-        public Asset editAsset(Integer id, Asset updatedAsset) {
+        public Asset editAsset(Long id, Asset updatedAsset) {
             Asset existing = getAssetById(id);
 
             existing.setTitle(updatedAsset.getTitle());
@@ -132,70 +127,70 @@ import java.util.List;
         }
 
         // update title //15
-        public Asset updateTitle(Integer id, String title) {
+        public Asset updateTitle(Long id, String title) {
             Asset asset = getAssetById(id);
             asset.setTitle(title);
             return repository.save(asset);
         }
 
         // update category //16
-        public Asset updateCategory(Integer id, String category) {
+        public Asset updateCategory(Long id, String category) {
             Asset asset = getAssetById(id);
             asset.setCategory(category);
             return repository.save(asset);
         }
 
         // update serial number //17
-        public Asset updateSerialNumber(Integer id, String serialNumber) {
+        public Asset updateSerialNumber(Long id, String serialNumber) {
             Asset asset = getAssetById(id);
             asset.setSerialNumber(serialNumber);
             return repository.save(asset);
         }
 
         // update acquisition date //18
-        public Asset updateAcquisitionDate(Integer id, LocalDate date) {
+        public Asset updateAcquisitionDate(Long id, LocalDate date) {
             Asset asset = getAssetById(id);
             asset.setAcquisitionDate(date);
             return repository.save(asset);
         }
 
         // update cost //19
-        public Asset updateCost(Integer id, BigDecimal cost) {
+        public Asset updateCost(Long id, BigDecimal cost) {
             Asset asset = getAssetById(id);
             asset.setCost(cost);
             return repository.save(asset);
         }
 
         // update location //20
-        public Asset updateLocation(Integer id, String location) {
+        public Asset updateLocation(Long id, String location) {
             Asset asset = getAssetById(id);
             asset.setLocation(location);
             return repository.save(asset);
         }
 
         // update condition //21
-        public Asset updateCondition(Integer id, String condition) {
+        public Asset updateCondition(Long id, String condition) {
             Asset asset = getAssetById(id);
             asset.setCondition(condition);
             return repository.save(asset);
         }
 
         // update photo path //22
-        public Asset updatePhotoPath(Integer id, String photoPath) {
+        public Asset updatePhotoPath(Long id, String photoPath) {
             Asset asset = getAssetById(id);
             asset.setPhotoPath(photoPath);
             return repository.save(asset);
         }
 
         // update status //23
-        public Asset updateStatus(Integer id, Asset.Status status) {
+        public Asset updateStatus(Long id, Asset.Status status) {
             Asset asset = getAssetById(id);
             asset.setStatus(status);
             return repository.save(asset);
         }
 
         // delete asset //24
-        public void deleteAsset(Integer id) {
+        public void deleteAsset(Long id) {
             if (!repository.existsById(id)) {
                 throw new RuntimeException("Asset not found with id: " + id);
             }
