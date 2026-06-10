@@ -16,14 +16,33 @@ public class DashboardService {
     private final AssetRepository assetRepository;
 
     public DashboardDTO getAdminDashboard() {
-        return buildDashboard();
+        //the total number of assest
+        DashboardDTO dto = new DashboardDTO();
+
+        dto.setTotalAssets(assetRepository.count());
+        dto.setAvailableAssets(
+                // retrieve all the available assest
+                assetRepository.countByStatus(Asset.Status.AVAILABLE)
+        );
+        dto.setRetiredAssets(
+                assetRepository.countByStatus(Asset.Status.RETIRED)
+        );
+        dto.setLoanedAssets(
+                //retrieve number of assest loaned
+                assetRepository.countByStatus(Asset.Status.LOANED)
+        );
+        dto.setPendingLoans(
+                //loan repo comunicates with the db
+                //SELECT COUNT(*) FROM loan WHERE status = 'PENDING';
+                loanRepository.countByStatus(Loan.Status.PENDING)
+        );
+        return dto;
+        // TODO
+        //add user dashboard stuff
+
     }
 
     public DashboardDTO getManagerDashboard() {
-        return buildDashboard();
-    }
-
-    private DashboardDTO buildDashboard() {
 
         DashboardDTO dto = new DashboardDTO();
 
@@ -61,16 +80,19 @@ public class DashboardService {
                 //retrieve number of assest loaned
                 assetRepository.countByStatus(Asset.Status.LOANED)
         );
-
-        dto.setDamagedAssets(
-                //retrieve all assets that are damaged
-                assetRepository.countByStatus(Asset.Status.DAMAGED)
-        );
-
         dto.setRetiredAssets(
-                //retriee all the assest that are retired
                 assetRepository.countByStatus(Asset.Status.RETIRED)
         );
+
+        //dto.setDamagedAssets(
+                //retrieve all assets that are damaged
+                //assetRepository.countByStatus(Asset.Status.DAMAGED)
+        //);
+
+        //dto.setRetiredAssets(
+                //retriee all the assest that are retired
+                //assetRepository.countByStatus(Asset.Status.RETIRED)
+        //);
 
         return dto;
     }

@@ -1,19 +1,19 @@
 package com.example.demo.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DashboardDTO {
+    private Long pendingLoans;
+    private Long approvedLoans;
+    private Long rejectedLoans;
+    private Long totalLoans;
 
-    private long pendingLoans;
-    private long approvedLoans;
-    private long rejectedLoans;
-    private long totalLoans;
-
-    // assets
-    private long totalAssets;
-    private long availableAssets;
-    private long loanedAssets;
-    private long damagedAssets;
-    private long retiredAssets;
+    private Long totalAssets;
+    private Long availableAssets;
+    private Long loanedAssets;
+    private Long damagedAssets;
+    private Long retiredAssets;
 }
