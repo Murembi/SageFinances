@@ -6,6 +6,7 @@ import com.example.demo.entity.Loan;
 import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
+import org.antlr.v4.runtime.atn.SemanticContext;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -94,6 +95,27 @@ public class DashboardService {
                 //retriee all the assest that are retired
                 //assetRepository.countByStatus(Asset.Status.RETIRED)
         //);
+
+        return dto;
+    }
+
+    public DashboardDTO getUserDashboard(Long userId){
+        DashboardDTO dto = new DashboardDTO();
+
+        dto.setMyLoans(
+                loanRepository.countByUser_UserId(userId)
+        );
+        //
+        dto.setMyPendingRequests(
+                // SELECT COUNT(*) FROM loan WHERE user_id = 3 AND status = 'PENDING';
+                loanRepository.countByUser_UserIdAndStatus(userId, Loan.Status.PENDING)
+        );
+        //dto.setMyApprovedLoans(
+                //loanRepository.countByUser_UserIdAndStatus(userId, Loan.Status.APPROVED)
+//        );
+//        dto.setMyRejectedLoans(
+//                loanRepository.countByUser_UserIdAndStatus(userId, Loan.Status.REJECTED)
+//        );
 
         return dto;
     }

@@ -5,6 +5,7 @@ import com.example.demo.dto.DashboardDTO;
 import com.example.demo.service.DashboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,8 @@ public class DashboardController {
         return dashboardService.getAdminDashboard();
     }
 
-
+    @GetMapping("/user/{userId}")
+    public DashboardDTO getUserDashboard(@PathVariable Long userId){
+        return dashboardService.getUserDashboard(userId);
+    }
 }
