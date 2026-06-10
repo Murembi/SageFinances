@@ -4,20 +4,23 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "user")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     private String name;
     private String department;
@@ -36,8 +39,6 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public enum Role {
-        Admin, Manager, Borrower
-    }
+
 
 }

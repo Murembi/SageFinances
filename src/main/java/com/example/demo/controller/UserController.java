@@ -1,48 +1,101 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import java.util.List;
 import jakarta.validation.Valid;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/users")
 public class UserController {
+
     private final UserService userService;
+    //private final AuthService authService;
 
     public UserController(UserService userService) {
         this.userService = userService;
+        //this.authService = authService;
     }
-
     // Registration with validation
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody User user, BindingResult result) {
-        if (result.hasErrors()) {
-            // Collect validation errors
-            List<String> errors = result.getAllErrors()
-                    .stream()
-                    .map(ObjectError::getDefaultMessage)
-                    .toList();
-            return ResponseEntity.badRequest().body(errors);
-        }
-
-        userService.register(user);
+    // CREATE (Register)
+    @PostMapping()
+    public ResponseEntity<?> create(@RequestBody User user) {
+        userService.createUser(user);
         return ResponseEntity.ok("User registered successfully!");
     }
 
-    // Login Controller
-    @PostMapping("/login")
-    public String login(@RequestBody User user) {
-        boolean isAuthenticated = userService.login(user.getName(), user.getPasswordHash());
-        if (isAuthenticated) {
-            return "Login successful!";
-        } else {
-            return "Invalid username or password!";
-        }
+    // READ (Get all users)
+    //DONE
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
-}
+
+    // READ (Get user by ID)
+    // done
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    // UPDATE (Edit user)
+    // Update name
+    @PatchMapping("/name/{id}")
+    public User updateName(@PathVariable Long id, @RequestBody String newName) {
+        return userService.updateUserName(id, newName);
+    }
+
+    // Update department
+    @PatchMapping("/department/{id}")
+    public User updateDepartment(@PathVariable Long id, @RequestBody String newDepartment) {
+        return userService.updateUserDepartment(id, newDepartment);
+    }
+
+    // Update email
+    @PatchMapping("/email/{id}")
+    public User updateEmail(@PathVariable Long id, @RequestBody String newEmail) {
+        return userService.updateUserEmail(id, newEmail);
+    }
+    //DTO Wrapping
+    public static class RoleUpdateRequest {
+        private Role role;
+        public Role getRole() { return role; }
+        public void setRole(Role role) { this.role = role; }
+    }
+    // Update role
+    @PatchMapping("/role/{id}")
+    public User updateRole(@PathVariable Long id, @RequestBody Role newRole) {
+        return userService.updateUserRole(id, newRole);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        return userService.updateUser(id, updatedUser);
+    }
+
+    // DELETE (Remove user)
+    //done
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "User deleted successfully!";
+    }
+
+
+
+//    // Login Controller
+//    @PostMapping("/login")
+//    public String login(@RequestBody User user) {
+//        boolean isAuthenticated = authService.login(user.getEmail(), user.getPasswordHash());
+//        if (isAuthenticated) {
+//            return "Login successful!";
+//        } else {
+//            return "Invalid username or password!";
+//        }
+    }
+
