@@ -16,4 +16,11 @@ public class DashboardDTO {
     private Long loanedAssets;
     private Long damagedAssets;
     private Long retiredAssets;
+
+    private Long myLoans;
+    private Long myPendingRequests;
+    private Long myApprovedLoans;
+    private Long myRejectedLoans;
+    private Long myActiveLoans;
+
 }

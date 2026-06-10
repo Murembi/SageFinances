@@ -38,7 +38,8 @@ public class DashboardService {
         );
         return dto;
         // TODO
-        //add user dashboard stuff
+        // Later add:
+        // dto.setTotalUsers(userRepository.count());
 
     }
 
