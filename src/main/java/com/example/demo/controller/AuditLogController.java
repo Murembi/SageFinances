@@ -32,7 +32,7 @@ public class AuditLogController {
 
 
     @GetMapping("/{id}")
-    public AuditLog getLogById(@PathVariable Integer id) {
+    public AuditLog getLogById(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Audit log not found"));
     }

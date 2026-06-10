@@ -20,7 +20,7 @@ public class AuditLogService {
     public AuditLog createAuditLog(
             User user,
             String entityType,
-            Integer entityId,
+            Long entityId,
             String action,
             String oldValue,
             String newValue
@@ -42,7 +42,7 @@ public class AuditLogService {
         return repository.findAll();
     }
 
-    public AuditLog getLogById(Integer id) {
+    public AuditLog getLogById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Audit log not found"));
     }
