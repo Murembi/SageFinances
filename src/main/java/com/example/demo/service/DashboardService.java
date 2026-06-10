@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.DashboardDTO;
+import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
+import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,34 @@ import org.springframework.stereotype.Service;
 public class DashboardService {
     //dashboard service has acess to the loan data
     private final LoanRepository loanRepository;
+    private final AssetRepository assetRepository;
+
+    public DashboardDTO getAdminDashboard() {
+        //the total number of assest
+        DashboardDTO dto = new DashboardDTO();
+
+        dto.setTotalAssets(assetRepository.count());
+        dto.setAvailableAssets(
+                // retrieve all the available assest
+                assetRepository.countByStatus(Asset.Status.AVAILABLE)
+        );
+        dto.setRetiredAssets(
+                assetRepository.countByStatus(Asset.Status.RETIRED)
+        );
+        dto.setLoanedAssets(
+                //retrieve number of assest loaned
+                assetRepository.countByStatus(Asset.Status.LOANED)
+        );
+        dto.setPendingLoans(
+                //loan repo comunicates with the db
+                //SELECT COUNT(*) FROM loan WHERE status = 'PENDING';
+                loanRepository.countByStatus(Loan.Status.PENDING)
+        );
+        return dto;
+        // TODO
+        //add user dashboard stuff
+
+    }
 
     public DashboardDTO getManagerDashboard() {
 
@@ -38,9 +68,34 @@ public class DashboardService {
                 loanRepository.count()
         );
 
+        //the total number of assest
+        dto.setTotalAssets(assetRepository.count());
+
+        dto.setAvailableAssets(
+                // retrieve all the available assest
+                assetRepository.countByStatus(Asset.Status.AVAILABLE)
+        );
+
+        dto.setLoanedAssets(
+                //retrieve number of assest loaned
+                assetRepository.countByStatus(Asset.Status.LOANED)
+        );
+        dto.setRetiredAssets(
+                assetRepository.countByStatus(Asset.Status.RETIRED)
+        );
+
+        //dto.setDamagedAssets(
+                //retrieve all assets that are damaged
+                //assetRepository.countByStatus(Asset.Status.DAMAGED)
+        //);
+
+        //dto.setRetiredAssets(
+                //retriee all the assest that are retired
+                //assetRepository.countByStatus(Asset.Status.RETIRED)
+        //);
+
         return dto;
     }
-    // asset dto
     // user dta
 
 }
