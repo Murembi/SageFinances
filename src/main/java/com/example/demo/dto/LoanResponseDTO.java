@@ -1,7 +1,12 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.Loan;
+import lombok.Data;
+
 import java.time.LocalDateTime;
+
+
+@Data
 
 public class LoanResponseDTO {
 
@@ -14,44 +19,4 @@ public class LoanResponseDTO {
 
     private LocalDateTime createdAt;
 
-    // getters and setters
-    public Long getLoanId() {
-        return loanId;
-    }
-
-    public void setLoanId(Long loanId) {
-        this.loanId = loanId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getAssetId() {
-        return assetId;
-    }
-
-    public void setAssetId(Long assetId) {
-        this.assetId = assetId;
-    }
-
-    public Loan.Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Loan.Status status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }
