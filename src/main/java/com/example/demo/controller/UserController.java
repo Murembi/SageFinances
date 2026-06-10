@@ -42,7 +42,7 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
-
+    C
     // UPDATE (Edit user)
     // Update name
     @PatchMapping("/name/{id}")
