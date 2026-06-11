@@ -52,8 +52,8 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    // UPDATE
-    //update the entire user
+    //
+    // the entire user
     public User updateUser(Long id, User updatedUser) {
         User existingUser = getUserById(id);
         existingUser.setName(updatedUser.getName());
@@ -85,6 +85,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    // Update only the user's password
+    public User updateUserPassword(Long id, String newPassword) {
+        User user = getUserById(id);
+        user.setPasswordHash(newPassword);
+        return userRepository.save(user);
+    }
+
     // Update only the user's role
     public User updateUserRole(Long id, Role newRole) {
         User user = getUserById(id);
@@ -96,10 +103,5 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
-    // Registration Method
-
-    // This method handles user registration.
-    // It hashes the user's password before saving to the database.
-
 }
 

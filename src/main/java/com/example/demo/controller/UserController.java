@@ -4,9 +4,6 @@ import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import java.util.List;
-import jakarta.validation.Valid;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    //private final AuthService authService;
 
     public UserController(UserService userService) {
         this.userService = userService;
-        //this.authService = authService;
     }
+
     // Registration with validation
     // CREATE (Register)
     @PostMapping()
@@ -42,7 +38,7 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
-    C
+
     // UPDATE (Edit user)
     // Update name
     @PatchMapping("/name/{id}")
@@ -61,11 +57,22 @@ public class UserController {
     public User updateEmail(@PathVariable Long id, @RequestBody String newEmail) {
         return userService.updateUserEmail(id, newEmail);
     }
+
+    // Update password
+    @PatchMapping("/password/{id}")
+    public User updatePassword(@PathVariable Long id, @RequestBody String newPassword) {
+        return userService.updateUserPassword(id, newPassword);
+    }
+
     //DTO Wrapping
     public static class RoleUpdateRequest {
         private Role role;
-        public Role getRole() { return role; }
-        public void setRole(Role role) { this.role = role; }
+        public Role getRole() {
+            return role;
+        }
+        public void setRole(Role role) {
+            this.role = role;
+        }
     }
     // Update role
     @PatchMapping("/role/{id}")
@@ -85,17 +92,4 @@ public class UserController {
         userService.deleteUser(id);
         return "User deleted successfully!";
     }
-
-
-
-//    // Login Controller
-//    @PostMapping("/login")
-//    public String login(@RequestBody User user) {
-//        boolean isAuthenticated = authService.login(user.getEmail(), user.getPasswordHash());
-//        if (isAuthenticated) {
-//            return "Login successful!";
-//        } else {
-//            return "Invalid username or password!";
-//        }
-    }
-
+}
