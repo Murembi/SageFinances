@@ -1,25 +1,25 @@
 package com.example.demo.dashboard.service;
-
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
 import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.LoanRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
 public class ManagerDashboardService {
     private final LoanRepository loanRepository;
     private final AssetRepository assetRepository;
-
-    public ManagerDashboardService(LoanRepository loanRepository, AssetRepository assetRepository) {
-        this.loanRepository = loanRepository;
-        this.assetRepository = assetRepository;
-    }
 
     public DashboardDTO getManagerDashboard() {
 
         DashboardDTO dto = new DashboardDTO();
 
-
+//count stats
         dto.setPendingLoans(
                 //loan repo comunicates with the db
                 //SELECT COUNT(*) FROM loan WHERE status = 'PENDING';
@@ -57,16 +57,18 @@ public class ManagerDashboardService {
                 assetRepository.countByStatus(Asset.Status.RETIRED)
         );
 
-        //dto.setDamagedAssets(
-        //retrieve all assets that are damaged
-        //assetRepository.countByStatus(Asset.Status.DAMAGED)
-        //);
-
-        //dto.setRetiredAssets(
-        //retriee all the assest that are retired
-        //assetRepository.countByStatus(Asset.Status.RETIRED)
-        //);
         return dto;
     }
 
+    //returns tables
+    public List<Loan> getPendingLoans() {
+        return loanRepository.findByStatus(Loan.Status.PENDING);
+    }
+
+    public List<Asset> getAvailableAssets() {
+        return assetRepository.findByStatus(Asset.Status.AVAILABLE);
+    }
+
 }
+
+

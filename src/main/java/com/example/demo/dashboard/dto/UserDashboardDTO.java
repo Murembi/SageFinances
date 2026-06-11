@@ -1,4 +1,13 @@
-package com.example.demo.dashboard.dto;
+package com.example.demo.dto;
 
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
 public class UserDashboardDTO {
+
+    private String assetName;
+    private LocalDateTime requestDate;
+    private String status;
 }

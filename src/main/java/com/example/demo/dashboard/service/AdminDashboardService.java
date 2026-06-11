@@ -5,15 +5,14 @@ import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
 import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.LoanRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class AdminDashboardService {
     private final LoanRepository loanRepository;
     private final AssetRepository assetRepository;
-
-    public AdminDashboardService(LoanRepository loanRepository, AssetRepository assetRepository) {
-        this.loanRepository = loanRepository;
-        this.assetRepository = assetRepository;
-    }
 
     public DashboardDTO getAdminDashboard() {
         //the total number of assest
