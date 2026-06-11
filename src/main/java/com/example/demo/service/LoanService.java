@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class LoanService {
+public class
+LoanService {
 
     //Dependency injection (Loan repo)constructor
     //enables the service to communicate with the database
