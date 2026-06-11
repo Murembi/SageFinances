@@ -1,5 +1,4 @@
-package com.example.demo.service;
-
+package com.example.demo.dashboard.service;
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
@@ -8,45 +7,19 @@ import com.example.demo.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-public class DashboardService {
-    //dashboard service has acess to the loan data
+public class ManagerDashboardService {
     private final LoanRepository loanRepository;
     private final AssetRepository assetRepository;
-
-    public DashboardDTO getAdminDashboard() {
-        //the total number of assest
-        DashboardDTO dto = new DashboardDTO();
-
-        dto.setTotalAssets(assetRepository.count());
-        dto.setAvailableAssets(
-                // retrieve all the available assest
-                assetRepository.countByStatus(Asset.Status.AVAILABLE)
-        );
-        dto.setRetiredAssets(
-                assetRepository.countByStatus(Asset.Status.RETIRED)
-        );
-        dto.setLoanedAssets(
-                //retrieve number of assest loaned
-                assetRepository.countByStatus(Asset.Status.LOANED)
-        );
-        dto.setPendingLoans(
-                //loan repo comunicates with the db
-                //SELECT COUNT(*) FROM loan WHERE status = 'PENDING';
-                loanRepository.countByStatus(Loan.Status.PENDING)
-        );
-        return dto;
-        // TODO
-        //add user dashboard stuff
-
-    }
 
     public DashboardDTO getManagerDashboard() {
 
         DashboardDTO dto = new DashboardDTO();
 
-
+//count stats
         dto.setPendingLoans(
                 //loan repo comunicates with the db
                 //SELECT COUNT(*) FROM loan WHERE status = 'PENDING';
@@ -84,18 +57,18 @@ public class DashboardService {
                 assetRepository.countByStatus(Asset.Status.RETIRED)
         );
 
-        //dto.setDamagedAssets(
-                //retrieve all assets that are damaged
-                //assetRepository.countByStatus(Asset.Status.DAMAGED)
-        //);
-
-        //dto.setRetiredAssets(
-                //retriee all the assest that are retired
-                //assetRepository.countByStatus(Asset.Status.RETIRED)
-        //);
-
         return dto;
     }
-    // user dta
+
+    //returns tables
+    public List<Loan> getPendingLoans() {
+        return loanRepository.findByStatus(Loan.Status.PENDING);
+    }
+
+    public List<Asset> getAvailableAssets() {
+        return assetRepository.findByStatus(Asset.Status.AVAILABLE);
+    }
 
 }
+
+
