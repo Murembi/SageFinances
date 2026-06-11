@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 //Hashing Password
 
@@ -95,9 +95,9 @@ public class UserService {
     }
 
     // Update only the user's role
-    public User updateUserRole(Long id, User newRole) {
+    public User updateUserRole(Long id, User.Role newRole) {
         User user = getUserById(id);
-        user.setRole(user.getRole());
+        user.setRole(newRole);
         return userRepository.save(user);
     }
 
