@@ -1,9 +1,9 @@
 package com.example.demo.dashboard.controller;
 
+import com.example.demo.dashboard.dto.PendingLoanDTO;
 import com.example.demo.dashboard.service.ManagerDashboardService;
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Asset;
-import com.example.demo.entity.Loan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +24,13 @@ public class ManagerDashboardController {
 
     // Pending loans table
     @GetMapping("/pending-loans")
-    public List<Loan> getPendingLoans() {
+    public List<PendingLoanDTO> getPendingLoans() {
         return managerDashboardService.getPendingLoans();
     }
 
-    // available assets table
-    @GetMapping("/available-assets")
-    public List<Asset> getAvailableAssets() {
-        return managerDashboardService.getAvailableAssets();
-    }
+//    // available assets table
+//    @GetMapping("/available-assets")
+//    public List<Asset> getAvailableAssets() {
+//        return managerDashboardService.getAvailableAssets();
+//    }
 }
