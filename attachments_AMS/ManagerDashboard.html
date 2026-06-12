@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MECER INTER-ED | ASSET MANAGEMENT SYSTEM | Manager Dashboard</title>
+
+<!-- External CSS -->
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div id="customAlert" class="alert"></div>
+
+    <!-- LOGO -->
+    <header class="header">
+        <div class="logo">
+            <i class="fa-brands fa-first-order-alt"></i>
+            <img src="images/mecer-inter-ed-logo.jpg" alt="MECER INTER-ED Logo" class="logo-img">
+        </div>
+        <span class="header-text"> ASSET MANAGEMENT SYSTEM. </span>   
+    </header>
+
+    <container class="container">
+    
+    <nav class="navMenu">
+           
+    <!-- SIDEBAR -->
+
+    <aside id="sidebar" class="sidebar">
+
+     <div id="profileWidget" class="profile-widget">
+        <label for="userName">Username</label><br>
+        <input type="text" id="userName" name="userName" value="manager" readonly><br>
+
+        <label for="userRole">User Role</label><br>
+        <input type="text" id="userRole" name="userRole" value="Manager" readonly>
+    </div>
+
+
+        <ul id="sidebarMenu" class="sidebar-menu">
+            <li><a href="/manager/dashboard">Dashboard</a></li>
+            <li><a href="/manager/assets">Assets</a></li>
+            <li><a href="/manager/requests">Requests</a></li>
+            <li><a href="/manager/settings">Settings</a></li>
+
+        </ul>
+        
+
+        <form action="/logout" method="post">
+            <button type="submit" id="logoutButton" class="logout-btn" onclick="logout()">Logout<span class="arrow">&#8594;</span></button>
+        </form>
+        
+    </aside>
+
+    </nav>
+
+    <!-- manager dashboard content -->
+
+    <main id ="mainContent" class="main-content">
+        <h1>Manager Dashboard</h1><br>
+        <div class="manager-dashboard-cards">
+            <div class="card">
+                <h2>Total Assets</h2>
+                <label id="totalAssets">0</label>
+            </div>
+            <div class="card">
+                <h2>Available Assets</h2>
+                <label id="availableAssets">0</label>
+            </div>
+
+            <div class="card">
+                <h2>Approved Loans</h2>
+                <label id="approvedLoans">0</label>
+            </div>
+            <div class="card">
+                <h2>Total Loans</h2>
+                <label id="totalLoans">0</label>
+            </div>
+            <div class="card">
+                <h2>Loaned Assets</h2>
+                <label id="loanedAssets">0</label>
+            </div>
+            <div class="card">
+                <h2>Pending Loans</h2>
+                <label id="pendingLoans">0</label>
+            </div>
+            <div class="card">
+                <h2>Total Overdue Loans</h2>
+                <label id="overdueLoans">0</label>
+            </div>
+            <div class="card">
+                <h2>Retired Assets</h2>
+                <label id="retiredAssets">0</label>
+            </div>
+
+            <table class="ManagerDashboard-table">
+            <caption><h2>Loan Requests Queue.</h2></caption>
+                <thead>
+                    <tr>
+                        <th>Asset Name</th>
+                        <th>Borrower</th>
+                        <th>Request Date</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="TableBody">
+                    <!-- Recent activity rows will be dynamically added here -->
+                    <tr>
+                        <td>Laptop</td>
+                        <td>John Doe</td>
+                        <td>2024-06-01</td>
+                        <td>2024-06-15</td>
+                        <td style="color: red;">Pending</td>
+                        <td>
+                            <form action="/manager/request/approve/1" method="post" style="display:inline;">
+                                <button type="submit" class="approve-btn">Approve</button>
+                            </form>
+                            <form action="/manager/request/reject/1" method="post" style="display:inline;">
+                                <button type="submit" class="reject-btn">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+
+
+        </manager-dashboard-cards> 
+
+    </main>
+
+    </container>
+
+    <!-- FOOTER 
+    <footer>
+        <div class="footer-bottom">
+            <a href="https://mecerintered.co.za/terms-and-conditions">Terms & Conditions</a>
+            <a id="contactLink">Contact Us</a>
+        </div>
+    </footer> -->
+
+</body>
