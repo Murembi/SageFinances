@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MECER INTER-ED | ASSET MANAGEMENT SYSTEM | User Dashboard</title>
+
+<!-- External CSS -->
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div id="customAlert" class="alert"></div>
+
+    <!-- LOGO -->
+    <header class="header">
+        <div class="logo">
+            <i class="fa-brands fa-first-order-alt"></i>
+            <img src="images/mecer-inter-ed-logo.jpg" alt="MECER INTER-ED Logo" class="logo-img">
+        </div>
+        <span class="header-text"> ASSET MANAGEMENT SYSTEM</span>   
+    </header>
+
+    <container class="container">
+    
+    <nav class="navMenu">
+           
+    <!-- SIDEBAR -->
+
+    <aside id="sidebar" class="sidebar">
+
+     <div id="profileWidget" class="profile-widget">
+        <label for="userName">Username</label><br>
+        <input type="text" id="userName" name="userName" value="user" readonly><br>
+
+        <label for="userRole">User Role</label><br>
+        <input type="text" id="userRole" name="userRole" value="Borrower" readonly>
+    </div>
+
+        <ul id="sidebarMenu" class="sidebar-menu">
+            <li><a href="/user/dashboard">Dashboard</a></li>
+            <li><a href="/user/assets">My Assets</a></li>
+            <li><a href="/user/requests">My Requests</a></li>
+            <li><a href="#">Settings</a></li>
+
+        </ul>
+
+        <form action="/logout" method="post">
+            <button type="submit" id="logoutButton" class="logout-btn">Logout<span class="arrow">&#8594;</span></button>
+        </form>
+    </aside>
+
+    </nav>
+
+    <!-- user dashboard content --> 
+    <main id ="mainContent" class="main-content">
+        <h1>User Dashboard</h1>
+        <div class="dashboard-cards">
+            <div class="card">
+                <h2>My Loaned Assets</h2>
+                <p>View and manage your assigned assets.</p>
+            
+            </div>
+            <div class="card">
+                <h2>My Requests</h2>
+                <p>Track the status of your asset requests.</p>
+            </div> 
+
+            <table class="UserDashboard-table">
+                <caption>Available Assets</caption>
+                    <thead>
+                        <tr>
+                            <th>Asset Title</th>
+                            <th>Asset Category</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="TableBody">
+                        <!-- Recent activity rows will be dynamically added here -->
+                        <tr>
+                            <td>Laptop</td>
+                            <td>Assets</td>
+                            <td>Available</td>
+                            <td>
+                                <form action="/user/request/submit/1" method="post" style="display:inline;" class="actionform">
+                                    <button type="submit" class="booking-btn">Request</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+            </table>
+
+        </div>
+    </main> 
+
+    </container>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-bottom">
+            <a href="https://mecerintered.co.za/terms-and-conditions">Terms & Conditions</a>
+            <a id="contactLink">Contact Us</a>
+        </div>
+    </footer>
+
+    <!-- CONTACT POPUP -->
+    <div id="contactPopup" class="popup">
+        <h3>Contact Us</h3>
+        <p><i class="fa-solid fa-envelope"></i>
+
+            <span>info@mecerintered.co.za</span>
+        </p>
+        <p><i class="fa-solid fa-phone"></i>
+
+            <span>+27 12 345 6789</span>
+        </p>
+    </div>
+</body>
+</html>
