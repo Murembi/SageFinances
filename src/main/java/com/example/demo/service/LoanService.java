@@ -141,16 +141,23 @@ public class LoanService {
     public Loan approveLoan(Long loanId) {
 
         Loan loan = getLoanById(loanId);
-
         //only
         if (loan.getStatus() != Loan.Status.PENDING) {
             throw new IllegalStateException("Only pending loans can be processed");
         }
 
         Loan.Status old = loan.getStatus();
+        Asset asset = loan.getAsset();
+
+        LocalDateTime checkoutDate = LocalDateTime.now();
 
         loan.setStatus(Loan.Status.APPROVED);
+        loan.setCheckoutDate(checkoutDate);
+        loan.setDueDate(checkoutDate.plusDays(21));
 
+        asset.setStatus(Asset.Status.LOANED);
+
+        assetRepository.save(asset);
         Loan saved = loanRepository.save(loan);
 
         auditLogService.createAuditLog(
