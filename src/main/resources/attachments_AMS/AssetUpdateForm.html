@@ -8,6 +8,14 @@
 <!-- External CSS -->
 <link rel="stylesheet" href="styles.css">
 
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: http://127.0.0.1:5500;
+  connect-src http://localhost:8081 http://127.0.0.1:8081;
+">
+
 </head>
 <body>
 
@@ -23,7 +31,7 @@
 <div class="auth-container">
 
     <!-- UPDATE ASSET -->
-        <form id="assetForm" autocomplete="off" method="post">
+        <form id="assetUpdateForm" autocomplete="off" method="post">
 
     <h1>Update Asset</h1>
 
@@ -93,6 +101,6 @@
     <button onclick="closePopup()">Close</button>
 </div>
 
-<script scr="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
