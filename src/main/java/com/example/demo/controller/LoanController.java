@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.dto.LoanRequestDTO;
 import com.example.demo.entity.Loan;
 import com.example.demo.service.LoanService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -70,11 +69,13 @@ public class LoanController {
     }
 
     @PatchMapping("/{loanId}/return")
-    public ResponseEntity<Loan> returnLoan(@PathVariable Long loanId) {
+    public Loan returnLoan(@PathVariable Long loanId) {
 
-        Loan returnedLoan = loanService.returnLoan(loanId);
-
-        return ResponseEntity.ok(returnedLoan); //returns an ok status 200
+        return loanService.returnLoan(loanId);
+    }
+    @GetMapping("/user/{userId}/history")
+    public List<Loan> getMyLoanHistory(@PathVariable Long userId){
+        return loanService.getMyLoanHistory(userId);
     }
 
 }

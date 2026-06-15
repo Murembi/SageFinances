@@ -280,7 +280,9 @@ LoanService {
     }
     //retrieve the loan history
     //public List<Loan> getMyLoanHistory(Long userId)
+    public List<Loan> getMyLoanHistory(Long userId) {
 
-
+        return loanRepository.findByUser_UserId(userId);
+    }
 
 }
