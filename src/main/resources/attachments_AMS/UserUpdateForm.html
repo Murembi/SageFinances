@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MECER INTER-ED | ASSET MANAGEMENT SYSTEM | Update Loan</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: http://127.0.0.1:5500;
+  connect-src http://localhost:8081 http://127.0.0.1:8081;
+">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">
+        <i class="fa-brands fa-first-order-alt"></i>
+        <img src="images/IMG-20260611-WA0000.jpg" alt="Logo" class="logo-img">
+    </div>
+    <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
+</header>
+
+<div class="auth-container">
+
+    <form id="userEditForm">
+
+        <h1>Edit User</h1>
+
+        <!-- READ ONLY -->
+        <div class="input-group">
+            <input type="text" id="userId" readonly>
+            <label>User ID</label>
+        </div>
+
+        <div class="input-group">
+            <input type="email" id="email" readonly>
+            <label>Email</label>
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="createdAt" readonly>
+            <label>Created At</label>
+        </div>
+
+        <!-- EDITABLE -->
+        <div class="input-group">
+            <input type="text" id="name" required>
+            <label>Name</label>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="department">
+            <label>Department</label>
+        </div>
+
+        <div class="input-group">
+            <select id="role" required>
+                <option value="Admin">Admin</option>
+                <option value="Manager">Manager</option>
+                <option value="Borrower">Borrower</option>
+            </select>
+            <label>Role</label>
+        </div>
+
+        <button type="submit" class="submit-btn">
+            Update User <span class="arrow">→</span>
+        </button>
+
+    </form>
+
+</div>
+
+<footer>
+    <div class="footer-bottom">
+        <a href="https://mecerintered.co.za/terms-and-conditions">Terms & Conditions</a>
+        <a id="contactLink">Contact Us</a>
+    </div>
+</footer>
+
+<script src="loanUpdate.js"></script>
+</body>
+</html>

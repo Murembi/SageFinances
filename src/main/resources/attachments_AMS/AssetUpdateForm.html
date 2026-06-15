@@ -53,6 +53,18 @@
         <label>Serial Number</label>
     </div>
 
+    <!-- Status -->
+    <div class="input-group">
+        <select name="status" id="status" required>
+            <option value="">Select Status</option>
+            <option value="AVAILABLE">AVAILABLE</option>
+            <option value="LOANED">LOANED</option>
+            <option value="DAMAGED">DAMAGED</option>
+            <option value="RETIRED">RETIRED</option>
+        </select>
+        <label>Status</label>
+    </div>
+
     <!-- Cost -->
     <div class="input-group">
         <input type="number" step="0.01" name="cost" id="cost" required>
@@ -72,10 +84,11 @@
     </div>
 
     <!-- Photo Path -->
-    <div class="input-group">
-        <input type="text" name="photoPath" id="photoPath" required>
-        <label>Photo Path</label>
+    <div id="dropZone" style="border:2px dashed #999;padding:20px;">
+    Drag & drop image here
     </div>
+
+    <input type="hidden" name="photoPath" id="photoPath">
 
     <button type="submit" id="submitAssetBtn" class="submit-btn">
         Submit Asset <span class="arrow">→</span>
