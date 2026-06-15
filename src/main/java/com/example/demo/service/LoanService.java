@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.LoanHistoryDTO;
 import com.example.demo.dto.LoanRequestDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
@@ -10,6 +11,7 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -280,9 +282,32 @@ LoanService {
     }
     //retrieve the loan history
     //public List<Loan> getMyLoanHistory(Long userId)
-    public List<Loan> getMyLoanHistory(Long userId) {
+    public List<LoanHistoryDTO> getMyLoanHistory(Long userId) {
 
-        return loanRepository.findByUser_UserId(userId);
+        List<Loan> loans = loanRepository.findByUser_UserId(userId);
+
+        List<LoanHistoryDTO> history = new ArrayList<>();
+        for (Loan loan : loans) {
+
+            LoanHistoryDTO dto = new LoanHistoryDTO();
+
+            dto.setLoanId(loan.getLoanId());
+            dto.setAssetName(loan.getAsset().getTitle());
+            dto.setRequestDate(loan.getRequestDate());
+            dto.setCheckoutDate(loan.getCheckoutDate());
+            dto.setDueDate(loan.getDueDate());
+            dto.setStatus(loan.getStatus().name());
+
+            history.add(dto);
+        }
+        return history;
+    }
+
+
+    public List<Loan> getOverdueLoans(){
+        return loanRepository.findByDueDateBefore(
+                LocalDateTime.now()
+        );
     }
 
 }

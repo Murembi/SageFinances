@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.LoanHistoryDTO;
 import com.example.demo.dto.LoanRequestDTO;
 import com.example.demo.entity.Loan;
 import com.example.demo.service.LoanService;
@@ -74,8 +75,13 @@ public class LoanController {
         return loanService.returnLoan(loanId);
     }
     @GetMapping("/user/{userId}/history")
-    public List<Loan> getMyLoanHistory(@PathVariable Long userId){
+    public List<LoanHistoryDTO> getMyLoanHistory(@PathVariable Long userId){
         return loanService.getMyLoanHistory(userId);
+    }
+    @GetMapping("/overdue")
+    public List<Loan> getOverdueLoans() {
+
+        return loanService.getOverdueLoans();
     }
 
 }
