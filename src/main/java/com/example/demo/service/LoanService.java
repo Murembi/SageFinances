@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.example.demo.model.Loan.Status.APPROVED;
+
 @Service
 public class LoanService {
 
@@ -247,4 +249,36 @@ public class LoanService {
     }
 
     // Duplicate request prevention
+
+    //checkout loans
+    public Loan checkoutLoan(Long loanId){
+        //looks fot the loanID in the db
+        Loan loan = loanRepository.findById(loanId).orElse(null);
+        if(loan == null)
+            return null;
+
+        //only approved loans can be checked out
+        if (loan.getStatus() != Loan.Status.APPROVED) {
+            return null;
+        }
+        // retrieve the asset linked to the loan
+        Asset asset = loan.getAsset();
+        if (asset == null) return null;
+
+        if (asset.getStatus() != Asset.Status.AVAILABLE) {
+            return null;
+        }
+
+        // Records the exact time the loan started
+        LocalDateTime now = LocalDateTime.now();
+        loan.setCheckoutDate(now);
+        loan.setDueDate(now.plusDays(10)); //set the due dateDouble check the loan days
+
+        loan.setStatus(Loan.Status.APPROVED);
+        asset.setStatus(Asset. Status.LOANED);
+
+
+        assetRepository.save(asset);
+        return loanRepository.save(loan);
+    }
 }
