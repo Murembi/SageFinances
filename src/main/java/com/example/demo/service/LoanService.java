@@ -245,6 +245,12 @@ public class LoanService {
 
         return loans;
     }
+    //checkout loan
+    //public Loan checkoutLoan(Long loanId){};
 
-    // Duplicate request prevention
+    //retrieve the loan history
+    //public List<Loan> getMyLoanHistory(Long userId)
+
+
+
 }
