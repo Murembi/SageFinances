@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MECER INTER-ED | ASSET MANAGEMENT SYSTEM | Admin Users</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    <img src="images/mecer-inter-ed-logo.jpg" alt="MECER INTER-ED Logo" class="logo-img">
+  </div>
+  <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
+</header>
+
+<div class="container">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="profile-widget">
+      <label>Username</label><br>
+      <input type="text" value="Admin User" readonly><br>
+      <label>Role</label><br>
+      <input type="text" value="ADMIN" readonly>
+    </div>
+
+    <ul id="navMenu">
+      <li class="nav-item"><a href="/dashboard/admin">Dashboard</a></li>
+      <li class="nav-item"><a href="/admin/users">Users</a></li>
+      <li class="nav-item"><a href="/admin/assets">Assets</a></li>
+      <li class="nav-item"><a href="/admin/loans">Loans</a></li>
+      <li class="nav-item"><a href="/admin/reports">Reports</a></li>
+      <li class="nav-item"><a href="/admin/settings">Settings</a></li>
+    </ul>
+
+    <form action="/logout" method="post">
+      <button type="submit" class="logout-btn">Logout <span class="arrow">&#8594;</span></button>
+    </form>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <section>
+      <h1>User Management</h1>
+      <p>Manage system users</p>
+
+      <div class="actionform">
+        <input type="text" id="searchInput" placeholder="Search by name, email or role...">
+        <button class="approve-btn" id="searchBtn">Search</button>
+        <button class="addUserbutton" id="addUserBtn">+ Add User</button>
+      </div>
+
+      <table id="usersTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example rows -->
+          <tr>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>IT</td>
+            <td>john.doe@mecerintered.co.za</td>
+            <td><span style="background:#b0d6f9;padding:5px 10px;border-radius:8px;">ADMIN</span></td>
+            <td>
+              <button class="approve-btn">Edit</button>
+              <button class="reject-btn">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jane Smith</td>
+            <td>Finance</td>
+            <td>jane.smith@mecerintered.co.za</td>
+            <td><span style="background:#90f012;padding:5px 10px;border-radius:8px;">MANAGER</span></td>
+            <td>
+              <button class="approve-btn">Edit</button>
+              <button class="reject-btn">Delete</button>
+            </td>
+          </tr>
+          <!-- More rows dynamically loaded -->
+        </tbody>
+      </table>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:15px;">
+        <span>Showing 1 to 7 of 7 users</span>
+        <div>
+          <button class="reject-btn">Previous</button>
+          <button class="approve-btn">1</button>
+          <button class="reject-btn">Next</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <a href="https://mecerintered.co.za/terms-and-conditions">Terms & Conditions</a>
+    <a id="contactLink">Contact Us</a>
+  </div>
+</footer>
+
+<!--adminUser Page-->
+<script src="../adminUsers.js"></script>
+</body>
+</html>
