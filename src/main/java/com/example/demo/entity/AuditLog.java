@@ -31,9 +31,9 @@ public class AuditLog {
 
     private LocalDateTime timestamp;
 
-    @Column(columnDefinition = "json")
+    @Column(name = "old_value")
     private String oldValue;
 
-    @Column(columnDefinition = "json")
+    @Column(name = "new_value")
     private String newValue;
 }

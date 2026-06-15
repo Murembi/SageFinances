@@ -67,5 +67,6 @@ public class LoanController {
     public List<Loan> getByUser(@PathVariable Long userId) {
         return loanService.getLoansByUser(userId);
     }
+
 }
 

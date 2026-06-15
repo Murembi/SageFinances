@@ -1,18 +1,23 @@
 package com.example.demo.dashboard.service;
 
+import com.example.demo.dashboard.dto.AuditLogDTO;
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
 import com.example.demo.repository.AssetRepository;
+import com.example.demo.repository.AuditLogRepository;
 import com.example.demo.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AdminDashboardService {
     private final LoanRepository loanRepository;
     private final AssetRepository assetRepository;
+    private final AuditLogRepository auditLogRepository;
 
     public DashboardDTO getAdminDashboard() {
         //the total number of assest
@@ -37,8 +42,24 @@ public class AdminDashboardService {
         );
         return dto;
         // TODO
-        // Later add:
-        // dto.setTotalUsers(userRepository.count());
+
+        //dto.setTotalUsers(userRepository.count());
+    }
+        public List<AuditLogDTO> getAuditLogs() {
+            return auditLogRepository.findAll()
+                    .stream()
+                    .map(log -> new AuditLogDTO(
+                            log.getUser().getUserId(),
+                            log.getAction(),
+                            log.getEntityType(),
+                            log.getEntityId(),
+                            log.getTimestamp(),
+                            log.getOldValue(),
+                            log.getNewValue()
+                    ))
+                    .toList();
+
+        }
+
 
     }
-}

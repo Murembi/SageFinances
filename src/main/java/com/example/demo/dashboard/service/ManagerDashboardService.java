@@ -1,5 +1,6 @@
 package com.example.demo.dashboard.service;
 import com.example.demo.dto.DashboardDTO;
+import com.example.demo.dashboard.dto.PendingLoanDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
 import com.example.demo.repository.AssetRepository;
@@ -61,9 +62,20 @@ public class ManagerDashboardService {
     }
 
     //returns tables
-    public List<Loan> getPendingLoans() {
-        return loanRepository.findByStatus(Loan.Status.PENDING);
+    public List<PendingLoanDTO> getPendingLoans() {
+        return loanRepository.findByStatus(Loan.Status.PENDING)
+                .stream()
+                .map(loan -> new PendingLoanDTO(
+                        loan.getUser().getName(),
+                        loan.getAsset().getTitle(),
+                        loan.getRequestDate(),
+                        loan.getDueDate()
+                ))
+                .toList();
     }
+//    public List<Loan> getPendingLoans() {
+//        return loanRepository.findByStatus(Loan.Status.PENDING);
+//    }
 
     public List<Asset> getAvailableAssets() {
         return assetRepository.findByStatus(Asset.Status.AVAILABLE);
