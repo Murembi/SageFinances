@@ -253,9 +253,31 @@ LoanService {
 
         return loans;
     }
-    //checkout loan
-    //public Loan checkoutLoan(Long loanId){};
+    public Loan returnLoan(Long loanId) {
 
+        Loan loan = getLoanById(loanId);
+
+        Asset asset = loan.getAsset();
+
+        loan.setReturnDate(LocalDateTime.now());
+
+        asset.setStatus(Asset.Status.AVAILABLE);
+
+        assetRepository.save(asset);
+
+        Loan saved = loanRepository.save(loan);
+
+        auditLogService.createAuditLog(
+                null,
+                "LOAN",
+                loanId,
+                "RETURN",
+                null,
+                saved.toString()
+        );
+
+        return saved;
+    }
     //retrieve the loan history
     //public List<Loan> getMyLoanHistory(Long userId)
 
