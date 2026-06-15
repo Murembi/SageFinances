@@ -74,10 +74,6 @@ public class LoanController {
 
         return loanService.returnLoan(loanId);
     }
-    @GetMapping("/user/{userId}/history")
-    public List<LoanHistoryDTO> getMyLoanHistory(@PathVariable Long userId){
-        return loanService.getMyLoanHistory(userId);
-    }
     @GetMapping("/overdue")
     public List<Loan> getOverdueLoans() {
 

@@ -28,6 +28,7 @@ public class ManagerDashboardController {
         return managerDashboardService.getPendingLoans();
     }
 
+
 //    // available assets table
 //    @GetMapping("/available-assets")
 //    public List<Asset> getAvailableAssets() {

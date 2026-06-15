@@ -20,9 +20,6 @@ public class AdminDashboardController {
     public DashboardDTO getAdminDashboard() {
         return adminDashboardService.getAdminDashboard();
     }
-    // TODO
-    //add the audit log
-
     @GetMapping("/audit-logs")
     public List<AuditLogDTO> getAuditLogs() {
         return adminDashboardService.getAuditLogs();

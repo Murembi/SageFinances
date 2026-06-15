@@ -4,6 +4,7 @@ import com.example.demo.dashboard.dto.AvailableAssetDTO;
 import com.example.demo.dashboard.dto.MyLoanedAssetDTO;
 import com.example.demo.dashboard.dto.UserLoanDTO;
 import com.example.demo.dto.DashboardDTO;
+import com.example.demo.dto.LoanHistoryDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
 import com.example.demo.repository.AssetRepository;
@@ -104,6 +105,27 @@ public class UserDashboardService {
         }
 
         return list;
+    }
+
+    public List<LoanHistoryDTO> getMyLoanHistory(Long userId) {
+
+        List<Loan> loans = loanRepository.findByUser_UserId(userId);
+
+        List<LoanHistoryDTO> history = new ArrayList<>();
+        for (Loan loan : loans) {
+
+            LoanHistoryDTO dto = new LoanHistoryDTO();
+
+            dto.setLoanId(loan.getLoanId());
+            dto.setAssetName(loan.getAsset().getTitle());
+            dto.setRequestDate(loan.getRequestDate());
+            dto.setCheckoutDate(loan.getCheckoutDate());
+            dto.setDueDate(loan.getDueDate());
+            dto.setStatus(loan.getStatus().name());
+
+            history.add(dto);
+        }
+        return history;
     }
 
 }

@@ -34,4 +34,7 @@ public class UserDashboardController {
     public List<AvailableAssetDTO> getAvailableAssets() {
         return userDashboardService.getAvailableAssets();
     }
+
+    //loan history
+
 }
