@@ -13,6 +13,7 @@ public class ManagerDashboardDTO {
     private long approvedLoans;
     private long rejectedLoans;
     private long totalLoans;
+    private long overdueLoans;
 
     private long totalAssets;
     private long availableAssets;

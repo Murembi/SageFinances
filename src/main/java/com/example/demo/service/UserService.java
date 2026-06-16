@@ -3,7 +3,6 @@ package com.example.demo.service;
 
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -19,15 +18,13 @@ public class UserService {
     // Inject the UserRepository to interact with the database
     private final UserRepository userRepository;
 
-    // BCryptPasswordEncoder is used to hash and verify passwords securely
-    //private final BCryptPasswordEncoder encoder ;
+    // Password encoder removed to avoid dependency on Spring Security here.
 
-    // Constructor-based dependency injection
-    //BCryptPasswordEncoder encoder
+   // Constructor-based dependency injection
+   // BCryptPasswordEncoder encoder
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        //this.encoder = encoder;
     }
 
     // CREATE
@@ -48,6 +45,19 @@ public class UserService {
     // READ
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public  User getUserByLoginDetails(String email, String password) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Compare provided password with stored password (should be hashed in production)
+        if (user.getPasswordHash() != null && user.getPasswordHash().equals(password)) {
+            return user;
+        }
+        throw new RuntimeException("Invalid credentials");
+
     }
 
     public User getUserById(Long id) {

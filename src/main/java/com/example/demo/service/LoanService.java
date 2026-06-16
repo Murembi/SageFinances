@@ -1,5 +1,10 @@
 package com.example.demo.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.demo.dto.LoanRequestDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
@@ -7,12 +12,6 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.LoanRepository;
 import com.example.demo.repository.UserRepository;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static com.example.demo.model.Loan.Status.APPROVED;
 
 @Service
 public class LoanService {
@@ -281,4 +280,6 @@ public class LoanService {
         assetRepository.save(asset);
         return loanRepository.save(loan);
     }
+
+    //over due
 }
