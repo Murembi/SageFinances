@@ -52,7 +52,7 @@ public class AdminDashboardService {
             return auditLogRepository.findAll()
                     .stream()
                     .map(log -> new AuditLogDTO(
-                            log.getUser().getUserId(),
+                            log.getUser() != null ? log.getUser().getUserId() : null,
                             log.getAction(),
                             log.getEntityType(),
                             log.getEntityId(),
