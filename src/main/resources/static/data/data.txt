@@ -1,0 +1,49 @@
+
+USE asset_management_system;
+INSERT INTO user (name, department, email, role, password_hash, created_at) VALUES
+('John Smith', 'IT', 'john@company.com', 'Admin', 'hash1', NOW()),
+('Sarah Johnson', 'Finance', 'sarah@company.com', 'Manager', 'hash2', NOW()),
+('Michael Brown', 'Operations', 'michael@company.com', 'Borrower', 'hash3', NOW()),
+('Emily Davis', 'HR', 'emily@company.com', 'Manager', 'hash4', NOW()),
+('David Wilson', 'IT', 'david@company.com', 'Borrower', 'hash5', NOW()),
+('Jessica Lee', 'Logistics', 'jessica@company.com', 'Borrower', 'hash6', NOW()),
+('Daniel Taylor', 'Finance', 'daniel@company.com', 'Manager', 'hash7', NOW()),
+('Laura White', 'IT', 'laura@company.com', 'Borrower', 'hash8', NOW()),
+('James Martin', 'Operations', 'james@company.com', 'Borrower', 'hash9', NOW()),
+('Olivia Clark', 'HR', 'olivia@company.com', 'Admin', 'hash10', NOW());
+
+INSERT INTO asset (title, category, serial_number, acquisition_date, cost, location, asset_condition, photo_path, created_at, status) VALUES
+('Dell Laptop XPS 15', 'Electronics', 'SN1001', '2024-01-10', 25000.00, 'Office A', 'Good', '/img/laptop1.png', NOW(), 'AVAILABLE'),
+('HP Printer LaserJet', 'Electronics', 'SN1002', '2023-11-05', 8000.00, 'Office B', 'Good', '/img/printer1.png', NOW(), 'LOANED'),
+('Office Chair Ergonomic', 'Furniture', 'SN1003', '2022-06-15', 1500.00, 'Office C', 'Good', '/img/chair1.png', NOW(), 'AVAILABLE'),
+('MacBook Pro 14', 'Electronics', 'SN1004', '2024-03-20', 35000.00, 'Office A', 'Excellent', '/img/mac1.png', NOW(), 'LOANED'),
+('Projector Epson X200', 'Electronics', 'SN1005', '2023-08-12', 12000.00, 'Meeting Room', 'Good', '/img/proj1.png', NOW(), 'LOANED'),
+('Whiteboard Large', 'Office Supplies', 'SN1006', '2022-01-18', 2000.00, 'Meeting Room', 'Good', '/img/board1.png', NOW(), 'AVAILABLE'),
+('Conference Table', 'Furniture', 'SN1007', '2021-09-10', 18000.00, 'Conference Room', 'Good', '/img/table1.png', NOW(), 'AVAILABLE'),
+('Samsung Monitor 27"', 'Electronics', 'SN1008', '2024-02-14', 6000.00, 'Office B', 'Good', '/img/monitor1.png', NOW(), 'LOANED'),
+('Router TP-Link AX', 'Networking', 'SN1009', '2023-12-01', 2500.00, 'Server Room', 'Good', '/img/router1.png', NOW(), 'AVAILABLE'),
+('Office Phone System', 'Electronics', 'SN1010', '2022-10-22', 5000.00, 'Office A', 'Retired', '/img/phone1.png', NOW(), 'RETIRED');
+
+INSERT INTO loan (asset_id, user_id, request_date, status, checkout_date, due_date, return_date, approved_by) VALUES
+(2, 3, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY), NULL, 1),
+(4, 5, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 14 DAY), NULL, 2),
+(8, 6, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+(1, 4, NOW(), 'REJECTED', NULL, NULL, NULL, 1),
+(5, 7, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 3 DAY), NULL, 2),
+(3, 8, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 10 DAY), NULL, 3),
+(7, 9, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+(9, 10, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 5 DAY), NULL, 1),
+(6, 2, NOW(), 'REJECTED', NULL, NULL, NULL, 2),
+(10, 1, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 20 DAY), NULL, 1);
+
+INSERT INTO audit_log (user_id, entity_type, entity_id, action, timestamp, old_value, new_value) VALUES
+(1, 'asset', 2, 'UPDATE', NOW(), '{"status":"AVAILABLE"}', '{"status":"LOANED"}'),
+(2, 'loan', 1, 'CREATE', NOW(), NULL, '{"status":"APPROVED"}'),
+(3, 'asset', 5, 'UPDATE', NOW(), '{"condition":"Good"}', '{"condition":"Damaged"}'),
+(4, 'user', 3, 'UPDATE', NOW(), '{"department":"Ops"}', '{"department":"Operations"}'),
+(5, 'loan', 2, 'CREATE', NOW(), NULL, '{"status":"APPROVED"}'),
+(6, 'asset', 8, 'UPDATE', NOW(), '{"status":"AVAILABLE"}', '{"status":"LOANED"}'),
+(7, 'loan', 3, 'CREATE', NOW(), NULL, '{"status":"PENDING"}'),
+(8, 'asset', 10, 'UPDATE', NOW(), '{"status":"AVAILABLE"}', '{"status":"RETIRED"}'),
+(9, 'user', 5, 'UPDATE', NOW(), '{"role":"Borrower"}', '{"role":"Manager"}'),
+(10, 'loan', 5, 'CREATE', NOW(), NULL, '{"status":"APPROVED"}');

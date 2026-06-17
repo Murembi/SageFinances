@@ -1,9 +1,13 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "auditLog")
 public class AuditLog {
@@ -11,7 +15,7 @@ public class AuditLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "log_id")
-    private Integer logId;
+    private Long logId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -21,15 +25,15 @@ public class AuditLog {
     private String entityType;
 
     @Column(name = "entity_id")
-    private Integer entityId;
+    private Long entityId;
 
     private String action;
 
     private LocalDateTime timestamp;
 
-    @Column(columnDefinition = "json")
+    @Column(name = "old_value")
     private String oldValue;
 
-    @Column(columnDefinition = "json")
+    @Column(name = "new_value")
     private String newValue;
 }
