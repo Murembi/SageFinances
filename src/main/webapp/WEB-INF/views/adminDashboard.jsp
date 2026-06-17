@@ -51,7 +51,7 @@
             <li><a href="${pageContext.request.contextPath}/admin/loans">Loans</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/assets">Assets</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/users">Users</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/auditLogs">Audit Logs</a></li>
+
         </ul>
 
         <form action="${pageContext.request.contextPath}/logout" method="post">
