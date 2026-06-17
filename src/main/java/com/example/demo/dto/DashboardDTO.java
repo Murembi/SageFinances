@@ -10,6 +10,7 @@ public class DashboardDTO {
     private Long approvedLoans;
     private Long rejectedLoans;
     private Long totalLoans;
+    private long overdueLoans;
 
     private Long totalAssets;
     private Long availableAssets;

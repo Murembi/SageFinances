@@ -58,6 +58,7 @@ public class ManagerDashboardService {
                 assetRepository.countByStatus(Asset.Status.RETIRED)
         );
 
+
         return dto;
     }
 

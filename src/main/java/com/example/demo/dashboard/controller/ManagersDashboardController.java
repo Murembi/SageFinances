@@ -2,6 +2,7 @@ package com.example.demo.dashboard.controller;
 
 import java.util.List;
 
+import com.example.demo.dto.DashboardDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +23,8 @@ public class ManagersDashboardController {
 
     @GetMapping
     public String managerDashboard(Model model) {
-
         
-        ManagerDashboardDTO dashboard = managerDashboardService.getManagerDashboard();
+        DashboardDTO dashboard = managerDashboardService.getManagerDashboard();
 
         model.addAttribute("totalAssets", dashboard.getTotalAssets());
         model.addAttribute("availableAssets", dashboard.getAvailableAssets());
