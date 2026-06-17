@@ -7,6 +7,7 @@ import com.example.demo.entity.Loan;
 import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.AuditLogRepository;
 import com.example.demo.repository.LoanRepository;
+import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class AdminDashboardService {
     private final LoanRepository loanRepository;
     private final AssetRepository assetRepository;
     private final AuditLogRepository auditLogRepository;
+    private final UserRepository userRepository;
 
     public DashboardDTO getAdminDashboard() {
         //the total number of assest
@@ -40,6 +42,7 @@ public class AdminDashboardService {
                 //SELECT COUNT(*) FROM loan WHERE status = 'PENDING';
                 loanRepository.countByStatus(Loan.Status.PENDING)
         );
+        dto.setTotalUsers(userRepository.count());
         return dto;
         // TODO
 
