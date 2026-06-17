@@ -23,13 +23,22 @@ public class UserDashboardService {
     public DashboardDTO getUserDashboard(Long userId){
         DashboardDTO dto = new DashboardDTO();
 
+        dto.setAvailableAssets(
+                assetRepository.countByStatus(Asset.Status.AVAILABLE)
+        );
+
         dto.setMyLoans(
-                loanRepository.countByUser_UserId(userId)
+                loanRepository.countByUser_UserIdAndStatus(
+                        userId,
+                        Loan.Status.APPROVED
+                )
         );
         //
         dto.setMyPendingRequests(
-                // SELECT COUNT(*) FROM loan WHERE user_id = 3 AND status = 'PENDING';
-                loanRepository.countByUser_UserIdAndStatus(userId, Loan.Status.PENDING)
+                loanRepository.countByUser_UserIdAndStatus(
+                        userId,
+                        Loan.Status.PENDING
+                )
         );
 
         return dto;
