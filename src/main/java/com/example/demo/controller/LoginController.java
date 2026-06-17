@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,8 @@ import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("")
@@ -34,7 +37,15 @@ public class LoginController {
 
         User user = userService.getUserByLoginDetails(email, password);
         session.setAttribute("user", user);        
-        return "redirect:/dashboard";
+        return "redirect:/user-dashboard";
+    }
+
+    @GetMapping("/user-dashboard")
+    public String showUserDashboard(Model model) {
+        model.addAttribute("availableAssets", new ArrayList<>());
+        model.addAttribute("pendingLoans", new ArrayList<>());
+        model.addAttribute("loanedAssets", new ArrayList<>());
+        return "user-dashboard";
     }
 
 }

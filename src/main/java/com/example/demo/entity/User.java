@@ -35,7 +35,7 @@ public class User {
     private LocalDateTime createdAt;
 
     public enum Role {
-        Admin, Manager, Borrower
+        ADMIN, MANAGER, BORROWER
     }
 
 }
