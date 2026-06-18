@@ -115,4 +115,15 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public List<User> searchUsers(String keyword) {
+        return userRepository.findAll().stream()
+                .filter(user ->
+                        user.getName().toLowerCase().contains(keyword.toLowerCase()) ||
+                                user.getEmail().toLowerCase().contains(keyword.toLowerCase()) ||
+                                user.getDepartment().toLowerCase().contains(keyword.toLowerCase()) ||
+                                user.getRole().name().toLowerCase().contains(keyword.toLowerCase())
+                )
+                .toList();
+    }
 }
