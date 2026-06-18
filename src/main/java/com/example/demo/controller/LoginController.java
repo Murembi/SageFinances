@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.DashboardDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,14 @@ public class LoginController {
 
         User user = userService.getUserByLoginDetails(email, password);
         session.setAttribute("user", user);
+        // redirection after logging
+        if (user.getRole() == User.Role.ADMIN) {
+            return "redirect:/admin/dashboard";
+        }
+
+        if (user.getRole() == User.Role.MANAGER) {
+            return "redirect:/manager/dashboard";
+        }
         return "redirect:/user-dashboard";
     }
 
@@ -53,11 +62,17 @@ public class LoginController {
 
         Long userId = loggedInUser.getUserId();
 
-        model.addAttribute("dashboard", userDashboardService.getUserDashboard(userId));
+        DashboardDTO dashboard = userDashboardService.getUserDashboard(userId);
+
+        model.addAttribute("user", loggedInUser);
+
+        model.addAttribute("availableAssetsCount", dashboard.getAvailableAssets());
+        model.addAttribute("myLoans", dashboard.getMyLoans());
+        model.addAttribute("myPendingRequests", dashboard.getMyPendingRequests());
+
         model.addAttribute("availableAssets", userDashboardService.getAvailableAssets());
         model.addAttribute("pendingLoans", userDashboardService.getMyPendingRequests(userId));
         model.addAttribute("loanedAssets", userDashboardService.getMyLoanedAssets(userId));
-
         return "user-dashboard";
     }
 }

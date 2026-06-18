@@ -22,10 +22,10 @@ public class UserDashboardController {
 
     private final UserDashboardService userDashboardService;
 
-    @GetMapping("/{userId}/pending-loans")
-    public List<UserLoanDTO> getPendingLoans(@PathVariable Long userId) {
-        return userDashboardService.getMyPendingRequests(userId);
-    }
+//    @GetMapping("/{userId}/pending-loans")
+//    public List<UserLoanDTO> getPendingLoans(@PathVariable Long userId) {
+//        return userDashboardService.getMyPendingRequests(userId);
+//    }
 
     @GetMapping("/{userId}/loaned-assets")
     public List<MyLoanedAssetDTO> getLoanedAssets(@PathVariable Long userId) {
