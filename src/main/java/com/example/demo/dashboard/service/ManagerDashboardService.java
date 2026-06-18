@@ -67,6 +67,7 @@ public class ManagerDashboardService {
         return loanRepository.findByStatus(Loan.Status.PENDING)
                 .stream()
                 .map(loan -> new PendingLoanDTO(
+                        loan.getLoanId(),
                         loan.getUser().getName(),
                         loan.getAsset().getTitle(),
                         loan.getRequestDate(),
