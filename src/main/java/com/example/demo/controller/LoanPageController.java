@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/loan-page")
+@RequestMapping("/admin/loans")
 public class LoanPageController {
 
     private final LoanService loanService;
@@ -55,7 +55,7 @@ public class LoanPageController {
 
         loanService.createLoanRequest(dto);
 
-        return "redirect:/loan-page";
+        return "redirect:/admin/loans";
     }
 
     @PostMapping("/approve/{id}")
@@ -64,7 +64,7 @@ public class LoanPageController {
 
         loanService.approveLoan(id);
 
-        return "redirect:/loan-page";
+        return "redirect:/admin/loans";
     }
 
     @PostMapping("/reject/{id}")
@@ -73,7 +73,7 @@ public class LoanPageController {
 
         loanService.rejectLoan(id);
 
-        return "redirect:/loan-page";
+        return "redirect:/admin/loans";
     }
 
     @PostMapping("/delete/{id}")
@@ -82,7 +82,7 @@ public class LoanPageController {
 
         loanService.deleteLoan(id);
 
-        return "redirect:/loan-page";
+        return "redirect:/admin/loans";
     }
 
 }

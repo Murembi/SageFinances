@@ -8,40 +8,45 @@
 </head>
 <body>
 
-<!-- HEADER -->
-
+<!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
 <div>
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/logo.png"
+        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
              alt="Logo"
-             width="100">
+             width="120">
     </div>
 
-    <!-- User Details -->
-    <div>
-        <p>Username: ${sessionScope.user.name}</p>
-        <p>Role: ${sessionScope.user.role}</p>
-    </div>
+    <!-- System Title -->
+    <h2>Admin Dashboard</h2>
 
-    <!-- Navigation -->
-    <div>
-        <a href="/admin/dashboard">Dashboard</a> |
-        <a href="/assets">Assets</a> |
-        <a href="/loan-page">Loans</a> |
-        <a href="/users">Users</a>
-    </div>
-
-    <!-- Actions -->
-    <div>
-        <a href="/settings">Settings</a>
-        <a href="/logout">Logout</a>
-    </div>
+    <!-- User Info -->
+    <p>
+        Username: ${username} <br>
+        Role: ${userRole}
+    </p>
 
 </div>
 
-<hr>
+
+
+<!-- ================= NAVIGATION (SHARED) ================= -->
+        <div>
+           <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
+           <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
+           <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
+           <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
+           <a href="${pageContext.request.contextPath}/settings">Settings</a> |
+           <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
+        </div>
+
+    <!-- Actions -->
+
+
+</div>
+
+
 
 <!-- AVAILABLE ASSETS -->
 
@@ -210,7 +215,7 @@
 
 </table>
 
-<hr>
+
 
 <!-- FOOTER -->
 

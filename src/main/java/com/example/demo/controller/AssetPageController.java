@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/assets")
+@RequestMapping("/admin/assets")
 public class AssetPageController {
 
     private final AssetService service;
