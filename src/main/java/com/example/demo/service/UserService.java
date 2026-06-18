@@ -35,7 +35,7 @@ public class UserService {
                 .email(user.getEmail())
                 .passwordHash(user.getPasswordHash())
                 .createdAt(LocalDateTime.now())
-                .role(User.Role.Borrower)
+                .role(User.Role.BORROWER)
 
                 .build();
 
