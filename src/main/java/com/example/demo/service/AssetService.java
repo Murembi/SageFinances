@@ -415,6 +415,23 @@ public class AssetService {
 
         repository.deleteById(id);
     }
+
+    public List<Asset> getAvailableAssets() {
+
+        List<Asset> assets =
+                repository.findByStatus(Asset.Status.AVAILABLE);
+
+        auditLogService.createAuditLog(
+                null,
+                "ASSET",
+                null,
+                "FILTER_STATUS",
+                null,
+                Asset.Status.AVAILABLE.name()
+        );
+
+        return assets;
+    }
 }
 
 
