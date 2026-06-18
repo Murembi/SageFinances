@@ -19,7 +19,7 @@
     </div>
 
     <!-- System Title -->
-    <h2>Admin Dashboard</h2>
+    <h2>Admin Loans</h2>
 
     <!-- User Info -->
     <p>
@@ -215,18 +215,10 @@
 
 </table>
 
-
-
-<!-- FOOTER -->
-
+<!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
 <div>
-
-    <a href="/terms">Terms & Conditions</a>
-
-    |
-
-    <a href="/contact">Contact Us</a>
-
+    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
+    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
 </body>

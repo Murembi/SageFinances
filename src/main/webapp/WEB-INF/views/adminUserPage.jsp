@@ -19,7 +19,7 @@
     </div>
 
     <!-- System Title -->
-    <h2>Admin Dashboard</h2>
+    <h2>Admin Users</h2>
 
     <!-- User Info -->
     <p>
@@ -148,13 +148,11 @@
 
 </form>
 
-
-
-<!-- FOOTER LINKS -->
-<p>
-    <a href="#">Terms & Conditions</a> |
-    <a href="#">Contact Us</a>
-</p>
+<!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
+<div>
+    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
+    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
+</div>
 
 <script>
     function clearSearch() {

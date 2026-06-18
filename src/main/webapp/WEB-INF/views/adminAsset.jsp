@@ -19,7 +19,7 @@
     </div>
 
     <!-- System Title -->
-    <h2>Admin Dashboard</h2>
+    <h2>Admin Assets</h2>
 
     <!-- User Info -->
     <p>
@@ -42,13 +42,6 @@
         </div>
 
 </div>
-
-
-
-<!-- ================= PAGE TITLE ================= -->
-
-<h2>Asset Management</h2>
-
 
 
 <!-- ================= CREATE ASSET ================= -->
@@ -140,15 +133,10 @@
 
 </table>
 
-
-
-<!-- ================= FOOTER (COMMON) ================= -->
-
+<!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
 <div>
-
-    <a href="/terms">Terms & Conditions</a> |
-    <a href="/contact">Contact Us</a>
-
+    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
+    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
 </body>
