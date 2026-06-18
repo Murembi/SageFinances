@@ -24,44 +24,51 @@
 
 </div>
 <h3>Available Assets</h3>
-<table border="1">
-    <tr>
-        <th>Select</th>
-        <th>ID</th>
-        <th>Asset Name</th>
-        <th>Category</th>
-        <th>Status</th>
-    </tr>
 
-    <%
-        List<AvailableAssetDTO> assets =
-                (List<AvailableAssetDTO>) request.getAttribute("availableAssets");
+<form action="${pageContext.request.contextPath}/request-loans" method="post">
 
-        for (AvailableAssetDTO asset : assets) {
-    %>
-    <tr>
-        <td>
-            <input type="checkbox" name="assetIds" value="<%= asset.getAssetId() %>">
-        </td>
-        <td><%= asset.getAssetId() %></td>
-        <td><%= asset.getAssetName() %></td>
-        <td><%= asset.getCategory() %></td>
-        <td><%= asset.getStatus() %></td>
-    </tr>
-    <%
-        }
-    %>
-</table>
-<br>
-<button type="submit">Request Selected Assets</button>
+    <table border="1">
+        <tr>
+            <th>Select</th>
+            <th>ID</th>
+            <th>Asset Name</th>
+            <th>Category</th>
+            <th>Status</th>
+        </tr>
+
+        <%
+            List<AvailableAssetDTO> assets =
+                    (List<AvailableAssetDTO>) request.getAttribute("availableAssets");
+
+            for (AvailableAssetDTO asset : assets) {
+        %>
+        <tr>
+            <td>
+                <input type="checkbox"
+                       name="assetIds"
+                       value="<%= asset.getAssetId() %>">
+            </td>
+            <td><%= asset.getAssetId() %></td>
+            <td><%= asset.getAssetName() %></td>
+            <td><%= asset.getCategory() %></td>
+            <td><%= asset.getStatus() %></td>
+        </tr>
+        <%
+            }
+        %>
+    </table>
+
+    <br>
+
+    <button type="submit">Request Selected Assets</button>
+
 </form>
 <h3>Pending Loans</h3>
 <table border="1">
     <tr>
-        <th>Borrower</th>
         <th>Asset Name</th>
+        <th>Request Date</th>
         <th>Due Date</th>
-        <th>Status</th>
     </tr>
 
     <%
@@ -71,7 +78,6 @@
         for (PendingLoanDTO loan : pendingLoans) {
     %>
     <tr>
-        <td><%= loan.getBorrowerName() %></td>
         <td><%= loan.getAssetTitle() %></td>
         <td><%= loan.getRequestDate() %></td>
         <td><%= loan.getDueDate() %></td>

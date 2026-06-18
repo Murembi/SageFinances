@@ -24,44 +24,59 @@ public class UsersDashboardController {
     private final LoanService loanService;
 
     @GetMapping("/dashboard")
-public String dashboard(HttpSession session, Model model) {
+    public String dashboard(HttpSession session, Model model) {
 
-    User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
 
-    if (user == null) {
-        return "redirect:/loginpage";
+        if (user == null) {
+            return "redirect:/loginpage";
+        }
+
+        model.addAttribute("user", user);
+
+        model.addAttribute("availableAssets",
+                userDashboardService.getAvailableAssets());
+
+        model.addAttribute("pendingLoans",
+                userDashboardService.getMyPendingRequests(user.getUserId()));
+
+        model.addAttribute("loanedAssets",
+                userDashboardService.getMyLoanedAssets(user.getUserId()));
+
+        return "user-dashboard";
     }
 
-    model.addAttribute("user", user);
+    @PostMapping("/request-loans")
+    public String requestLoans(
+            @RequestParam(required = false) List<Long> assetIds,
+            HttpSession session) {
 
-    model.addAttribute("availableAssets",
-            userDashboardService.getAvailableAssets());
+        User user = (User) session.getAttribute("user");
 
-    model.addAttribute("pendingLoans",
-            userDashboardService.getMyPendingRequests(user.getUserId()));
+        System.out.println("USER FROM SESSION: " + user);
+        System.out.println("SELECTED ASSETS: " + assetIds);
 
-    model.addAttribute("loanedAssets",
-            userDashboardService.getMyLoanedAssets(user.getUserId()));
+        if (user == null) {
+            return "redirect:/loginpage";
+        }
 
-    return "user-dashboard";
-}
-//    @PostMapping("/request-loans")
-//    public String requestLoans(
-//            @RequestParam List<Long> assetIds,
-//            HttpSession session) {
-//
-//        User user = (User) session.getAttribute("user");
-//
-//        for (Long assetId : assetIds) {
-//
-//            LoanRequestDTO dto = new LoanRequestDTO();
-//            dto.setUserId(user.getUserId());
-//            dto.setAssetId(assetId);
-//
-//            LoanService.createMultipleLoanRequests(dto);
-//        }
-//
-//        return "redirect:/user-dashboard";
-//    }
+        if (assetIds == null || assetIds.isEmpty()) {
+            return "redirect:/user-dashboard";
+        }
 
+        try {
+            loanService.createMultipleLoanRequests(
+                    user.getUserId(),
+                    assetIds
+            );
+        } catch (IllegalStateException e) {
+            session.setAttribute("errorMessage", e.getMessage());
+            return "redirect:/dashboard";
+        }
+
+        session.setAttribute("successMessage", "Loan request submitted successfully");
+
+        return "redirect:/user-dashboard";
+
+    }
 }

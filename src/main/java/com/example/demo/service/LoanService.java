@@ -296,5 +296,4 @@ public class LoanService {
         return loanRepository.save(loan);
     }
 
-    //over due
 }
