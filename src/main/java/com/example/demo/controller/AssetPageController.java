@@ -6,8 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/jsp/assets")
+@RequestMapping("/api/assets")
 public class AssetPageController {
 
     private final AssetService service;
@@ -16,24 +18,43 @@ public class AssetPageController {
         this.service = service;
     }
 
-    // LOAD PAGE
+    // =========================
+    // LOAD ASSET PAGE (JSP)
+    // =========================
     @GetMapping
-    public String assetPage(Model model) {
-        model.addAttribute("assets", service.getAllAssets());
-        return "adminAsset"; // assets.jsp
+    public String loadAssetPage(Model model,
+                                @RequestParam(required = false) String keyword) {
+
+        List<Asset> assets;
+
+        // simple search (matches your JSP search bar)
+        if (keyword != null && !keyword.isEmpty()) {
+            assets = service.searchByTitle(keyword);
+        } else {
+            assets = service.getAllAssets();
+        }
+
+        model.addAttribute("assets", assets);
+        model.addAttribute("keyword", keyword);
+
+        return "adminAsset"; // -> /WEB-INF/views/adminAsset.jsp
     }
 
-    // CREATE (FORM SUBMIT)
+    // =========================
+    // CREATE ASSET (FROM JSP FORM)
+    // =========================
     @PostMapping("/create")
     public String createAsset(@ModelAttribute Asset asset) {
         service.addAsset(asset);
-        return "redirect:/jsp/adminAsset";
+        return "redirect:/assets";
     }
 
-    // DELETE (JSP BUTTON)
+    // =========================
+    // DELETE ASSET (FROM JSP BUTTON)
+    // =========================
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String deleteAsset(@PathVariable Long id) {
         service.deleteAsset(id);
-        return "redirect:/jsp/adminAsset";
+        return "redirect:/assets";
     }
 }
