@@ -40,6 +40,14 @@ public class LoginController {
 
         User user = userService.getUserByLoginDetails(email, password);
         session.setAttribute("user", user);
+        // redirection after logging
+        if (user.getRole() == User.Role.ADMIN) {
+            return "redirect:/admin/dashboard";
+        }
+
+        if (user.getRole() == User.Role.MANAGER) {
+            return "redirect:/manager/dashboard";
+        }
         return "redirect:/user-dashboard";
     }
 
