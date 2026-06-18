@@ -39,7 +39,7 @@
 
     <button type="submit">Search</button>
 
-    <a href="/admin/users">Reset</a>
+    <button type="button" onclick="clearSearch()">Reset</button>
 
 </form>
 
@@ -140,6 +140,12 @@
     <a href="#">Terms & Conditions</a> |
     <a href="#">Contact Us</a>
 </p>
+
+<script>
+    function clearSearch() {
+        document.querySelector('input[name="keyword"]').value = '';
+    }
+</script>
 
 </body>
 </html>
