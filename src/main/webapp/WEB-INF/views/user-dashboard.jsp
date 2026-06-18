@@ -26,6 +26,7 @@
 <h3>Available Assets</h3>
 <table border="1">
     <tr>
+        <th>Select</th>
         <th>ID</th>
         <th>Asset Name</th>
         <th>Category</th>
@@ -39,6 +40,9 @@
         for (AvailableAssetDTO asset : assets) {
     %>
     <tr>
+        <td>
+            <input type="checkbox" name="assetIds" value="<%= asset.getAssetId() %>">
+        </td>
         <td><%= asset.getAssetId() %></td>
         <td><%= asset.getAssetName() %></td>
         <td><%= asset.getCategory() %></td>
@@ -48,7 +52,9 @@
         }
     %>
 </table>
-
+<br>
+<button type="submit">Request Selected Assets</button>
+</form>
 <h3>Pending Loans</h3>
 <table border="1">
     <tr>

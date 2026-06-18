@@ -1,5 +1,7 @@
 package com.example.demo.dashboard.controller;
 
+import com.example.demo.dto.LoanRequestDTO;
+import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +11,17 @@ import com.example.demo.entity.User;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class UsersDashboardController {
 
     private final UserDashboardService userDashboardService;
+    private final LoanService loanService;
 
     @GetMapping("/dashboard")
 public String dashboard(HttpSession session, Model model) {
@@ -38,4 +45,23 @@ public String dashboard(HttpSession session, Model model) {
 
     return "user-dashboard";
 }
+//    @PostMapping("/request-loans")
+//    public String requestLoans(
+//            @RequestParam List<Long> assetIds,
+//            HttpSession session) {
+//
+//        User user = (User) session.getAttribute("user");
+//
+//        for (Long assetId : assetIds) {
+//
+//            LoanRequestDTO dto = new LoanRequestDTO();
+//            dto.setUserId(user.getUserId());
+//            dto.setAssetId(assetId);
+//
+//            LoanService.createMultipleLoanRequests(dto);
+//        }
+//
+//        return "redirect:/user-dashboard";
+//    }
+
 }

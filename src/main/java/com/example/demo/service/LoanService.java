@@ -137,6 +137,21 @@ public class LoanService {
         return saved;
     }
 
+    //method for multiple loans
+
+    public void createMultipleLoanRequests(
+            Long userId,
+            List<Long> assetIds) {
+
+        for (Long assetId : assetIds) {
+
+            LoanRequestDTO dto = new LoanRequestDTO();
+            dto.setUserId(userId);
+            dto.setAssetId(assetId);
+
+            createLoanRequest(dto);
+        }
+    }
     // different methods for approving and rejecting a loan
     //APPROVING A LOAN
     public Loan approveLoan(Long loanId) {
