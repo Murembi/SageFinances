@@ -12,6 +12,8 @@ public class DashboardDTO {
     private Long totalLoans;
     private long overdueLoans;
 
+    private Long totalUsers;
+
     private Long totalAssets;
     private Long availableAssets;
     private Long loanedAssets;

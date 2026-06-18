@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 public class PendingLoanDTO {
+
+    private Long id;
     private String borrowerName;
     private String assetTitle;
     private LocalDateTime requestDate;

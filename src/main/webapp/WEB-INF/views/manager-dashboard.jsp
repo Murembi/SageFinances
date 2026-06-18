@@ -121,11 +121,11 @@
 
                 <c:forEach items="${loanRequests}" var="req">
                     <tr>
-                        <td>${req.assetName}</td>
+                        <td>${req.assetTitle}</td>
                         <td>${req.borrowerName}</td>
                         <td>${req.requestDate}</td>
                         <td>${req.dueDate}</td>
-                        <td>${req.status}</td>
+
 
                         <td>
                             <form action="${pageContext.request.contextPath}/manager/request/approve/${req.id}"
