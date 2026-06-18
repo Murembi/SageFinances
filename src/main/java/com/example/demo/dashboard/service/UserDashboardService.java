@@ -2,6 +2,7 @@ package com.example.demo.dashboard.service;
 
 import com.example.demo.dashboard.dto.AvailableAssetDTO;
 import com.example.demo.dashboard.dto.MyLoanedAssetDTO;
+import com.example.demo.dashboard.dto.PendingLoanDTO;
 import com.example.demo.dashboard.dto.UserLoanDTO;
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Asset;
@@ -23,33 +24,42 @@ public class UserDashboardService {
     public DashboardDTO getUserDashboard(Long userId){
         DashboardDTO dto = new DashboardDTO();
 
+        dto.setAvailableAssets(
+                assetRepository.countByStatus(Asset.Status.AVAILABLE)
+        );
+
         dto.setMyLoans(
-                loanRepository.countByUser_UserId(userId)
+                loanRepository.countByUser_UserIdAndStatus(
+                        userId,
+                        Loan.Status.APPROVED
+                )
         );
         //
         dto.setMyPendingRequests(
-                // SELECT COUNT(*) FROM loan WHERE user_id = 3 AND status = 'PENDING';
-                loanRepository.countByUser_UserIdAndStatus(userId, Loan.Status.PENDING)
+                loanRepository.countByUser_UserIdAndStatus(
+                        userId,
+                        Loan.Status.PENDING
+                )
         );
 
         return dto;
     }
 
 
-    public List<UserLoanDTO> getMyPendingRequests(Long userId) {
+    public List<PendingLoanDTO> getMyPendingRequests(Long userId) {
 
         List<Loan> loans = loanRepository.findByUser_UserIdAndStatus(
                 userId,
                 Loan.Status.PENDING
         );
 
-        List<UserLoanDTO> list = new ArrayList<>();
+        List<PendingLoanDTO> list = new ArrayList<>();
 
         for (Loan loan : loans) {
 
-            UserLoanDTO dto = new UserLoanDTO();
+            PendingLoanDTO dto = new PendingLoanDTO();
 
-            dto.setAssetName(loan.getAsset().getTitle());
+            dto.setAssetTitle(loan.getAsset().getTitle());
             dto.setRequestDate(loan.getRequestDate());
             dto.setStatus(loan.getStatus().name());
 

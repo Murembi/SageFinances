@@ -15,23 +15,13 @@ public class AdminsDashboardController {
     @GetMapping("/admin/dashboard")
     public String adminDashboard(Model model) {
 
-        // 1. Dashboard numbers (cards)
-        model.addAttribute(
-                "dashboard",
-                adminDashboardService.getAdminDashboard()
-        );
+        // shared dashboard stats only
+        model.addAttribute("dashboard", adminDashboardService.getAdminDashboard());
 
-        // 2. Audit log table data
-        model.addAttribute(
-                "auditLogs",
-                adminDashboardService.getAuditLogs()
-        );
-
-        // 3. Sidebar user info (temporary example)
+        // shared UI info
         model.addAttribute("username", "admin");
-        model.addAttribute("userRole", "admin");
+        model.addAttribute("userRole", "ADMIN");
 
-        // 4. Return JSP file name
         return "adminDashboard";
     }
 }

@@ -6,5 +6,4 @@ import lombok.Data;
 public class UserDashboardSummaryDTO {
 
     private long myLoans;
-    private long myPendingRequests;
 }
