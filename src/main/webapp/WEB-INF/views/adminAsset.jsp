@@ -10,7 +10,6 @@
 
 <!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
 <div>
-
     <!-- Logo -->
     <div>
         <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
@@ -29,8 +28,6 @@
 
 </div>
 
-
-
 <!-- ================= NAVIGATION (SHARED) ================= -->
         <div>
            <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
@@ -44,12 +41,11 @@
 
 </div>
 
-
 <!-- ================= CREATE ASSET ================= -->
 
 <h3>Create Asset</h3>
 
-<form action="/jsp/assets/create" method="post">
+<form action="${pageContext.request.contextPath}/admin/assets/create" method="post">
 
     Title: <input type="text" name="title"><br>
     Category: <input type="text" name="category"><br>
@@ -60,8 +56,6 @@
 
     <button type="submit">Create</button>
 </form>
-
-
 
 <!-- ================= SEARCH ================= -->
 
@@ -115,13 +109,23 @@
 
             <td>
 
-                <a href="/assets/edit/${a.assetId}">
+                <button type="button"
+                        onclick="openModal(
+                            '${a.assetId}',
+                            '${a.title}',
+                            '${a.category}',
+                            '${a.serialNumber}',
+                            '${a.cost}',
+                            '${a.location}',
+                            '${a.condition}',
+                            '${a.status}'
+                        )">
                     Edit
-                </a>
+                </button>
 
                 |
 
-                <form action="/jsp/assets/delete/${a.assetId}"
+                <form action="${pageContext.request.contextPath}/admin/assets/delete/${a.assetId}"
                       method="post"
                       style="display:inline;">
 
@@ -136,17 +140,128 @@
     </c:forEach>
 
 </table>
+<div id="editModal"
+     style="display:none;
+            position:fixed;
+            top:20%;
+            left:35%;
+            background:white;
+            border:1px solid black;
+            padding:20px;">
+
+    <h3>Edit Asset</h3>
+
+    <form action="${pageContext.request.contextPath}/admin/assets/update"
+          method="post">
+
+        <input type="hidden" id="editId" name="assetId">
+
+        Title:
+        <input type="text" id="editTitle" name="title"><br><br>
+
+        Category:
+        <input type="text" id="editCategory" name="category"><br><br>
+
+        Serial:
+        <input type="text" id="editSerial" name="serialNumber"><br><br>
+
+        Cost:
+        <input type="number" step="0.01" id="editCost" name="cost"><br><br>
+
+        Location:
+        <input type="text" id="editLocation" name="location"><br><br>
+
+        Condition:
+        <input type="text" id="editCondition" name="condition"><br><br>
+
+        Status:
+        <select id="editStatus" name="status">
+            <option value="AVAILABLE">AVAILABLE</option>
+            <option value="LOANED">LOANED</option>
+            <option value="RETIRED">RETIRED</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Update</button>
+        <button type="button" onclick="closeModal()">Cancel</button>
+
+    </form>
+</div>
 
 <!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
+
+<!--Terms Modal-->
+<div id="termsModal" style="display:none; position:fixed; top:15%; left:25%; width:50%; background:white; border:1px solid #000; padding:20px; z-index:9999;">
+    <h2>Terms & Conditions</h2>
+
+    <p>
+        Users must handle assets responsibly. All actions are logged and monitored.
+    </p>
+
+    <ul>
+        <li>No unauthorized asset edits</li>
+        <li>Data must be accurate</li>
+        <li>System misuse may result in access removal</li>
+    </ul>
+
+    <button onclick="closeTerms()">Close</button>
+</div>
+
+<!--Contact Modal-->
+<div id="contactModal" style="display:none; position:fixed; top:15%; left:25%; width:50%; background:white; border:1px solid #000; padding:20px; z-index:9999;">
+    <h2>Contact Us</h2>
+
+    <p>Email: support@sageassets.com</p>
+    <p>Phone: +27 11 000 0000</p>
+
+    <button onclick="closeContact()">Close</button>
+</div>
 <div>
-    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
-    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
+    <a href="#" onclick="openTerms()">Terms & Conditions</a> |
+    <a href="#" onclick="openContact()">Contact Us</a>
 </div>
 
 <script>
     function clearSearch() {
             document.querySelector('input[name="keyword"]').value = '';
         }
+<!--Edit Modal Popup Function-->
+<script>
+
+function openModal(id, title, category, serial, cost, location, condition) {
+
+    document.getElementById("editId").value = id;
+    document.getElementById("editTitle").value = title;
+    document.getElementById("editCategory").value = category;
+    document.getElementById("editSerial").value = serial;
+    document.getElementById("editCost").value = cost;
+    document.getElementById("editLocation").value = location;
+    document.getElementById("editCondition").value = condition;
+     document.getElementById("editStatus").value = status;
+
+    document.getElementById("editModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("editModal").style.display = "none";
+}
+
+//Terms and conditions | Contact Us js
+function openTerms() {
+    document.getElementById("termsModal").style.display = "block";
+}
+
+function closeTerms() {
+    document.getElementById("termsModal").style.display = "none";
+}
+
+function openContact() {
+    document.getElementById("contactModal").style.display = "block";
+}
+
+function closeContact() {
+    document.getElementById("contactModal").style.display = "none";
+}
 </script>
 
 </body>
