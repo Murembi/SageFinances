@@ -25,6 +25,13 @@ public class AuditLogService {
             String oldValue,
             String newValue
     ) {
+        if (newValue != null && newValue.length() > 1000) {
+            newValue = newValue.substring(0, 1000);
+        }
+
+        if (oldValue != null && oldValue.length() > 1000) {
+            oldValue = oldValue.substring(0, 1000);
+        }
         AuditLog log = new AuditLog();
 
         log.setUser(user);
