@@ -73,7 +73,7 @@
 
     <button type="submit">Search</button>
 
-    <a href="/assets">Reset</a>
+    <button type="button" onclick="clearSearch()">Reset</button>
 
 </form>
 
@@ -139,6 +139,12 @@
     <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
+
+<script>
+    function clearSearch() {
+            document.querySelector('input[name="keyword"]').value = '';
+        }
+</script>
 
 </body>
 </html>

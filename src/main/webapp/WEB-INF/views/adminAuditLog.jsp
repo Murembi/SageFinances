@@ -41,7 +41,7 @@
 <!-- ================= SEARCH BAR ================= -->
 <h3>Search Audit Logs</h3>
 
-<form method="get" action="${pageContext.request.contextPath}/admin/audit-log">
+<form method="get" action="${pageContext.request.contextPath}/admin/auditlog">
 
     <input type="text"
            name="keyword"
@@ -105,8 +105,8 @@
 
 <script>
     function clearSearch() {
-        window.location.href = "${pageContext.request.contextPath}/admin/audit-log";
-    }
+            document.querySelector('input[name="keyword"]').value = '';
+        }
 </script>
 
 </body>
