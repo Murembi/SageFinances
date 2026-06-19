@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Asset;
 import com.example.demo.service.AssetService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -27,10 +29,10 @@ public class AssetController {
 
     // add multiple assets //2// Has a bug that skips id's if trying to enter duplicate assets
     @PostMapping("/bulk")
-    public List<Asset> createAssets(@RequestBody List<Asset> assets){
-        return service.addMultipleAssets(assets);
+    public ResponseEntity<?> createAssets(@RequestBody List<Asset> assets){
+        service.addMultipleAssets(assets);
+        return ResponseEntity.ok("Assets created successfully");
     }
-
     // list all assets //3//DONE
     @GetMapping
     public List<Asset> getAllAssets() {

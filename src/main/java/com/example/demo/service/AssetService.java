@@ -28,9 +28,7 @@ public class AssetService {
     public Asset addAsset(Asset asset) {
         asset.setCreatedAt(LocalDateTime.now());
         asset.setAcquisitionDate(LocalDate.now());
-        asset.setStatus(AVAILABLE);
-
-
+        asset.setStatus(Asset.Status.AVAILABLE);
         Asset saved = repository.save(asset);
 
         auditLogService.createAuditLog(
@@ -218,7 +216,10 @@ public class AssetService {
 
         return result;
     }
-
+    //Edit Assets
+    public Asset updateAsset(Asset asset) {
+        return repository.save(asset);
+    }
     // 14 // update full asset
     public Asset editAsset(Long id, Asset updatedAsset) {
 
