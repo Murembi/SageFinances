@@ -119,27 +119,45 @@
 
             <tbody>
 
-                <c:forEach items="${loanRequests}" var="req">
-                    <tr>
-                        <td>${req.assetTitle}</td>
-                        <td>${req.borrowerName}</td>
-                        <td>${req.requestDate}</td>
-                        <td>${req.dueDate}</td>
+            <c:forEach items="${loanRequests}" var="req">
+                <tr>
 
+                    <td>${req.assetTitle}</td>
+                    <td>${req.borrowerName}</td>
+                    <td>${req.requestDate}</td>
+                    <td>${req.dueDate}</td>
+                    <td>${req.status}</td>
 
-                        <td>
-                            <form action="${pageContext.request.contextPath}/manager/request/approve/${req.id}"
-                                  method="post" style="display:inline;">
-                                <button type="submit" class="approve-btn">Approve</button>
-                            </form>
+                    <td>
 
-                            <form action="${pageContext.request.contextPath}/manager/request/reject/${req.id}"
-                                  method="post" style="display:inline;">
-                                <button type="submit" class="reject-btn">Reject</button>
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+                        <form action="${pageContext.request.contextPath}/manager/dashboard/approve"
+                              method="post"
+                              style="display:inline;">
+
+                            <input type="hidden" name="loanId" value="${req.id}" />
+
+                            <button type="submit" class="approve-btn">
+                                Approve
+                            </button>
+
+                        </form>
+
+                        <form action="${pageContext.request.contextPath}/manager/dashboard/reject"
+                              method="post"
+                              style="display:inline;">
+
+                            <input type="hidden" name="loanId" value="${req.id}" />
+
+                            <button type="submit" class="reject-btn">
+                                Reject
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+            </c:forEach>
 
             </tbody>
         </table>
