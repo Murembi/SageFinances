@@ -177,7 +177,7 @@ public class LoanService {
 
         Loan saved = loanRepository.save(loan);
 
-        // ✅ AUDIT LOG ADDED
+        // AUDIT LOG ADDED
         auditLogService.createAuditLog(
                 loan.getUser(),
                 "LOAN",
@@ -205,7 +205,7 @@ public class LoanService {
 
         Loan saved = loanRepository.save(loan);
 
-        // ✅ AUDIT LOG ADDED
+        // AUDIT LOG ADDED
         auditLogService.createAuditLog(
                 loan.getUser(),
                 "LOAN",
