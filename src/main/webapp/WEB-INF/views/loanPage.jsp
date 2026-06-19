@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Loan Management</title>
+    <title>Loan</title>
 </head>
 <body>
 

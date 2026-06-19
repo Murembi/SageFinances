@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin User Page</title>
+    <title>User</title>
 </head>
 <body>
 

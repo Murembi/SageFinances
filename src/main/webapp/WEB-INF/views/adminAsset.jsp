@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Asset Management</title>
+    <title>Asset</title>
 </head>
 <body>
 
