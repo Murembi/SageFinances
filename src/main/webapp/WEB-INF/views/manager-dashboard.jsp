@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asset Management System | Manager Dashboard</title>
+<title>Manager Dashboard</title>
 
 <!-- External CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css">
@@ -15,42 +15,36 @@
 
 <body>
 
-<div id="customAlert" class="alert"></div>
+<!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
+<div>
 
-<!-- HEADER -->
-<header class="header">
-    <div class="logo">
-        <img src="${pageContext.request.contextPath}/resources/images/mecer-inter-ed-logo.jpg"
-             alt="Logo" class="logo-img">
+    <!-- Logo -->
+    <div>
+        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+             alt="Logo"
+             width="120">
     </div>
-    <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
-</header>
 
-<div class="container">
+    <!-- System Title -->
+    <h2>Manager Dashboard</h2>
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="sidebar">
+    <!-- User Info -->
+    <p>
+        Username: ${username} <br>
+        Role: ${userRole}
+    </p>
 
-        <div class="profile-widget">
-            <label>Username</label><br>
-            <input type="text" value="${manager.username}" readonly><br>
+</div>
 
-            <label>User Role</label><br>
-            <input type="text" value="Manager" readonly>
+
+
+<!-- ================= NAVIGATION (SHARED) ================= -->
+        <div>
+           <a href="${pageContext.request.contextPath}/settings">Settings</a> |
+           <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
         </div>
 
-        <ul class="sidebar-menu">
-            <li><a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/assets">Assets</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/requests">Requests</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/settings">Settings</a></li>
-        </ul>
 
-        <form action="${pageContext.request.contextPath}/logout" method="post">
-            <button type="submit" class="logout-btn">Logout →</button>
-        </form>
-
-    </aside>
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="main-content">
@@ -119,27 +113,45 @@
 
             <tbody>
 
-                <c:forEach items="${loanRequests}" var="req">
-                    <tr>
-                        <td>${req.assetTitle}</td>
-                        <td>${req.borrowerName}</td>
-                        <td>${req.requestDate}</td>
-                        <td>${req.dueDate}</td>
+            <c:forEach items="${loanRequests}" var="req">
+                <tr>
 
+                    <td>${req.assetTitle}</td>
+                    <td>${req.borrowerName}</td>
+                    <td>${req.requestDate}</td>
+                    <td>${req.dueDate}</td>
+                    <td>${req.status}</td>
 
-                        <td>
-                            <form action="${pageContext.request.contextPath}/manager/request/approve/${req.id}"
-                                  method="post" style="display:inline;">
-                                <button type="submit" class="approve-btn">Approve</button>
-                            </form>
+                    <td>
 
-                            <form action="${pageContext.request.contextPath}/manager/request/reject/${req.id}"
-                                  method="post" style="display:inline;">
-                                <button type="submit" class="reject-btn">Reject</button>
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+                        <form action="${pageContext.request.contextPath}/manager/dashboard/approve"
+                              method="post"
+                              style="display:inline;">
+
+                            <input type="hidden" name="loanId" value="${req.id}" />
+
+                            <button type="submit" class="approve-btn">
+                                Approve
+                            </button>
+
+                        </form>
+
+                        <form action="${pageContext.request.contextPath}/manager/dashboard/reject"
+                              method="post"
+                              style="display:inline;">
+
+                            <input type="hidden" name="loanId" value="${req.id}" />
+
+                            <button type="submit" class="reject-btn">
+                                Reject
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+            </c:forEach>
 
             </tbody>
         </table>

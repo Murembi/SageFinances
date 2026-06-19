@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASSET MANAGEMENT SYSTEM</title>
+<title>Login</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -30,9 +30,7 @@
 <!-- ================= AUTH CONTAINER ================= -->
 <div class="auth-container">
 
-    <div class="toggle-buttons">
-        <button class="toggle">Log In</button>
-    </div>
+
 
     <!-- LOGIN FORM -->
     <form id="logInForm"
@@ -81,7 +79,7 @@
     <p><i class="fa-solid fa-envelope"></i> info@mecerintered.co.za</p>
     <p><i class="fa-solid fa-phone"></i> (+27) 10 730 0860</p>
 
-    <button onclick="closePopup()">Close</button>
+
 </div>
 
 <!-- ================= JS ================= -->

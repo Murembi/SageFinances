@@ -56,4 +56,29 @@ public class AuditLogService {
                 .orElseThrow(() -> new RuntimeException("Audit log not found"));
     }
 
+
+    //search
+    public List<AuditLog> searchLogs(String keyword) {
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return repository.findAll();
+        }
+
+        String lower = keyword.toLowerCase();
+
+        return repository.findAll()
+                .stream()
+                .filter(log ->
+                        (log.getUser() != null &&
+                                log.getUser().getName() != null &&
+                                log.getUser().getName().toLowerCase().contains(lower))
+                                ||
+                                (log.getEntityType() != null &&
+                                        log.getEntityType().toLowerCase().contains(lower))
+                                ||
+                                (log.getAction() != null &&
+                                        log.getAction().toLowerCase().contains(lower))
+                )
+                .toList();
+    }
 }

@@ -158,23 +158,32 @@ public class LoanService {
 
         Loan loan = getLoanById(loanId);
 
-        //only
         if (loan.getStatus() != Loan.Status.PENDING) {
             throw new IllegalStateException("Only pending loans can be processed");
         }
 
-        Loan.Status old = loan.getStatus();
+        Asset asset = loan.getAsset();
+
+        if (asset.getStatus() != Asset.Status.AVAILABLE) {
+            throw new IllegalStateException("Asset not available");
+        }
+
+        Loan.Status oldStatus = loan.getStatus();
 
         loan.setStatus(Loan.Status.APPROVED);
+        asset.setStatus(Asset.Status.LOANED);
+
+        assetRepository.save(asset);
 
         Loan saved = loanRepository.save(loan);
 
+        // AUDIT LOG ADDED
         auditLogService.createAuditLog(
-                null,
+                loan.getUser(),
                 "LOAN",
                 loanId,
                 "APPROVE",
-                old.name(),
+                oldStatus.name(),
                 Loan.Status.APPROVED.name()
         );
 
@@ -182,27 +191,27 @@ public class LoanService {
     }
 
     //REJECTING A LOAN
-    public Loan rejectLoan(Long loanId){
+    public Loan rejectLoan(Long loanId) {
 
         Loan loan = getLoanById(loanId);
 
-        //only pending loans can be approved
         if (loan.getStatus() != Loan.Status.PENDING) {
             throw new IllegalStateException("Only pending loans can be processed");
         }
 
-        Loan.Status old = loan.getStatus();
+        Loan.Status oldStatus = loan.getStatus();
 
         loan.setStatus(Loan.Status.REJECTED);
 
         Loan saved = loanRepository.save(loan);
 
+        // AUDIT LOG ADDED
         auditLogService.createAuditLog(
-                null,
+                loan.getUser(),
                 "LOAN",
                 loanId,
                 "REJECT",
-                old.name(),
+                oldStatus.name(),
                 Loan.Status.REJECTED.name()
         );
 

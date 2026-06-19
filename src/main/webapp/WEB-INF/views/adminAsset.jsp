@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Asset Management</title>
+    <title>Asset</title>
 </head>
 <body>
 
@@ -34,6 +34,7 @@
            <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
            <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
            <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
+           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
            <a href="${pageContext.request.contextPath}/settings">Settings</a> |
            <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
         </div>
@@ -62,11 +63,14 @@
 
 <form method="get" action="${pageContext.request.contextPath}/admin/assets">
 
-    <input type="text" name="keyword" placeholder="Search assets...">
+    <input type="text"
+           name="keyword"
+           placeholder="Search assets..."
+           value="${keyword}">
 
     <button type="submit">Search</button>
 
-    <a href="${pageContext.request.contextPath}/admin/assets">Reset</a>
+    <button type="button" onclick="clearSearch()">Reset</button>
 
 </form>
 
@@ -217,6 +221,10 @@
     <a href="#" onclick="openContact()">Contact Us</a>
 </div>
 
+<script>
+    function clearSearch() {
+            document.querySelector('input[name="keyword"]').value = '';
+        }
 <!--Edit Modal Popup Function-->
 <script>
 
