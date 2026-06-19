@@ -67,9 +67,12 @@
 
 <h3>Search Assets</h3>
 
-<form method="get" action="/assets">
+<form method="get" action="${pageContext.request.contextPath}/admin/assets">
 
-    <input type="text" name="keyword" placeholder="Search assets...">
+    <input type="text"
+           name="keyword"
+           placeholder="Search assets..."
+           value="${keyword}">
 
     <button type="submit">Search</button>
 

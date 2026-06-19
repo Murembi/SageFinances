@@ -27,8 +27,7 @@ public class AssetPageController {
 
         List<Asset> assets;
 
-        // simple search (matches your JSP search bar)
-        if (keyword != null && !keyword.isEmpty()) {
+        if (keyword != null && !keyword.trim().isEmpty()) {
             assets = service.searchByTitle(keyword);
         } else {
             assets = service.getAllAssets();
@@ -37,7 +36,7 @@ public class AssetPageController {
         model.addAttribute("assets", assets);
         model.addAttribute("keyword", keyword);
 
-        return "adminAsset"; // -> /WEB-INF/views/adminAsset.jsp
+        return "adminAsset";
     }
 
     // =========================

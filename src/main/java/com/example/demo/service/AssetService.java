@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.example.demo.entity.Asset.Status.AVAILABLE;
+
 @Service
 public class AssetService {
 
@@ -25,6 +27,9 @@ public class AssetService {
     // 1 // add 1 asset
     public Asset addAsset(Asset asset) {
         asset.setCreatedAt(LocalDateTime.now());
+        asset.setAcquisitionDate(LocalDate.now());
+        asset.setStatus(AVAILABLE);
+
 
         Asset saved = repository.save(asset);
 
@@ -419,7 +424,7 @@ public class AssetService {
     public List<Asset> getAvailableAssets() {
 
         List<Asset> assets =
-                repository.findByStatus(Asset.Status.AVAILABLE);
+                repository.findByStatus(AVAILABLE);
 
         auditLogService.createAuditLog(
                 null,
@@ -427,7 +432,7 @@ public class AssetService {
                 null,
                 "FILTER_STATUS",
                 null,
-                Asset.Status.AVAILABLE.name()
+                AVAILABLE.name()
         );
 
         return assets;
