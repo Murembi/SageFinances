@@ -37,6 +37,7 @@
            <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
            <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
            <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
+           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
            <a href="${pageContext.request.contextPath}/settings">Settings</a> |
            <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
         </div>

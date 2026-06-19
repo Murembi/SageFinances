@@ -37,6 +37,7 @@
            <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
            <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
            <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
+           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
            <a href="${pageContext.request.contextPath}/settings">Settings</a> |
            <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
         </div>
@@ -44,34 +45,42 @@
 
 
 <!-- ================= DASHBOARD CONTENT ================= -->
+<!-- ================= DASHBOARD CONTENT ================= -->
 <h3>System Overview</h3>
 
-<table border="1">
-    <tr>
-        <td>Total Assets</td>
-        <td>${dashboard.totalAssets}</td>
-    </tr>
-    <tr>
-        <td>Available Assets</td>
-        <td>${dashboard.availableAssets}</td>
-    </tr>
-    <tr>
-        <td>Loaned Assets</td>
-        <td>${dashboard.loanedAssets}</td>
-    </tr>
-    <tr>
-        <td>Retired Assets</td>
-        <td>${dashboard.retiredAssets}</td>
-    </tr>
-    <tr>
-        <td>Total Users</td>
-        <td>${dashboard.totalUsers}</td>
-    </tr>
-    <tr>
-        <td>Pending Loans</td>
-        <td>${dashboard.pendingLoans}</td>
-    </tr>
-</table>
+<div class="admin-dashboard-cards">
+
+    <div class="card">
+        <h2>Total Assets</h2>
+        <label>${dashboard.totalAssets}</label>
+    </div>
+
+    <div class="card">
+        <h2>Available Assets</h2>
+        <label>${dashboard.availableAssets}</label>
+    </div>
+
+    <div class="card">
+        <h2>Loaned Assets</h2>
+        <label>${dashboard.loanedAssets}</label>
+    </div>
+
+    <div class="card">
+        <h2>Retired Assets</h2>
+        <label>${dashboard.retiredAssets}</label>
+    </div>
+
+    <div class="card">
+        <h2>Total Users</h2>
+        <label>${dashboard.totalUsers}</label>
+    </div>
+
+    <div class="card">
+        <h2>Pending Loans</h2>
+        <label>${dashboard.pendingLoans}</label>
+    </div>
+
+</div>
 
 
 

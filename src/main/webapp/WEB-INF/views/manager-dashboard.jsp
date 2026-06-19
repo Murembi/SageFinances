@@ -15,42 +15,40 @@
 
 <body>
 
-<div id="customAlert" class="alert"></div>
+<!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
+<div>
 
-<!-- HEADER -->
-<header class="header">
-    <div class="logo">
-        <img src="${pageContext.request.contextPath}/resources/images/mecer-inter-ed-logo.jpg"
-             alt="Logo" class="logo-img">
+    <!-- Logo -->
+    <div>
+        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+             alt="Logo"
+             width="120">
     </div>
-    <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
-</header>
 
-<div class="container">
+    <!-- System Title -->
+    <h2>Manager Dashboard</h2>
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="sidebar">
+    <!-- User Info -->
+    <p>
+        Username: ${username} <br>
+        Role: ${userRole}
+    </p>
 
-        <div class="profile-widget">
-            <label>Username</label><br>
-            <input type="text" value="${manager.username}" readonly><br>
+</div>
 
-            <label>User Role</label><br>
-            <input type="text" value="Manager" readonly>
+
+
+<!-- ================= NAVIGATION (SHARED) ================= -->
+        <div>
+           <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
+           <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
+           <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
+           <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
+           <a href="${pageContext.request.contextPath}/settings">Settings</a> |
+           <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
         </div>
 
-        <ul class="sidebar-menu">
-            <li><a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/assets">Assets</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/requests">Requests</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/settings">Settings</a></li>
-        </ul>
 
-        <form action="${pageContext.request.contextPath}/logout" method="post">
-            <button type="submit" class="logout-btn">Logout →</button>
-        </form>
-
-    </aside>
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="main-content">
