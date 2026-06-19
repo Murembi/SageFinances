@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Asset;
 import com.example.demo.service.AssetService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
