@@ -437,6 +437,29 @@ public class AssetService {
 
         return assets;
     }
+
+
+    //actuall working search method
+    public List<Asset> searchAssets(String keyword) {
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllAssets();
+        }
+
+        String k = keyword.toLowerCase();
+
+        return repository.findAll()
+                .stream()
+                .filter(a ->
+                        (a.getTitle() != null && a.getTitle().toLowerCase().contains(k)) ||
+                                (a.getCategory() != null && a.getCategory().toLowerCase().contains(k)) ||
+                                (a.getSerialNumber() != null && a.getSerialNumber().toLowerCase().contains(k)) ||
+                                (a.getLocation() != null && a.getLocation().toLowerCase().contains(k)) ||
+                                (a.getCondition() != null && a.getCondition().toLowerCase().contains(k)) ||
+                                (a.getStatus() != null && a.getStatus().name().toLowerCase().contains(k))
+                )
+                .toList();
+    }
 }
 
 

@@ -28,7 +28,7 @@ public class AssetPageController {
         List<Asset> assets;
 
         if (keyword != null && !keyword.trim().isEmpty()) {
-            assets = service.searchByTitle(keyword);
+            assets = service.searchAssets(keyword);
         } else {
             assets = service.getAllAssets();
         }
