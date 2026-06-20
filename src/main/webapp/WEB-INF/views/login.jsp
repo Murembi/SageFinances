@@ -58,10 +58,7 @@
             Log In <span class="arrow">&#8594;</span>
         </button>
 
-        <button type="button"
-                onclick="window.location.href='${pageContext.request.contextPath}/users/register'">
-            Register
-        </button>
+
 
 
     </form>
