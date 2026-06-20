@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Loan Management</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css">
 </head>
 <body>
 

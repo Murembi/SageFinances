@@ -1,8 +1,19 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.demo.dashboard.dto.AvailableAssetDTO" %>
 <%@ page import="com.example.demo.dashboard.dto.PendingLoanDTO" %>
 <%@ page import="com.example.demo.dashboard.dto.MyLoanedAssetDTO" %>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/css/styles.css">
+</head>
+<body>
 <h1>User Dashboard</h1>
 
 <div class="dashboard-cards">

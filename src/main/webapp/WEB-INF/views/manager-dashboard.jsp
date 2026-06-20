@@ -8,7 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Asset Management System | Manager Dashboard</title>
 
-<!-- External CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css">
 
 </head>
