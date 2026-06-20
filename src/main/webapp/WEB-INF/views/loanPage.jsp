@@ -136,21 +136,16 @@
 
             <td>
 
-                <a href="/loan-page/edit/${loan.loanId}">
-                    Edit
-                </a>
+                <c:if test="${loan.status == 'APPROVED'}">
+                    <form action="${pageContext.request.contextPath}/admin/loans/return/${loan.loanId}"
+                          method="post">
 
-                |
+                        <button type="submit">
+                            Return Asset
+                        </button>
 
-                <form action="${pageContext.request.contextPath}/admin/loans/delete/${loan.loanId}"
-                      method="post"
-                      >
-
-                    <button type="submit">
-                        Delete
-                    </button>
-
-                </form>
+                    </form>
+                </c:if>
 
             </td>
 
@@ -212,6 +207,27 @@
 
     </c:forEach>
 
+</table>
+<h2>Returned Assets</h2>
+
+<table border="1">
+    <tr>
+        <th>Loan ID</th>
+        <th>User</th>
+        <th>Asset</th>
+        <th>Status</th>
+        <th>Return Date</th>
+    </tr>
+
+    <c:forEach items="${returnedLoans}" var="loan">
+        <tr>
+            <td>${loan.loanId}</td>
+            <td>${loan.user.name}</td>
+            <td>${loan.asset.title}</td>
+            <td>${loan.status}</td>
+            <td>${loan.returnDate}</td>
+        </tr>
+    </c:forEach>
 </table>
 
 <!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->

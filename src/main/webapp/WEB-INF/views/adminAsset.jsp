@@ -93,7 +93,6 @@
         <th>Location</th>
         <th>Condition</th>
         <th>Status</th>
-        <th>Actions</th>
     </tr>
 
     <c:forEach var="a" items="${assets}">
@@ -108,25 +107,6 @@
             <td>${a.location}</td>
             <td>${a.condition}</td>
             <td>${a.status}</td>
-
-            <td>
-
-                <a href="/assets/edit/${a.assetId}">
-                    Edit
-                </a>
-
-                |
-
-                <form action="/jsp/assets/delete/${a.assetId}"
-                      method="post"
-                      style="display:inline;">
-
-                    <button type="submit">Delete</button>
-
-                </form>
-
-            </td>
-
         </tr>
 
     </c:forEach>

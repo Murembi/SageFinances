@@ -103,45 +103,71 @@
         </div>
 
         <!-- TABLE -->
-        <table class="ManagerDashboard-table">
-            <caption><h2>Loan Requests Queue</h2></caption>
+        <h2>Approved Loans</h2>
 
-            <thead>
+        <table border="1">
+
+            <tr>
+                <th>Loan ID</th>
+                <th>Asset</th>
+                <th>Borrower</th>
+                <th>Checkout Date</th>
+                <th>Due Date</th>
+                <th>Action</th>
+            </tr>
+
+            <c:forEach items="${approvedLoanList}" var="loan">
+
                 <tr>
-                    <th>Asset Name</th>
-                    <th>Borrower</th>
-                    <th>Request Date</th>
-                    <th>Due Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <td>${loan.loanId}</td>
+                    <td>${loan.asset.title}</td>
+                    <td>${loan.user.name}</td>
+                    <td>${loan.checkoutDate}</td>
+                    <td>${loan.dueDate}</td>
+
+                    <td>
+
+                        <form action="${pageContext.request.contextPath}/manager/dashboard/return/${loan.loanId}"
+                              method="post">
+
+                            <button type="submit">
+                                Return Asset
+                            </button>
+
+                        </form>
+
+                    </td>
+
                 </tr>
-            </thead>
 
-            <tbody>
+            </c:forEach>
 
-                <c:forEach items="${loanRequests}" var="req">
-                    <tr>
-                        <td>${req.assetTitle}</td>
-                        <td>${req.borrowerName}</td>
-                        <td>${req.requestDate}</td>
-                        <td>${req.dueDate}</td>
+        </table>
 
+        <h2>Returned Assets</h2>
 
-                        <td>
-                            <form action="${pageContext.request.contextPath}/admin/loans/approve/${req.id}"
-                                  method="post">
-                                <button type="submit" class="approve-btn">Approve</button>
-                            </form>
+        <table border="1">
 
-                            <form action="${pageContext.request.contextPath}/admin/loans/reject/${req.id}"
-                                  method="post" >
-                                <button type="submit" class="reject-btn">Reject</button>
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+            <tr>
+                <th>Loan ID</th>
+                <th>Asset</th>
+                <th>Borrower</th>
+                <th>Return Date</th>
+                <th>Status</th>
+            </tr>
 
-            </tbody>
+            <c:forEach items="${returnedLoans}" var="loan">
+
+                <tr>
+                    <td>${loan.loanId}</td>
+                    <td>${loan.asset.title}</td>
+                    <td>${loan.user.name}</td>
+                    <td>${loan.returnDate}</td>
+                    <td>${loan.status}</td>
+                </tr>
+
+            </c:forEach>
+
         </table>
 
     </main>

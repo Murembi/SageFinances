@@ -301,4 +301,21 @@ public class LoanService {
         return loanRepository.save(loan);
     }
 
+    public List<Loan> getReturnedLoans() {
+        return loanRepository.findByStatus(Loan.Status.RETURNED);
+    }
+
+    public Loan returnLoan(Long loanId) {
+
+        Loan loan = getLoanById(loanId);
+
+        loan.setStatus(Loan.Status.RETURNED);
+        loan.setReturnDate(LocalDateTime.now());
+        loan.getAsset().setStatus(Asset.Status.AVAILABLE);
+
+        return loanRepository.save(loan);
+    }
+
+
+
 }

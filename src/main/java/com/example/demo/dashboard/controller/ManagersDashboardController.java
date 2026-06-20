@@ -3,9 +3,13 @@ package com.example.demo.dashboard.controller;
 import java.util.List;
 
 import com.example.demo.dto.DashboardDTO;
+import com.example.demo.entity.Loan;
+import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.dashboard.dto.PendingLoanDTO;
@@ -20,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class ManagersDashboardController {
 
     private final ManagerDashboardService managerDashboardService;
+    private final LoanService loanService;
 
     @GetMapping
     public String managerDashboard(Model model) {
@@ -34,7 +39,11 @@ public class ManagersDashboardController {
         model.addAttribute("overdueLoans", dashboard.getOverdueLoans());
         model.addAttribute("pendingLoans", dashboard.getPendingLoans());
         model.addAttribute("retiredAssets", dashboard.getRetiredAssets());
+        model.addAttribute("approvedLoanList",
+                loanService.getLoansByStatus(Loan.Status.APPROVED));
 
+        model.addAttribute("returnedLoans",
+                loanService.getReturnedLoans());
         // table data
         List<PendingLoanDTO> pendingLoansList =
                 managerDashboardService.getPendingLoans();
@@ -42,5 +51,15 @@ public class ManagersDashboardController {
         model.addAttribute("loanRequests", pendingLoansList);
 
         return "manager-dashboard";
-    }  
+    }
+
+    @PostMapping("/return/{id}")
+    public String managerReturnLoan(@PathVariable Long id) {
+
+        loanService.returnLoan(id);
+
+        return "redirect:/manager/dashboard";
+    }
+
+
 }

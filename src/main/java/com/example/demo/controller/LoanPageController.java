@@ -40,6 +40,9 @@ public class LoanPageController {
                 loanService.getLoansByStatus(
                         Loan.Status.PENDING));
 
+        model.addAttribute("returnedLoans",
+                loanService.getReturnedLoans());
+
         return "loanPage";
     }
 
@@ -56,6 +59,12 @@ public class LoanPageController {
 
         loanService.createLoanRequest(dto);
 
+        return "redirect:/admin/loans";
+    }
+
+    @PostMapping("/return/{id}")
+    public String returnLoan(@PathVariable Long id) {
+        loanService.returnLoan(id);
         return "redirect:/admin/loans";
     }
 

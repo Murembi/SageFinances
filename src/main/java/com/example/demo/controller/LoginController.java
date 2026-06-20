@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.dashboard.service.ManagerDashboardService;
 import com.example.demo.dto.DashboardDTO;
+import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +23,13 @@ public class LoginController {
     private final UserService userService;
     private final UserDashboardService userDashboardService;
 
+    //private final ManagerDashboardService managerDashboardService;
+    //private final LoanService loanService;
+
     public LoginController(UserService userService,  UserDashboardService userDashboardService) {
         this.userService = userService;
         this.userDashboardService = userDashboardService;
     }
-
 
     @GetMapping("/loginpage")
     public String showLoginPage() {
