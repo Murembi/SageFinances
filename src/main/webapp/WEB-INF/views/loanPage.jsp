@@ -78,7 +78,7 @@
 
             <td>
 
-                <form action="/loan-page/request" method="post">
+                <form action="${pageContext.request.contextPath}/admin/loans/request" method="post">
 
                     <input type="hidden"
                            name="assetId"
@@ -142,9 +142,9 @@
 
                 |
 
-                <form action="/loan-page/delete/${loan.loanId}"
+                <form action="${pageContext.request.contextPath}/admin/loans/delete/${loan.loanId}"
                       method="post"
-                      style="display:inline;">
+                      >
 
                     <button type="submit">
                         Delete
@@ -177,19 +177,19 @@
         <th>Actions</th>
     </tr>
 
-    <c:forEach items="${requests}" var="request">
+    <c:forEach items="${requests}" var="loanRequest">
 
         <tr>
 
-            <td>${request.loanId}</td>
-            <td>${request.user.name}</td>
-            <td>${request.asset.title}</td>
-            <td>${request.status}</td>
-            <td>${request.requestDate}</td>
+            <td>${loanRequest.loanId}</td>
+            <td>${loanRequest.user.name}</td>
+            <td>${loanRequest.asset.title}</td>
+            <td>${loanRequest.status}</td>
+            <td>${loanRequest.requestDate}</td>
 
             <td>
 
-                <form action="/loan-page/approve/${request.loanId}"
+                <form action="${pageContext.request.contextPath}/admin/loans/approve/${loanRequest.loanId}"
                       method="post">
 
                     <button type="submit">
@@ -198,9 +198,8 @@
 
                 </form>
 
-                <form action="/loan-page/reject/${request.loanId}"
+                <form action="${pageContext.request.contextPath}/admin/loans/reject/${loanRequest.loanId}"
                       method="post">
-
                     <button type="submit">
                         Reject
                     </button>

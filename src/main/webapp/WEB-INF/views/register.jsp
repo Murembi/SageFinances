@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +21,9 @@
           method="post"
           autocomplete="off">
         <h1>Register User</h1>
+        <c:if test="${not empty error}">
+            <p>${error}</p>
+        </c:if>
 
         <div class="input-group">
             <input type="text" id="name" name="name" required>
@@ -37,12 +41,6 @@
         </div>
 
         <div class="input-group">
-            <select id="role" name="role" required>
-                <option value="">Select Role</option>
-                <option value="MANAGER">Manager</option>
-                <option value="BORROWER">Borrower</option>
-                <option value="ADMIN">Admin</option>
-            </select>
         </div>
 
         <div class="input-group">

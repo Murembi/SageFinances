@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,6 +42,9 @@
           autocomplete="off">
 
         <h1>Welcome!</h1>
+        <c:if test="${not empty error}">
+            <p>ERROR:${error}</p>
+        </c:if>
 
         <div class="input-group">
             <input type="email" name="email" id="loginEmail" required>
@@ -83,9 +87,6 @@
 
     <button onclick="closePopup()">Close</button>
 </div>
-
-<!-- ================= JS ================= -->
-<script src="${pageContext.request.contextPath}/script.js"></script>
 
 </body>
 </html>

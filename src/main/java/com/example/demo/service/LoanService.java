@@ -62,7 +62,7 @@ public class LoanService {
                 loanId,
                 "READ",
                 null,
-                loan.toString()
+                Loan.Status.APPROVED.name() //previous method cotained whole loan object
         );
 
         return loan;
@@ -165,8 +165,13 @@ public class LoanService {
 
         Loan.Status old = loan.getStatus();
 
+        LocalDateTime checkoutDate = LocalDateTime.now();
+        LocalDateTime dueDate = checkoutDate.plusDays(21);
         loan.setStatus(Loan.Status.APPROVED);
 
+        loan.setCheckoutDate(checkoutDate);
+        loan.setDueDate(dueDate);
+        loan.getAsset().setStatus(Asset.Status.LOANED);
         Loan saved = loanRepository.save(loan);
 
         auditLogService.createAuditLog(

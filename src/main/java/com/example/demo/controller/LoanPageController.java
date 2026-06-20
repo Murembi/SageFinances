@@ -43,6 +43,7 @@ public class LoanPageController {
         return "loanPage";
     }
 
+    //MODIFIED AND WORKS
     @PostMapping("/request")
     public String requestLoan(
             @RequestParam Long userId,
@@ -58,6 +59,7 @@ public class LoanPageController {
         return "redirect:/admin/loans";
     }
 
+    //MODIFIED AND WORKS
     @PostMapping("/approve/{id}")
     public String approveLoan(
             @PathVariable Long id) {

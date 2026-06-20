@@ -128,13 +128,13 @@
 
 
                         <td>
-                            <form action="${pageContext.request.contextPath}/manager/request/approve/${req.id}"
-                                  method="post" style="display:inline;">
+                            <form action="${pageContext.request.contextPath}/admin/loans/approve/${req.id}"
+                                  method="post">
                                 <button type="submit" class="approve-btn">Approve</button>
                             </form>
 
-                            <form action="${pageContext.request.contextPath}/manager/request/reject/${req.id}"
-                                  method="post" style="display:inline;">
+                            <form action="${pageContext.request.contextPath}/admin/loans/reject/${req.id}"
+                                  method="post" >
                                 <button type="submit" class="reject-btn">Reject</button>
                             </form>
                         </td>
