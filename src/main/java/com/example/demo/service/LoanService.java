@@ -131,7 +131,7 @@ public class LoanService {
                 saved.getLoanId(),
                 "CREATE",
                 null,
-                saved.toString()
+                "loan requested"
         );
 
         return saved;
@@ -244,7 +244,7 @@ public class LoanService {
                 null,
                 "FILTER_STATUS",
                 null,
-                status.name()
+                "loan Status requested"
         );
 
         return loans;

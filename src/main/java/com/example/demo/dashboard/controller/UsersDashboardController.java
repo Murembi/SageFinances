@@ -48,7 +48,7 @@ public class UsersDashboardController {
 
     @PostMapping("/request-loans")
     public String requestLoans(
-            @RequestParam(required = false) List<Long> assetIds,
+            @RequestParam(value = "assetIds", required = false) List<Long> assetIds,
             HttpSession session) {
 
         User user = (User) session.getAttribute("user");
@@ -61,6 +61,7 @@ public class UsersDashboardController {
         }
 
         if (assetIds == null || assetIds.isEmpty()) {
+            session.setAttribute("errorMessage", "Please select at least one asset.");
             return "redirect:/user-dashboard";
         }
 
@@ -71,7 +72,7 @@ public class UsersDashboardController {
             );
         } catch (IllegalStateException e) {
             session.setAttribute("errorMessage", e.getMessage());
-            return "redirect:/dashboard";
+            return "redirect:/user-dashboard";
         }
 
         session.setAttribute("successMessage", "Loan request submitted successfully");
