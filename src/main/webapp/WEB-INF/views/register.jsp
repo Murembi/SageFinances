@@ -9,7 +9,7 @@
     <title>Register User</title>
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/css/styles.css">
+          href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 

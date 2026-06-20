@@ -11,7 +11,7 @@
     <title>User Dashboard</title>
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/css/styles.css">
+          href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 <h1>User Dashboard</h1>
