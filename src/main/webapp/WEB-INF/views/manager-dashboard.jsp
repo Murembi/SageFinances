@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asset Management System | Manager Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management System | Manager Dashboard</title>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 
 <body>
@@ -20,8 +19,10 @@
 <header class="header">
     <div class="logo">
         <img src="${pageContext.request.contextPath}/resources/images/mecer-inter-ed-logo.jpg"
-             alt="Logo" class="logo-img">
+             alt="Logo"
+             class="logo-img">
     </div>
+
     <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
 </header>
 
@@ -31,18 +32,26 @@
     <aside id="sidebar" class="sidebar">
 
         <div class="profile-widget">
-            <label>Username</label><br>
-            <input type="text" value="${manager.username}" readonly><br>
+            <label>Username</label>
+            <input type="text" value="${manager.username}" readonly>
 
-            <label>User Role</label><br>
+            <label>User Role</label>
             <input type="text" value="Manager" readonly>
         </div>
 
         <ul class="sidebar-menu">
-            <li><a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/assets">Assets</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/requests">Requests</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/settings">Settings</a></li>
+            <li>
+                <a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/manager/assets">Assets</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/manager/requests">Requests</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/manager/settings">Settings</a>
+            </li>
         </ul>
 
         <form action="${pageContext.request.contextPath}/logout" method="post">
@@ -54,120 +63,121 @@
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="main-content">
 
-        <h1>Manager Dashboard</h1>
+        <section class="dashboard-header">
+            <h1>Manager Dashboard</h1>
+        </section>
 
-        <!-- CARDS -->
-        <div class="manager-dashboard-cards">
+        <!-- DASHBOARD CARDS -->
+        <section class="manager-dashboard-cards">
 
             <div class="card">
                 <h2>Total Assets</h2>
-                <label>${totalAssets}</label>
+                <span>${totalAssets}</span>
             </div>
 
             <div class="card">
                 <h2>Available Assets</h2>
-                <label>${availableAssets}</label>
-            </div>
-
-            <div class="card">
-                <h2>Approved Loans</h2>
-                <label>${approvedLoans}</label>
-            </div>
-
-            <div class="card">
-                <h2>Total Loans</h2>
-                <label>${totalLoans}</label>
+                <span>${availableAssets}</span>
             </div>
 
             <div class="card">
                 <h2>Loaned Assets</h2>
-                <label>${loanedAssets}</label>
+                <span>${loanedAssets}</span>
+            </div>
+
+            <div class="card">
+                <h2>Retired Assets</h2>
+                <span>${retiredAssets}</span>
+            </div>
+
+            <div class="card">
+                <h2>Total Loans</h2>
+                <span>${totalLoans}</span>
+            </div>
+
+            <div class="card">
+                <h2>Approved Loans</h2>
+                <span>${approvedLoans}</span>
             </div>
 
             <div class="card">
                 <h2>Pending Loans</h2>
-                <label>${pendingLoans}</label>
-            </div>
-            <!--
-            <div class="card">
-                <h2>Overdue Loans</h2>
-                <label>${overdueLoans}</label>
-            </div> -->
-
-            <div class="card">
-                <h2>Retired Assets</h2>
-                <label>${retiredAssets}</label>
+                <span>${pendingLoans}</span>
             </div>
 
-        </div>
+        </section>
 
-        <!-- TABLE -->
-        <h2>Approved Loans</h2>
+        <!-- APPROVED LOANS TABLE -->
+        <section class="table-section">
 
-        <table border="1">
+            <h2>Approved Loans</h2>
 
-            <tr>
-                <th>Loan ID</th>
-                <th>Asset</th>
-                <th>Borrower</th>
-                <th>Checkout Date</th>
-                <th>Due Date</th>
-                <th>Action</th>
-            </tr>
-
-            <c:forEach items="${approvedLoanList}" var="loan">
-
+            <table>
+                <thead>
                 <tr>
-                    <td>${loan.loanId}</td>
-                    <td>${loan.asset.title}</td>
-                    <td>${loan.user.name}</td>
-                    <td>${loan.checkoutDate}</td>
-                    <td>${loan.dueDate}</td>
-
-                    <td>
-
-                        <form action="${pageContext.request.contextPath}/manager/dashboard/return/${loan.loanId}"
-                              method="post">
-
-                            <button type="submit">
-                                Return Asset
-                            </button>
-
-                        </form>
-
-                    </td>
-
+                    <th>Loan ID</th>
+                    <th>Asset</th>
+                    <th>Borrower</th>
+                    <th>Checkout Date</th>
+                    <th>Due Date</th>
+                    <th>Action</th>
                 </tr>
+                </thead>
 
-            </c:forEach>
+                <tbody>
+                <c:forEach items="${approvedLoanList}" var="loan">
+                    <tr>
+                        <td>${loan.loanId}</td>
+                        <td>${loan.asset.title}</td>
+                        <td>${loan.user.name}</td>
+                        <td>${loan.checkoutDate}</td>
+                        <td>${loan.dueDate}</td>
 
-        </table>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/manager/dashboard/return/${loan.loanId}"
+                                  method="post">
+                                <button type="submit" class="return-btn">
+                                    Return Asset
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
 
-        <h2>Returned Assets</h2>
+        </section>
 
-        <table border="1">
+        <!-- RETURNED ASSETS TABLE -->
+        <section class="table-section">
 
-            <tr>
-                <th>Loan ID</th>
-                <th>Asset</th>
-                <th>Borrower</th>
-                <th>Return Date</th>
-                <th>Status</th>
-            </tr>
+            <h2>Returned Assets</h2>
 
-            <c:forEach items="${returnedLoans}" var="loan">
-
+            <table>
+                <thead>
                 <tr>
-                    <td>${loan.loanId}</td>
-                    <td>${loan.asset.title}</td>
-                    <td>${loan.user.name}</td>
-                    <td>${loan.returnDate}</td>
-                    <td>${loan.status}</td>
+                    <th>Loan ID</th>
+                    <th>Asset</th>
+                    <th>Borrower</th>
+                    <th>Return Date</th>
+                    <th>Status</th>
                 </tr>
+                </thead>
 
-            </c:forEach>
+                <tbody>
+                <c:forEach items="${returnedLoans}" var="loan">
+                    <tr>
+                        <td>${loan.loanId}</td>
+                        <td>${loan.asset.title}</td>
+                        <td>${loan.user.name}</td>
+                        <td>${loan.returnDate}</td>
+                        <td>${loan.status}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
 
-        </table>
+        </section>
 
     </main>
 

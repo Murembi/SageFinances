@@ -51,6 +51,11 @@
         <button type="submit" id="createUserBtn" class="submit-btn">
             Create User <span class="arrow">&#8594;</span>
         </button>
+
+        <p class="auth-switch">
+            Already have an account?
+            <a href="${pageContext.request.contextPath}/loginpage">Sign in</a>
+        </p>
     </form>
 </div>
 
