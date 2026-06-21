@@ -104,6 +104,10 @@
                 <h2>Pending Loans</h2>
                 <span>${pendingLoans}</span>
             </div>
+            <div class="card">
+                <h2>Overdue Loans</h2>
+                <p>${overdueLoans}</p>
+            </div>
 
         </section>
 
@@ -227,6 +231,35 @@
             </table>
 
         </section>
+
+        <!-- LOANS OVERDUE TABLE -->
+        <section class="table-section">
+
+        <h2>Overdue Loans</h2>
+
+        <table border="1">
+            <tr>
+                <th>Loan ID</th>
+                <th>User</th>
+                <th>Asset</th>
+                <th>Request Date</th>
+                <th>Due Date</th>
+                <th>Status</th>
+            </tr>
+
+            <c:forEach items="${overdueLoanList}" var="loan">
+                <tr>
+                    <td>${loan.loanId}</td>
+                    <td>${loan.user.name}</td>
+                    <td>${loan.asset.title}</td>
+                    <td>${loan.requestDate}</td>
+                    <td>${loan.dueDate}</td>
+                    <td>${loan.status}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </section>
+    </main>
 
     </main>
 

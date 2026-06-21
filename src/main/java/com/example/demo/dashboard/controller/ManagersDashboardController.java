@@ -43,9 +43,12 @@ public class ManagersDashboardController {
         model.addAttribute("retiredAssets", dashboard.getRetiredAssets());
         model.addAttribute("approvedLoanList",
                 loanService.getLoansByStatus(Loan.Status.APPROVED));
+        model.addAttribute("overdueLoans", dashboard.getOverdueLoans());
 
-        model.addAttribute("returnedLoans",
-                loanService.getReturnedLoans());
+        model.addAttribute(
+                "overdueLoanList",
+                managerDashboardService.getOverdueLoans()
+        );
         // table data
         List<PendingLoanDTO> pendingLoansList =
                 managerDashboardService.getPendingLoans();

@@ -316,6 +316,11 @@ public class LoanService {
         return loanRepository.save(loan);
     }
 
+    public long getOverdueLoansCount() {
+        return loanRepository
+                .countByDueDateBeforeAndReturnDateIsNull(
+                        LocalDateTime.now());
+    }
 
 
 }

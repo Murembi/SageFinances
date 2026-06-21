@@ -8,6 +8,7 @@ import com.example.demo.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -57,7 +58,11 @@ public class ManagerDashboardService {
         dto.setRetiredAssets(
                 assetRepository.countByStatus(Asset.Status.RETIRED)
         );
-
+        dto.setOverdueLoans(
+                loanRepository.countByStatusAndDueDateBefore(
+                        Loan.Status.APPROVED,
+                        LocalDateTime.now()
+                ));
 
         return dto;
     }
@@ -82,6 +87,13 @@ public class ManagerDashboardService {
 
     public List<Asset> getAvailableAssets() {
         return assetRepository.findByStatus(Asset.Status.AVAILABLE);
+    }
+
+    public List<Loan> getOverdueLoans() {
+        return loanRepository.findByStatusAndDueDateBefore(
+                Loan.Status.APPROVED,
+                LocalDateTime.now()
+        );
     }
 
 }
