@@ -61,6 +61,7 @@
 <table border="1">
 
     <tr>
+
         <th>ID</th>
         <th>Title</th>
         <th>Category</th>
@@ -165,6 +166,7 @@
 <table border="1">
 
     <tr>
+
         <th>Loan ID</th>
         <th>User</th>
         <th>Asset</th>

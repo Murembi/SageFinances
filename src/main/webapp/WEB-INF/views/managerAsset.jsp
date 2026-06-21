@@ -18,9 +18,11 @@
     <li>
         <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Assets</a>
     </li>
+    </ul>
 
 <table border="1">
     <tr>
+        <th>Image</th>
         <th>ID</th>
         <th>Title</th>
         <th>Category</th>
@@ -36,6 +38,11 @@
     %>
 
     <tr>
+        <td>
+            <img src="<%= request.getContextPath() + asset.getPhotoPath() %>"
+                 alt="<%= asset.getTitle() %>"
+                 width="100">
+        </td>
         <td><%= asset.getAssetId() %></td>
         <td><%= asset.getTitle() %></td>
         <td><%= asset.getCategory() %></td>

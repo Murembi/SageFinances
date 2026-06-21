@@ -37,7 +37,6 @@ public class RegisterController {
                 return "register";
             }
         }
-
         // returns the login page
     @GetMapping("/login")
     public String showLoginPage() {

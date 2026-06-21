@@ -43,7 +43,7 @@ public class UsersDashboardController {
         model.addAttribute("loanedAssets",
                 userDashboardService.getMyLoanedAssets(user.getUserId()));
 
-        return "user-dashboard";
+        return "redirect:/dashboard";
     }
 
     @PostMapping("/request-loans")
@@ -62,7 +62,7 @@ public class UsersDashboardController {
 
         if (assetIds == null || assetIds.isEmpty()) {
             session.setAttribute("errorMessage", "Please select at least one asset.");
-            return "redirect:/user-dashboard";
+            return "redirect:/dashboard";
         }
 
         try {
@@ -72,12 +72,12 @@ public class UsersDashboardController {
             );
         } catch (IllegalStateException e) {
             session.setAttribute("errorMessage", e.getMessage());
-            return "redirect:/user-dashboard";
+            return "redirect:/dashboard";
         }
 
         session.setAttribute("successMessage", "Loan request submitted successfully");
 
-        return "redirect:/user-dashboard";
+        return "redirect:/dashboard";
 
     }
 }

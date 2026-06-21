@@ -77,7 +77,8 @@ public class ManagerDashboardService {
                         loan.getAsset().getTitle(),
                         loan.getRequestDate(),
                         loan.getDueDate(),
-                        loan.getStatus().name()
+                        loan.getStatus().name(),
+                        loan.getAsset().getPhotoPath()
                 ))
                 .toList();
     }

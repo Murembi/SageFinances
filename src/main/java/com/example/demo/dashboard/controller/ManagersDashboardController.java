@@ -129,8 +129,4 @@ public class ManagersDashboardController {
         return "redirect:/manager/dashboard";
     }
 
-
-
-
-
 }

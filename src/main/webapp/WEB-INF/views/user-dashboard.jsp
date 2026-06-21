@@ -40,6 +40,7 @@
 
     <table border="1">
         <tr>
+            <th>Image</th>
             <th>Select</th>
             <th>ID</th>
             <th>Asset Name</th>
@@ -54,6 +55,13 @@
             for (AvailableAssetDTO asset : assets) {
         %>
         <tr>
+            <td>
+                <img src="<%= request.getContextPath() + asset.getPhotoPath() %>"
+                     alt="<%= asset.getAssetName() %>"
+                     width="80"
+                     height="80">
+            </td>
+
             <td>
                 <input type="checkbox"
                        name="assetIds"
@@ -77,6 +85,7 @@
 <h3>Pending Loans</h3>
 <table border="1">
     <tr>
+        <th>Image</th>
         <th>Asset Name</th>
         <th>Request Date</th>
         <th>Due Date</th>
@@ -89,6 +98,12 @@
         for (PendingLoanDTO loan : pendingLoans) {
     %>
     <tr>
+        <td>
+            <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
+                 alt="<%= loan.getAssetTitle() %>"
+                 width="80"
+                 height="80">
+        </td>
         <td><%= loan.getAssetTitle() %></td>
         <td><%= loan.getRequestDate() %></td>
         <td><%= loan.getDueDate() %></td>
@@ -101,6 +116,7 @@
 <h3>My Loaned Assets</h3>
 <table border="1">
     <tr>
+        <th>Image</th>
         <th>Asset Name</th>
         <th>Checkout Date</th>
         <th>Due Date</th>
@@ -113,7 +129,12 @@
 
         for (MyLoanedAssetDTO loan : loanedAssets) {
     %>
-    <tr>
+    <tr><td>
+        <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
+             alt="<%= loan.getAssetName() %>"
+             width="80"
+             height="80">
+    </td>
         <td><%= loan.getAssetName() %></td>
         <td><%= loan.getCheckoutDate() %></td>
         <td><%= loan.getDueDate() %></td>
