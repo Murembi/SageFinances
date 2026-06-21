@@ -38,7 +38,6 @@ public class ManagersDashboardController {
         model.addAttribute("approvedLoans", dashboard.getApprovedLoans());
         model.addAttribute("totalLoans", dashboard.getTotalLoans());
         model.addAttribute("loanedAssets", dashboard.getLoanedAssets());
-        model.addAttribute("overdueLoans", dashboard.getOverdueLoans());
         model.addAttribute("pendingLoans", dashboard.getPendingLoans());
         model.addAttribute("retiredAssets", dashboard.getRetiredAssets());
         model.addAttribute("approvedLoanList",
@@ -64,16 +63,6 @@ public class ManagersDashboardController {
 
         return "redirect:/manager/dashboard";
     }
-//    @GetMapping("/manager/assets")
-//    public String managerAssets(Model model) {
-//
-//        model.addAttribute(
-//                "assets",
-//                assetRepository.findAll()
-//        );
-//
-//        return "managerAsset";
-//    }
 
     @GetMapping("/assets")
     public String showAssetsPage(Model model) {
@@ -91,6 +80,44 @@ public class ManagersDashboardController {
 
         return "redirect:/manager/dashboard/assets";
     }
+
+    @GetMapping("/loanHistory")
+    public String showLoanHistoryPage(Model model) {
+        model.addAttribute("searched", false);
+        return "loanHistory";
+    }
+
+    @GetMapping("/loanHistory/user")
+    public String loanHistoryByUser(
+            @RequestParam String username,
+            Model model) {
+
+        model.addAttribute(
+                "loans",
+                loanService.getLoansByUser(username)
+        );
+        model.addAttribute("searched", true);
+
+
+        return "loanHistory";
+
+    }
+    @GetMapping("/loanHistory/asset")
+    public String loanHistoryByAsset(
+            @RequestParam String assetTitle,
+            Model model) {
+
+        model.addAttribute(
+                "loans",
+                loanService.getLoansByAsset(assetTitle)
+        );
+        model.addAttribute("searched", true);
+
+        return "loanHistory";
+    }
+
+
+
 
 
 }

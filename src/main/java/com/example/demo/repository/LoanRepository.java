@@ -21,8 +21,6 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
             Long assetId,
             Loan.Status status);
 
-    long countByUser_UserId(Long userId);
-
     long countByUser_UserIdAndStatus(Long userId, Loan.Status status);
 
     List<Loan> findByUser_UserIdAndStatus(Long userId, Loan.Status status);
@@ -34,11 +32,13 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
             Loan.Status status,
             LocalDateTime now
     );
-
     long countByStatusAndDueDateBefore(
             Loan.Status status,
             LocalDateTime now
     );
+
+    List<Loan> findByUser_NameContainingIgnoreCase(String name);
+    List<Loan> findByAsset_TitleContainingIgnoreCase(String title);
 }
 
 

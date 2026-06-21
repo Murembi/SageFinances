@@ -316,11 +316,16 @@ public class LoanService {
         return loanRepository.save(loan);
     }
 
-    public long getOverdueLoansCount() {
-        return loanRepository
-                .countByDueDateBeforeAndReturnDateIsNull(
-                        LocalDateTime.now());
+    //find loan by user
+    public List<Loan> getLoansByUser(String name) {
+        return loanRepository.findByUser_NameContainingIgnoreCase(name);
     }
+
+    //find loans by asset title
+    public List<Loan> getLoansByAsset(String title) {
+        return loanRepository.findByAsset_TitleContainingIgnoreCase(title);
+    }
+
 
 
 }

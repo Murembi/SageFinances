@@ -31,14 +31,6 @@
     <!-- SIDEBAR -->
     <aside id="sidebar" class="sidebar">
 
-        <div class="profile-widget">
-            <label>Username</label>
-            <input type="text" value="${manager.username}" readonly>
-
-            <label>User Role</label>
-            <input type="text" value="Manager" readonly>
-        </div>
-
         <ul class="sidebar-menu">
             <li>
                 <a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a>
@@ -46,14 +38,14 @@
             <li>
                 <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Assets</a>
             </li>
+
             <li>
-                <a href="${pageContext.request.contextPath}/manager/requests">Requests</a>
+                <a href="${pageContext.request.contextPath}/manager/dashboard/loanHistory">Reports</a>
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/manager/settings">Settings</a>
             </li>
         </ul>
-
         <form action="${pageContext.request.contextPath}/logout" method="post">
             <button type="submit" class="logout-btn">Logout →</button>
         </form>
@@ -259,8 +251,6 @@
             </c:forEach>
         </table>
     </section>
-    </main>
-
     </main>
 
 </div>
