@@ -432,6 +432,17 @@ public class AssetService {
 
         return assets;
     }
+
+    public void retireAsset(Long assetId) {
+
+        Asset asset = repository.findById(assetId)
+                .orElseThrow(() ->
+                        new RuntimeException("Asset not found"));
+
+        asset.setStatus(Asset.Status.RETIRED);
+
+        repository.save(asset);
+    }
 }
 
 

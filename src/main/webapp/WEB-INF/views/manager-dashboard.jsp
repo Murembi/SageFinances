@@ -44,7 +44,7 @@
                 <a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/manager/assets">Assets</a>
+                <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Assets</a>
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/manager/requests">Requests</a>
@@ -104,6 +104,55 @@
                 <h2>Pending Loans</h2>
                 <span>${pendingLoans}</span>
             </div>
+
+        </section>
+
+        <!-- ASSETS TABLE -->
+        <section class="table-section">
+
+            <h2>Assets</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Asset ID</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <c:forEach items="${assetList}" var="asset">
+                    <tr>
+                        <td>${asset.assetId}</td>
+                        <td>${asset.title}</td>
+                        <td>${asset.category}</td>
+                        <td>${asset.status}</td>
+
+                        <td>
+                            <c:if test="${asset.status ne 'RETIRED' && asset.status ne 'LOANED'}">
+                                <form action="${pageContext.request.contextPath}/manager/assets/retire/${asset.assetId}"
+                                      method="post">
+                                    <button type="submit" class="retire-btn">
+                                        Retire
+                                    </button>
+                                </form>
+                            </c:if>
+
+                            <c:if test="${asset.status eq 'RETIRED'}">
+                                <span>Retired</span>
+                            </c:if>
+
+                            <c:if test="${asset.status eq 'LOANED'}">
+                                <span>On Loan</span>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
 
         </section>
 

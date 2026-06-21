@@ -4,13 +4,12 @@ import java.util.List;
 
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Loan;
+import com.example.demo.repository.AssetRepository;
+import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.dashboard.dto.PendingLoanDTO;
 import com.example.demo.dashboard.service.ManagerDashboardService;
@@ -25,6 +24,9 @@ public class ManagersDashboardController {
 
     private final ManagerDashboardService managerDashboardService;
     private final LoanService loanService;
+    private final AssetService assetService;
+    private final AssetRepository assetRepository;
+
 
     @GetMapping
     public String managerDashboard(Model model) {
@@ -49,7 +51,6 @@ public class ManagersDashboardController {
                 managerDashboardService.getPendingLoans();
 
         model.addAttribute("loanRequests", pendingLoansList);
-
         return "manager-dashboard";
     }
 
@@ -59,6 +60,33 @@ public class ManagersDashboardController {
         loanService.returnLoan(id);
 
         return "redirect:/manager/dashboard";
+    }
+//    @GetMapping("/manager/assets")
+//    public String managerAssets(Model model) {
+//
+//        model.addAttribute(
+//                "assets",
+//                assetRepository.findAll()
+//        );
+//
+//        return "managerAsset";
+//    }
+
+    @GetMapping("/assets")
+    public String showAssetsPage(Model model) {
+
+        model.addAttribute("assets", assetService.getAllAssets());
+
+        return "managerAsset";
+    }
+
+    @PostMapping("/assets/retire")
+    public String retireAsset(
+            @RequestParam Long assetId) {
+
+        assetService.retireAsset(assetId);
+
+        return "redirect:/manager/dashboard/assets";
     }
 
 
