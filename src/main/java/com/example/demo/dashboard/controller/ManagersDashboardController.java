@@ -2,9 +2,9 @@ package com.example.demo.dashboard.controller;
 
 import java.util.List;
 
+import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Loan;
-import com.example.demo.repository.AssetRepository;
 import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.dashboard.dto.PendingLoanDTO;
 import com.example.demo.dashboard.service.ManagerDashboardService;
-import com.example.demo.dashboard.dto.ManagerDashboardDTO;
-
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -25,7 +23,6 @@ public class ManagersDashboardController {
     private final ManagerDashboardService managerDashboardService;
     private final LoanService loanService;
     private final AssetService assetService;
-    private final AssetRepository assetRepository;
 
 
     @GetMapping
@@ -114,6 +111,22 @@ public class ManagersDashboardController {
         model.addAttribute("searched", true);
 
         return "loanHistory";
+    }
+
+    @GetMapping("/assets/add")
+    public String showAddAssetForm(Model model) {
+
+        model.addAttribute("asset", new AssetRequestDTO());
+
+        return "addAsset";
+    }
+
+    @PostMapping("/assets/add")
+    public String createAsset(@ModelAttribute AssetRequestDTO dto) {
+
+        assetService.createAsset(dto);
+
+        return "redirect:/manager/dashboard";
     }
 
 

@@ -1,74 +1,76 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASSET MANAGEMENT SYSTEM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Sage Asset Management System | Login</title>
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/styles.css">
-
 </head>
 
-<body>
+<body class="login-page">
 
-<div id="customAlert" class="alert" ></div>
+<div class="login-container">
 
-<!-- ================= HEADER ================= -->
-<header class="header">
-    <div class="logo">
-        <i class="fa-brands fa-first-order-alt"></i>
+    <div class="login-card">
+
         <img src="${pageContext.request.contextPath}/images/IMG-20260611-WA0000.jpg"
-             alt="MECER INTER-ED Logo"
-             class="logo-img">
-    </div>
+             alt="Logo"
+             class="login-logo">
 
-    <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
-</header>
+        <h1>Asset Management System</h1>
 
-<!-- ================= AUTH CONTAINER ================= -->
-<div class="auth-container">
-    <!-- LOGIN FORM -->
-    <form id="logInForm"
-          action="${pageContext.request.contextPath}/auth/login"
-          method="post"
-          autocomplete="off">
+        <p class="login-subtitle">
+            Sign in to continue
+        </p>
 
-        <h1>Welcome!</h1>
         <c:if test="${not empty error}">
-            <p>ERROR:${error}</p>
+            <div class="error-box">
+                    ${error}
+            </div>
         </c:if>
 
-        <div class="input-group">
-            <input type="email" name="email" id="loginEmail" placeholder="Enter your email" required>
-            <label>Email</label>
+        <form action="${pageContext.request.contextPath}/auth/login"
+              method="post">
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email"
+                       name="email"
+                       placeholder="Enter your email"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password"
+                       name="password"
+                       placeholder="Enter your password"
+                       required>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Log In
+            </button>
+
+        </form>
+
+        <div class="register-link">
+            <p>
+                Don't have an account?
+                <a href="${pageContext.request.contextPath}/users/register">
+                    Create Account
+                </a>
+            </p>
         </div>
 
-        <div class="input-group">
-            <input type="password" name="password" id="loginPassword" placeholder="Enter your password" required>
-            <label>Password</label>
-
-            <i id="toggleIcon"
-               class="fa fa-eye-slash toggle-password"
-               onclick="togglePassword()"></i>
-        </div>
-
-        <button type="submit" id="logInBtn" class="submit-btn">
-            Log In <span class="arrow">&#8594;</span>
-        </button>
-
-    </form>
-    <div class="register-link">
-        <p>
-            Don't have an account?
-            <a href="${pageContext.request.contextPath}/users/register">
-                Create Account
-            </a>
-        </p>
     </div>
+
 </div>
+
 </body>
 </html>

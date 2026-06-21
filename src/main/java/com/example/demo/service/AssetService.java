@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.User;
 import com.example.demo.repository.AssetRepository;
@@ -15,6 +16,7 @@ public class AssetService {
 
     private final AssetRepository repository;
     private final AuditLogService auditLogService;
+
 
     public AssetService(AssetRepository repository,
                         AuditLogService auditLogService) {
@@ -443,6 +445,52 @@ public class AssetService {
 
         repository.save(asset);
     }
+
+    //USED
+    //create an asset used both by the manager and admin
+    public Asset createAsset(AssetRequestDTO dto) {
+
+        if (repository.existsBySerialNumber(dto.getSerialNumber())) {
+            throw new RuntimeException(
+                    "Asset with serial number already exists."
+            );
+        }
+
+        Asset asset = new Asset();
+
+        asset.setTitle(dto.getTitle());
+        asset.setCategory(dto.getCategory());
+        asset.setSerialNumber(dto.getSerialNumber());
+        asset.setAcquisitionDate(dto.getAcquisitionDate());
+        asset.setCost(dto.getCost());
+        asset.setLocation(dto.getLocation());
+
+        // DTO field  Entity field
+        asset.setCondition(dto.getAssetCondition());
+
+        asset.setPhotoPath(dto.getPhotoPath());
+
+        asset.setCreatedAt(LocalDateTime.now());
+
+        // Force new assets to start as AVAILABLE
+        asset.setStatus(Asset.Status.AVAILABLE);
+
+        Asset saved = repository.save(asset);
+
+        auditLogService.createAuditLog(
+                null,
+                "ASSET",
+                saved.getAssetId(),
+                "CREATE",
+                null,
+                "Asset created"
+        );
+
+
+        return repository.save(asset);
+    }
 }
+
+
 
 

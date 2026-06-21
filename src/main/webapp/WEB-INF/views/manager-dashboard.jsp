@@ -36,12 +36,14 @@
                 <a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Assets</a>
+                <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Retire Assets</a>
             </li>
-
+            <li>
+                <a href="${pageContext.request.contextPath}/manager/dashboard/assets/add">Add Assets</a>
             <li>
                 <a href="${pageContext.request.contextPath}/manager/dashboard/loanHistory">Reports</a>
             </li>
+
             <li>
                 <a href="${pageContext.request.contextPath}/manager/settings">Settings</a>
             </li>
