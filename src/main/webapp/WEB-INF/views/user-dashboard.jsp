@@ -12,6 +12,11 @@
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/styles.css">
+
+    <img src="${pageContext.request.contextPath}/images/img_1.png"
+         alt="Logo"
+         class="login-logo"
+         width="100">
 </head>
 <body>
 <h1>User Dashboard</h1>

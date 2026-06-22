@@ -14,9 +14,10 @@
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             width="120">
+             class="login-logo"
+             width="100">
     </div>
 
     <!-- System Title -->
