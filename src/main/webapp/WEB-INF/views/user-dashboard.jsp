@@ -144,3 +144,12 @@
         }
     %>
 </table>
+
+<form action="${pageContext.request.contextPath}/logout"
+      method="post">
+
+    <button type="submit">
+        Logout
+    </button>
+
+</form>

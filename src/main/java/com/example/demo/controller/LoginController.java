@@ -92,4 +92,10 @@ public class LoginController {
         model.addAttribute("loanedAssets", userDashboardService.getMyLoanedAssets(userId));
         return "user-dashboard";
     }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/loginpage";
+    }
 }

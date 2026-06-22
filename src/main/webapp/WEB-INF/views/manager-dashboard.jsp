@@ -18,9 +18,10 @@
 <!-- HEADER -->
 <header class="header">
     <div class="logo">
-        <img src="${pageContext.request.contextPath}/resources/images/mecer-inter-ed-logo.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             class="logo-img">
+             class="login-logo"
+             width="100">
     </div>
 
     <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
@@ -42,10 +43,6 @@
                 <a href="${pageContext.request.contextPath}/manager/dashboard/assets/add">Add Assets</a>
             <li>
                 <a href="${pageContext.request.contextPath}/manager/dashboard/loanHistory">Reports</a>
-            </li>
-
-            <li>
-                <a href="${pageContext.request.contextPath}/manager/settings">Settings</a>
             </li>
         </ul>
         <form action="${pageContext.request.contextPath}/logout" method="post">

@@ -43,7 +43,7 @@ public class UsersDashboardController {
         model.addAttribute("loanedAssets",
                 userDashboardService.getMyLoanedAssets(user.getUserId()));
 
-        return "redirect:/dashboard";
+        return "user-dashboard";
     }
 
     @PostMapping("/request-loans")

@@ -2,6 +2,10 @@ package com.example.demo.service;
 
 
 import com.example.demo.entity.User;
+import com.example.demo.exception.AccountInactiveException;
+import com.example.demo.exception.InvalidCredentialsException;
+import com.example.demo.exception.UserAlreadyExistsException;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.LoanRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -32,7 +36,9 @@ public class UserService {
     public User createUser(User user) {
 
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new UserAlreadyExistsException(
+                    "Email " + user.getEmail() + " already exists."
+            );
         }
         User newUser = User.builder()
                 .name(user.getName())
@@ -60,18 +66,23 @@ public class UserService {
 
         if (user.getStatus() == User.UserStatus.DELETED ||
                 user.getStatus() == User.UserStatus.INACTIVE) {
-            throw new RuntimeException("Account is inactive");
+            throw new AccountInactiveException(
+                    "Account is inactive."
+            );
         }
         // Compare provided password with stored password (should be hashed in production)
         if (user.getPasswordHash() != null && user.getPasswordHash().equals(password)) {
             return user;
         }
-        throw new RuntimeException("Invalid credentials");
+        throw new InvalidCredentialsException(
+                "Invalid credentials."
+        );
 
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(
+                 id ));
     }
 
     //
@@ -128,7 +139,8 @@ public class UserService {
     // SOFT DELETE
     public void deleteUser(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(
+                        userId ));
 
         user.setStatus(User.UserStatus.DELETED);
         userRepository.save(user);
@@ -145,8 +157,7 @@ public class UserService {
                 )
                 .toList();
     }
-
-    //cannot delete a user becuase of the foreign key
+    //cannot delete a user because of the foreign key
 
 
 }

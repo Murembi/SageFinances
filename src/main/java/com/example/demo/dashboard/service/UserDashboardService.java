@@ -3,7 +3,6 @@ package com.example.demo.dashboard.service;
 import com.example.demo.dashboard.dto.AvailableAssetDTO;
 import com.example.demo.dashboard.dto.MyLoanedAssetDTO;
 import com.example.demo.dashboard.dto.PendingLoanDTO;
-import com.example.demo.dashboard.dto.UserLoanDTO;
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;

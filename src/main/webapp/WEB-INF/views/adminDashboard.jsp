@@ -14,9 +14,10 @@
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             width="120">
+             class="login-logo"
+             width="100">
     </div>
 
     <!-- System Title -->
@@ -38,8 +39,14 @@
            <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
            <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
            <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
-           <a href="${pageContext.request.contextPath}/settings">Settings</a> |
-           <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
+            <form action="${pageContext.request.contextPath}/logout"
+                  method="post">
+
+                <button type="submit">
+                    Log Out
+                </button>
+
+            </form>
         </div>
 
 

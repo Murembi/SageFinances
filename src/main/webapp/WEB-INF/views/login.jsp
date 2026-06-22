@@ -18,9 +18,10 @@
 
     <div class="login-card">
 
-        <img src="${pageContext.request.contextPath}/images/IMG-20260611-WA0000.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             class="login-logo">
+             class="login-logo"
+             width="100">
 
         <h1>Asset Management System</h1>
 
