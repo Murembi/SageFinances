@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Admin Audit Log</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
