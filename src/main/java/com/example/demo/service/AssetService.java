@@ -229,7 +229,9 @@ public class AssetService {
         existing.setTitle(updatedAsset.getTitle());
         existing.setCategory(updatedAsset.getCategory());
         existing.setSerialNumber(updatedAsset.getSerialNumber());
-        existing.setAcquisitionDate(updatedAsset.getAcquisitionDate());
+        if (updatedAsset.getAcquisitionDate() != null) {
+            existing.setAcquisitionDate(updatedAsset.getAcquisitionDate());
+        }
         existing.setCost(updatedAsset.getCost());
         existing.setLocation(updatedAsset.getLocation());
         existing.setCondition(updatedAsset.getCondition());

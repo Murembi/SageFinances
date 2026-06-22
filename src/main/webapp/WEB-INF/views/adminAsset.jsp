@@ -59,7 +59,7 @@
 
 <!-- ================= SEARCH ================= -->
 
-<h3>Search Assets</h3>
+<h3>All Assets</h3>
 
 <form method="get" action="${pageContext.request.contextPath}/admin/assets">
 
@@ -77,8 +77,6 @@
 
 
 <!-- ================= TABLE ================= -->
-
-<h3>All Assets</h3>
 
 <table border="1">
 
@@ -226,7 +224,6 @@
             document.querySelector('input[name="keyword"]').value = '';
         }
 <!--Edit Modal Popup Function-->
-<script>
 
 function openModal(id, title, category, serial, cost, location, condition) {
 
