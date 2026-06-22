@@ -14,9 +14,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* HEADER */
-.header 
-{
     background: var(--bg);
     border-bottom: 1px solid var(--border);
     padding: 18px 25px;
@@ -25,11 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px; /* space between logo and text */
-    height: 120px;
-    width: 100%;
 }
-
 
 .logo-img {
     width: 120px;
@@ -43,112 +36,6 @@
 .user-info {
     font-size: 14px;
     color: var(--muted);
-}
-
-.container
-{
-  display: grid;  
-
-  grid-template-columns: 260px 1fr; 
-  grid-template-rows: auto auto; /* allows rows to adjust based on content */
-  grid-template-areas: "navMenu main-content"; /* defines named areas for easier placement */
-
-
-  flex: 1; /* takes up remaining space */
-  gap: 20px;
-  width: 90%;
-  min-height: calc(100vh - 120px);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-  background: transparent; /* transparent if overlaying */
-  padding: 20px;
-  border-radius: 25px;
-  padding-top: 20px; /* adds space below header */
-  padding-bottom: 20px; /* adds space above footer */
-
-  margin:0 auto;
-}
-
-.navMenu
-{
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-
-  grid-area: navMenu; /* places navMenu in the defined grid area */
-  display: flex;
-  flex-direction: column;
-}
-
-
-.nav-item :active
-{
-  border-left: 4px solid #f5c84c;
-}
-
-.nav-links ul
-{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-links li
-{
-    margin-bottom: 5px;
-    width: 100%;
-    padding: 15px;
-    border-radius: 25px;
-    background: transparent;
-}
-
-.sidebar
-{
-  display: flex;
-  flex-direction: column; 
-
-  width: 260px;
-  height: 100%;
-  background: linear-gradient(100deg, #f3f3f3, #deede8);
-  padding: 25px;
-  border-radius: 25px;
-  background: var(--green-light);
-  overflow-y: auto; /* allows scrolling if content exceeds height */
-  align-items: center;
-  justify-content: space-between; /* push button to bottom */
-}
-
-.profile-widget
-{
-  padding: 15px;
-  border-radius: 20px;
-  background: linear-gradient(145deg, #f3f3f3,#90f012);
-  border-bottom: 1px solid #26ecd8;
-  
-}
-
-.main-content
-{
-  
-  gap: 20px;
-  align-items:center; /* aligns items to the top of the grid cells */
-  flex-direction: column;
-  display: flex;
-
-  background: #deede8;
-  padding: 25px;
-  border-radius: 25px;
-  overflow-y: auto; /* allows scrolling if content exceeds height */
-  grid-area: main-content;  /* allows grid placement */
-  
-}
-
-.main-content section
-{
-  background: #fff;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0);
-
 }
 
 /* NAVIGATION */
@@ -174,8 +61,6 @@
 .dashboard-cards,
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 25px;
     margin-bottom: 30px;
 }
 
@@ -186,13 +71,10 @@
     border-radius: 14px;
     padding: 22px;
     margin-bottom: 25px;
-    box-shadow: #a5f594 0px 2px 8px;
-    transition: background 0.3s, color 0.3s;
 }
 
 .dashboard-cards .card,
 .stat-card {
-    background: transparent;
     border: none;
 }
 
@@ -252,10 +134,6 @@ input[type="checkbox"] {
 /* BUTTONS */
 button,
 .btn {
-    background: var(--green-light);
-    box-shadow: #a5f594 0px 2px 8px;
-    transition: background 0.3s, color 0.3s;
-    color: rgb(18, 16, 16);
     border: none;
     padding: 11px 18px;
     border-radius: 8px;
@@ -279,31 +157,6 @@ button:hover,
     background: #C75C5C;
     color: white;
 }
-
-.login-btn, .createUser-btn
-{
-
-width: 100%;
-padding: 12px 12px 12px 35px;
-
-border-radius: 25px;
-box-shadow: #a5f594 0px 2px 8px;
-transition: background 0.3s, color 0.3s;
-
-font-size: 16px;
-font-weight: 600;
-cursor: pointer;
-position: relative;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-top: 30px;
-}
-
-.login-btn .arrow, .createUser-btn .arrow  { margin-left: 10px; font-size: 25px; color: transparent; transition: 0.3s; }
-.login-btn:hover , .createUser-btn:hover  { background: transparent; color: #fff; }
-.login-btn:hover .arrow, .createUser-btn:hover .arrow { color: #fff; transform: translateX(3px); }
-
 
 /* TABLES */
 table {
@@ -373,8 +226,6 @@ tr:hover {
     color: #374151;
 }
 
-
-
 /* FOOTER */
 .footer {
     margin-top: 30px;
@@ -391,33 +242,6 @@ tr:hover {
 
 .footer a:hover {
     text-decoration: underline;
-}
-
-
-
-.login-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 20px;
-    background: var(--bg);
-}
-
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    min-height: calc(100vh - 130px); /* Adjusting for header height */
-}
-
-.login-card {
-    width: 350px;
-    background: #deede8;
-    padding: 40px;
-    border-radius: 28px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
 
 /* MOBILE */

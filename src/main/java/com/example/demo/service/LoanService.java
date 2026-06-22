@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.example.demo.exception.*;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.LoanRequestDTO;
@@ -12,6 +13,7 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.LoanRepository;
 import com.example.demo.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LoanService {
@@ -34,6 +36,7 @@ public class LoanService {
     }
 
     //Get all loans in the db
+    // DONE
     public List<Loan> getAllLoans(){
 
         List<Loan> loans = loanRepository.findAll();
@@ -51,18 +54,19 @@ public class LoanService {
     }
 
     //get loan by ID
+    //DONE
     public Loan getLoanById(Long loanId){
 
         Loan loan = loanRepository.findById(loanId)
-                .orElseThrow(() -> new RuntimeException("Loan not found"));
-
+                .orElseThrow(() -> new LoanNotFoundException(
+                         loanId ));
         auditLogService.createAuditLog(
                 null,
                 "LOAN",
                 loanId,
                 "READ",
                 null,
-                loan.toString()
+                Loan.Status.APPROVED.name() //previous method contained whole loan object
         );
 
         return loan;
@@ -71,13 +75,14 @@ public class LoanService {
     //REQUESTING a Loan and validating
     //runs when the user request for the loan in the controller layer
     //then the manager will approve to approved/rejected
+    @Transactional
     public Loan createLoanRequest(LoanRequestDTO dto){
 
         //prevents empty requests
         //user id must exists
         if(dto.getUserId() == null){
             throw new IllegalArgumentException("User is required");
-            //checks if the assest was provided
+            //checks if the asset was provided
         }
 
         //asset id must exists
@@ -91,7 +96,7 @@ public class LoanService {
 
         Loan.Status status = Loan.Status.PENDING;
 
-        //if individual has already requested ths assert and pendng
+        //if individual has already requested ths assert and pending
         boolean alreadyExists =
                 loanRepository.existsByUser_UserIdAndAsset_AssetIdAndStatus(
                         userId,
@@ -103,7 +108,7 @@ public class LoanService {
         // block the request
         // prevents spam requests
         if (alreadyExists) {
-            throw new IllegalStateException(
+            throw new InvalidLoanActionException(
                     "You already have a pending request for this asset"
             );
         }
@@ -113,10 +118,14 @@ public class LoanService {
 
         // set user and asset once repositories are available
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(
+                         userId ));
 
         Asset asset = assetRepository.findById(assetId)
-                .orElseThrow(() -> new RuntimeException("Asset not found"));
+                .orElseThrow(() ->new AssetNotFoundException(
+                        "Asset with ID " + assetId + " not found."
+                ));
+
 
         loan.setUser(user);
         loan.setAsset(asset);
@@ -131,7 +140,7 @@ public class LoanService {
                 saved.getLoanId(),
                 "CREATE",
                 null,
-                saved.toString()
+                "loan requested"
         );
 
         return saved;
@@ -154,19 +163,27 @@ public class LoanService {
     }
     // different methods for approving and rejecting a loan
     //APPROVING A LOAN
+    @Transactional
     public Loan approveLoan(Long loanId) {
 
         Loan loan = getLoanById(loanId);
 
         //only
         if (loan.getStatus() != Loan.Status.PENDING) {
-            throw new IllegalStateException("Only pending loans can be processed");
+            throw new InvalidLoanActionException(
+                    "Only pending loans can be approved."
+            );
         }
 
         Loan.Status old = loan.getStatus();
 
+        LocalDateTime checkoutDate = LocalDateTime.now();
+        LocalDateTime dueDate = checkoutDate.plusDays(21);
         loan.setStatus(Loan.Status.APPROVED);
 
+        loan.setCheckoutDate(checkoutDate);
+        loan.setDueDate(dueDate);
+        loan.getAsset().setStatus(Asset.Status.LOANED);
         Loan saved = loanRepository.save(loan);
 
         auditLogService.createAuditLog(
@@ -182,13 +199,14 @@ public class LoanService {
     }
 
     //REJECTING A LOAN
+    @Transactional
     public Loan rejectLoan(Long loanId){
 
         Loan loan = getLoanById(loanId);
 
         //only pending loans can be approved
         if (loan.getStatus() != Loan.Status.PENDING) {
-            throw new IllegalStateException("Only pending loans can be processed");
+            throw new InvalidLoanActionException("Only pending loans can be processed");
         }
 
         Loan.Status old = loan.getStatus();
@@ -209,6 +227,7 @@ public class LoanService {
         return saved;
     }
 
+    @Transactional
     public void deleteLoan(Long id) {
 
         Loan loan = getLoanById(id);
@@ -239,61 +258,94 @@ public class LoanService {
                 null,
                 "FILTER_STATUS",
                 null,
-                status.name()
+                "loan Status requested"
         );
 
         return loans;
     }
 
     //get the loan by the ID
-    public List<Loan> getLoansByUser(Long userId) {
-
-        List<Loan> loans = loanRepository.findByUser_UserId(userId);
-
-        auditLogService.createAuditLog(
-                null,
-                "LOAN",
-                userId,
-                "FILTER_USER",
-                null,
-                "Fetched loans by user"
-        );
-
-        return loans;
-    }
+//    public List<Loan> getLoansByUser(Long userId) {
+//
+//        List<Loan> loans = loanRepository.findByUser_UserId(userId);
+//
+//        auditLogService.createAuditLog(
+//                null,
+//                "LOAN",
+//                userId,
+//                "FILTER_USER",
+//                null,
+//                "Fetched loans by user"
+//        );
+//
+//        return loans;
+//    }
 
     // Duplicate request prevention
 
     //checkout loans
-    public Loan checkoutLoan(Long loanId){
-        //looks fot the loanID in the db
-        Loan loan = loanRepository.findById(loanId).orElse(null);
-        if(loan == null)
-            return null;
+//    public Loan checkoutLoan(Long loanId){
+//        //looks fot the loanID in the db
+//        Loan loan = loanRepository.findById(loanId).orElse(null);
+//        if(loan == null)
+//            return null;
+//
+//        //only approved loans can be checked out
+//        if (loan.getStatus() != Loan.Status.APPROVED) {
+//            return null;
+//        }
+//        // retrieve the asset linked to the loan
+//        Asset asset = loan.getAsset();
+//        if (asset == null) return null;
+//
+//        if (asset.getStatus() != Asset.Status.AVAILABLE) {
+//            return null;
+//        }
+//
+//        // Records the exact time the loan started
+//        LocalDateTime now = LocalDateTime.now();
+//        loan.setCheckoutDate(now);
+//        loan.setDueDate(now.plusDays(10)); //set the due dateDouble check the loan days
+//
+//        loan.setStatus(Loan.Status.APPROVED);
+//        asset.setStatus(Asset. Status.LOANED);
+//
+//
+//        assetRepository.save(asset);
+//        return loanRepository.save(loan);
+//    }
 
-        //only approved loans can be checked out
+    public List<Loan> getReturnedLoans() {
+        return loanRepository.findByStatus(Loan.Status.RETURNED);
+    }
+
+    @Transactional
+    public Loan returnLoan(Long loanId) {
+
+        Loan loan = getLoanById(loanId);
+        // only approved loans can be returned
         if (loan.getStatus() != Loan.Status.APPROVED) {
-            return null;
+            throw new InvalidLoanActionException(
+                    "Only approved loans can be returned."
+            );
         }
-        // retrieve the asset linked to the loan
-        Asset asset = loan.getAsset();
-        if (asset == null) return null;
+        loan.setStatus(Loan.Status.RETURNED);
+        loan.setReturnDate(LocalDateTime.now());
+        loan.getAsset().setStatus(Asset.Status.AVAILABLE);
 
-        if (asset.getStatus() != Asset.Status.AVAILABLE) {
-            return null;
-        }
-
-        // Records the exact time the loan started
-        LocalDateTime now = LocalDateTime.now();
-        loan.setCheckoutDate(now);
-        loan.setDueDate(now.plusDays(10)); //set the due dateDouble check the loan days
-
-        loan.setStatus(Loan.Status.APPROVED);
-        asset.setStatus(Asset. Status.LOANED);
-
-
-        assetRepository.save(asset);
         return loanRepository.save(loan);
     }
+
+    //find loan by user
+    public List<Loan> getLoansByUser(String name) {
+        return loanRepository.findByUser_NameContainingIgnoreCase(name);
+    }
+
+    //find loans by asset title
+    public List<Loan> getLoansByAsset(String title) {
+        return loanRepository.findByAsset_TitleContainingIgnoreCase(title);
+    }
+
+
 
 }

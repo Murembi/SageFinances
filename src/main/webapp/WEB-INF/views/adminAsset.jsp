@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Asset Management</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
@@ -13,9 +14,10 @@
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             width="120">
+             class="login-logo"
+             width="100">
     </div>
 
     <!-- System Title -->
@@ -93,7 +95,6 @@
         <th>Location</th>
         <th>Condition</th>
         <th>Status</th>
-        <th>Actions</th>
     </tr>
 
     <c:forEach var="a" items="${assets}">
@@ -108,25 +109,6 @@
             <td>${a.location}</td>
             <td>${a.condition}</td>
             <td>${a.status}</td>
-
-            <td>
-
-                <a href="/assets/edit/${a.assetId}">
-                    Edit
-                </a>
-
-                |
-
-                <form action="/jsp/assets/delete/${a.assetId}"
-                      method="post"
-                      style="display:inline;">
-
-                    <button type="submit">Delete</button>
-
-                </form>
-
-            </td>
-
         </tr>
 
     </c:forEach>

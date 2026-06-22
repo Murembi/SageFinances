@@ -1,6 +1,5 @@
 package com.example.demo.dashboard.controller;
 
-import com.example.demo.dto.LoanRequestDTO;
 import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +47,7 @@ public class UsersDashboardController {
 
     @PostMapping("/request-loans")
     public String requestLoans(
-            @RequestParam(required = false) List<Long> assetIds,
+            @RequestParam(value = "assetIds", required = false) List<Long> assetIds,
             HttpSession session) {
 
         User user = (User) session.getAttribute("user");
@@ -61,7 +60,8 @@ public class UsersDashboardController {
         }
 
         if (assetIds == null || assetIds.isEmpty()) {
-            return "redirect:/user-dashboard";
+            session.setAttribute("errorMessage", "Please select at least one asset.");
+            return "redirect:/dashboard";
         }
 
         try {
@@ -76,7 +76,7 @@ public class UsersDashboardController {
 
         session.setAttribute("successMessage", "Loan request submitted successfully");
 
-        return "redirect:/user-dashboard";
+        return "redirect:/dashboard";
 
     }
 }

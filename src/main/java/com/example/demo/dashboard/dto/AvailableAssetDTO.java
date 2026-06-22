@@ -9,4 +9,5 @@ public class AvailableAssetDTO {
     private String assetName;
     private String category;
     private String status;
+    private String photoPath;
 }

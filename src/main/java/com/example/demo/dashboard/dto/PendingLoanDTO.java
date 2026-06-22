@@ -17,4 +17,5 @@ public class PendingLoanDTO {
     private LocalDateTime requestDate;
     private LocalDateTime dueDate;
     private String status;
+    private String photoPath;
 }

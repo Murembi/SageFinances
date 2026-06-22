@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
@@ -13,9 +14,10 @@
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             width="120">
+             class="login-logo"
+             width="100">
     </div>
 
     <!-- System Title -->
@@ -37,8 +39,14 @@
            <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
            <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
            <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
-           <a href="${pageContext.request.contextPath}/settings">Settings</a> |
-           <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
+            <form action="${pageContext.request.contextPath}/logout"
+                  method="post">
+
+                <button type="submit">
+                    Log Out
+                </button>
+
+            </form>
         </div>
 
 
@@ -46,32 +54,39 @@
 <!-- ================= DASHBOARD CONTENT ================= -->
 <h3>System Overview</h3>
 
-<table border="1">
-    <tr>
-        <td>Total Assets</td>
-        <td>${dashboard.totalAssets}</td>
-    </tr>
-    <tr>
-        <td>Available Assets</td>
-        <td>${dashboard.availableAssets}</td>
-    </tr>
-    <tr>
-        <td>Loaned Assets</td>
-        <td>${dashboard.loanedAssets}</td>
-    </tr>
-    <tr>
-        <td>Retired Assets</td>
-        <td>${dashboard.retiredAssets}</td>
-    </tr>
-    <tr>
-        <td>Total Users</td>
-        <td>${dashboard.totalUsers}</td>
-    </tr>
-    <tr>
-        <td>Pending Loans</td>
-        <td>${dashboard.pendingLoans}</td>
-    </tr>
-</table>
+<div class="dashboard-grid">
+
+    <div class="stat-card">
+        <h3>Total Assets</h3>
+        <p>${dashboard.totalAssets}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Available Assets</h3>
+        <p>${dashboard.availableAssets}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Loaned Assets</h3>
+        <p>${dashboard.loanedAssets}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Retired Assets</h3>
+        <p>${dashboard.retiredAssets}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Users</h3>
+        <p>${dashboard.totalUsers}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Pending Loans</h3>
+        <p>${dashboard.pendingLoans}</p>
+    </div>
+
+</div>
 
 
 
