@@ -70,15 +70,7 @@
         </div>
 
 <!-- ================= FOOTER ================= -->
-<footer>
-    <div class="footer-bottom">
-        <a href="https://mecerintered.co.za/terms-and-conditions">
-            Terms & Conditions
-        </a>
 
-        <a id="contactLink">Contact Us</a>
-    </div>
-</footer>
 
 <!-- ================= CONTACT POPUP ================= -->
 <div id="contactPopup" class="popup">
@@ -87,7 +79,7 @@
     <p><i class="fa-solid fa-envelope"></i> info@mecerintered.co.za</p>
     <p><i class="fa-solid fa-phone"></i> (+27) 10 730 0860</p>
 
-    <button onclick="closePopup()">Close</button>
+
 </div>
 
 </body>
