@@ -1,0 +1,274 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* header */
+.header
+{
+  display: flex;
+  height: 120px;
+  align-items: center;
+  padding: 10px 20px;
+  background: transparent; /* transparent if overlaying */
+  border-bottom: 1px solid #ddd;
+  gap: 50px; /* space between logo and text */
+
+}
+
+
+/* ==========LOGO===========  */
+
+.logo{
+    display: flex;
+    width: 80px;
+    flex-direction: column;
+    align-items:center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.logo i{
+    position:relative;
+    font-size:28px;
+    color:#373cd4;
+
+}
+
+.logo-img {
+  width: 100px;          /* adjust size (2x bigger than default) */
+  height: auto;          /* keep proportions */
+  margin-right: 15px;    /* space between image and text */;
+}
+
+.header-text {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ==========body===========  */
+body 
+{
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    background-color: off-white;
+
+}
+
+.container
+{
+  margin-top: 20px;
+  display: grid;  
+
+  /* Sidebar is 260px wide, Main content takes up the remaining space (1fr) */
+  grid-template-columns: 260px 1fr; 
+  grid-template-rows: auto auto; /* allows rows to adjust based on content */
+  grid-template-areas: "navMenu main-content"; /* defines named areas for easier placement */
+
+
+  flex: 1; /* takes up remaining space */
+  gap: 20px;
+  width: 90%;
+  min-height: calc(100vh - 120px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+  background: transparent; /* transparent if overlaying */
+  padding: 20px;
+  border-radius: 25px;
+  padding-top: 20px; /* adds space below header */
+  padding-bottom: 20px; /* adds space above footer */
+
+}
+
+.navMenu
+{
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+
+  grid-area: navMenu; /* places navMenu in the defined grid area */
+  display: flex;
+  flex-direction: column;
+}
+
+
+.nav-item :active
+{
+  border-left: 4px solid #f5c84c;
+}
+
+.nav-links ul
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li
+{
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+    background: transparent;
+}
+
+.sidebar
+{
+  /* grid-area: sidebar;  places sidebar in the defined grid area */
+  display: flex;
+  flex-direction: column; 
+
+  width: 260px;
+  height: 100%;
+  background: linear-gradient(100deg, #f3f3f3, #deede8);
+  padding: 25px;
+  border-radius: 25px;
+  color: #32474c;
+  overflow-y: auto; /* allows scrolling if content exceeds height */
+  align-items: center;
+  justify-content: space-between; /* push button to bottom */
+}
+
+.profile-widget
+{
+  padding: 15px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #f3f3f3,#90f012);
+  border-bottom: 1px solid #26ecd8;
+  
+}
+
+.main-content
+{
+  
+  gap: 20px;
+  align-items:center; /* aligns items to the top of the grid cells */
+  flex-direction: column;
+  display: flex;
+
+  background: #deede8;
+  padding: 25px;
+  border-radius: 25px;
+  overflow-y: auto; /* allows scrolling if content exceeds height */
+  grid-area: main-content;  /* allows grid placement */
+  
+}
+
+.main-content section
+{
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0);
+
+}
+
+.dashboard-cards
+{
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 50px;
+  align-items: center;
+  margin-bottom: 30px;
+
+}
+
+.card
+{
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: #a5f594 0px 2px 8px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.nav-links
+{
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+
+.inputLabel
+{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    width:100%;
+    gap:5px;
+    border-radius: 9999px;
+}
+
+.Create-btn, .Search-btn, .Delete-btn, .Edit-btn
+{
+  padding: 8px 12px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: transparent;
+  box-shadow: #a5f594 0px 2px 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.logout-btn
+{
+width: 100%;
+padding: 12px 12px 12px 35px;
+border: none;
+border-radius: 25px;
+background: transparent;
+box-shadow: #a5f594 0px 2px 8px;
+transition: background 0.3s, color 0.3s;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: background 0.3s, color 0.3s;
+margin-top: auto; /* pushes button to bottom of sidebar */
+}
+
+.logout-btn .arrow  { margin-left: 10px; font-size: 25px; color: #333; transition: 0.3s; }
+.logout-btn:hover  { background: #89f92e; color: #4bf8d0; }
+.logout-btn:hover .arrow { color: #fff; transform: translateX(3px); }
+
+
+
+/* FOOTER */
+/* FOOTER */
+footer{ 
+width:100%;
+display:flex;
+justify-content:center;
+align-items:flex-end;
+margin-top:auto;
+padding:20px 0;
+}
+.footer-bottom{
+display:flex;
+gap:25px;
+font-size:14px;
+color:#333;
+}
+.footer-bottom a{
+text-decoration:none;
+color:#333;
+cursor:pointer;
+}
+.footer-bottom a:hover{ text-decoration:underline; }
