@@ -36,13 +36,15 @@ public class ManagersDashboardController {
     @GetMapping
     public String managerDashboard(Model model, HttpSession session) {
 
-        if (session.getAttribute("userId") == null) {
-            return "redirect:/login";
-        }
+        //NEEDS FIXING
+//        if (session.getAttribute("userId") == null) {
+//            return "redirect:/loginpage";
+//        }
 
-        if (!session.getAttribute("userRole").toString().equals("MANAGER")) {
-            return "redirect:/login";
-        }
+        //NEEDS FIXING
+//        if (!session.getAttribute("userRole").toString().equals("MANAGER")) {
+//            return "redirect:/loginpage";
+//        }
 
         DashboardDTO dashboard = managerDashboardService.getManagerDashboard();
 
