@@ -102,55 +102,6 @@
 
         </section>
 
-        <!-- ASSETS TABLE -->
-        <section class="table-section">
-
-            <h2>Assets</h2>
-
-            <table>
-                <thead>
-                <tr>
-                    <th>Asset ID</th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <c:forEach items="${assetList}" var="asset">
-                    <tr>
-                        <td>${asset.assetId}</td>
-                        <td>${asset.title}</td>
-                        <td>${asset.category}</td>
-                        <td>${asset.status}</td>
-
-                        <td>
-                            <c:if test="${asset.status ne 'RETIRED' && asset.status ne 'LOANED'}">
-                                <form action="${pageContext.request.contextPath}/manager/assets/retire/${asset.assetId}"
-                                      method="post">
-                                    <button type="submit" class="retire-btn">
-                                        Retire
-                                    </button>
-                                </form>
-                            </c:if>
-
-                            <c:if test="${asset.status eq 'RETIRED'}">
-                                <span>Retired</span>
-                            </c:if>
-
-                            <c:if test="${asset.status eq 'LOANED'}">
-                                <span>On Loan</span>
-                            </c:if>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-
-        </section>
-
         <!-- APPROVED LOANS TABLE -->
         <section class="table-section">
 

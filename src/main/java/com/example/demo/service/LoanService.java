@@ -13,6 +13,7 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.LoanRepository;
 import com.example.demo.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LoanService {
@@ -74,13 +75,14 @@ public class LoanService {
     //REQUESTING a Loan and validating
     //runs when the user request for the loan in the controller layer
     //then the manager will approve to approved/rejected
+    @Transactional
     public Loan createLoanRequest(LoanRequestDTO dto){
 
         //prevents empty requests
         //user id must exists
         if(dto.getUserId() == null){
             throw new IllegalArgumentException("User is required");
-            //checks if the assest was provided
+            //checks if the asset was provided
         }
 
         //asset id must exists
@@ -94,7 +96,7 @@ public class LoanService {
 
         Loan.Status status = Loan.Status.PENDING;
 
-        //if individual has already requested ths assert and pendng
+        //if individual has already requested ths assert and pending
         boolean alreadyExists =
                 loanRepository.existsByUser_UserIdAndAsset_AssetIdAndStatus(
                         userId,
@@ -161,6 +163,7 @@ public class LoanService {
     }
     // different methods for approving and rejecting a loan
     //APPROVING A LOAN
+    @Transactional
     public Loan approveLoan(Long loanId) {
 
         Loan loan = getLoanById(loanId);
@@ -196,6 +199,7 @@ public class LoanService {
     }
 
     //REJECTING A LOAN
+    @Transactional
     public Loan rejectLoan(Long loanId){
 
         Loan loan = getLoanById(loanId);
@@ -223,6 +227,7 @@ public class LoanService {
         return saved;
     }
 
+    @Transactional
     public void deleteLoan(Long id) {
 
         Loan loan = getLoanById(id);
@@ -260,21 +265,21 @@ public class LoanService {
     }
 
     //get the loan by the ID
-    public List<Loan> getLoansByUser(Long userId) {
-
-        List<Loan> loans = loanRepository.findByUser_UserId(userId);
-
-        auditLogService.createAuditLog(
-                null,
-                "LOAN",
-                userId,
-                "FILTER_USER",
-                null,
-                "Fetched loans by user"
-        );
-
-        return loans;
-    }
+//    public List<Loan> getLoansByUser(Long userId) {
+//
+//        List<Loan> loans = loanRepository.findByUser_UserId(userId);
+//
+//        auditLogService.createAuditLog(
+//                null,
+//                "LOAN",
+//                userId,
+//                "FILTER_USER",
+//                null,
+//                "Fetched loans by user"
+//        );
+//
+//        return loans;
+//    }
 
     // Duplicate request prevention
 
@@ -314,6 +319,7 @@ public class LoanService {
         return loanRepository.findByStatus(Loan.Status.RETURNED);
     }
 
+    @Transactional
     public Loan returnLoan(Long loanId) {
 
         Loan loan = getLoanById(loanId);

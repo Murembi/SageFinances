@@ -7,6 +7,7 @@ import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Loan;
 import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +27,21 @@ public class ManagersDashboardController {
 
 
     @GetMapping
-    public String managerDashboard(Model model) {
-        
+    public String managerDashboard(Model model, HttpSession session) {
+
+        if (session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
+
+        if (!session.getAttribute("userRole").toString().equals("MANAGER")) {
+            return "redirect:/login";
+        }
+
         DashboardDTO dashboard = managerDashboardService.getManagerDashboard();
+
+
+        model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("userRole", session.getAttribute("userRole"));
 
         model.addAttribute("totalAssets", dashboard.getTotalAssets());
         model.addAttribute("availableAssets", dashboard.getAvailableAssets());

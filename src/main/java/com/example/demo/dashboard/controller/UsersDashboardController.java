@@ -1,6 +1,5 @@
 package com.example.demo.dashboard.controller;
 
-import com.example.demo.dto.LoanRequestDTO;
 import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
