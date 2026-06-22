@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asset Management System | Manager Dashboard</title>
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboards.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 
@@ -28,28 +29,33 @@
 </header>
 
 <div class="container">
+    <nav class = "navMenu">
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="sidebar">
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="sidebar">
 
-        <ul class="sidebar-menu">
-            <li>
-                <a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a>
-            </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Retire Assets</a>
-            </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/manager/dashboard/assets/add">Add Assets</a>
-            <li>
-                <a href="${pageContext.request.contextPath}/manager/dashboard/loanHistory">Reports</a>
-            </li>
-        </ul>
-        <form action="${pageContext.request.contextPath}/logout" method="post">
-            <button type="submit" class="logout-btn">Logout →</button>
-        </form>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Retire Assets</a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/manager/dashboard/assets/add">Add Assets</a>
+                <li>
+                    <a href="${pageContext.request.contextPath}/manager/dashboard/loanHistory">Reports</a>
+                </li>
+            </ul>
+            <form action="${pageContext.request.contextPath}/logout" method="post">
+                <button type="submit" class="logout-btn">Logout →</button>
+            </form>
 
-    </aside>
+        </aside>
+
+    </nav>
+
+    
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="main-content">

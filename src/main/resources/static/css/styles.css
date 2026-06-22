@@ -14,7 +14,30 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
     background: var(--bg);
+    color: var(--text);
+    padding: 30px;
+}
+
+/* PAGE TITLE */
+h1,
+.page-title {
+    color: var(--green-dark);
+    margin-bottom: 25px;
+}
+
+h2,
+h3 {
+    color: var(--green-dark);
+    margin-bottom: 15px;
+}
+
+/* HEADER */
+.header {
+    background: var(--card);
     border-bottom: 1px solid var(--border);
     padding: 18px 25px;
     margin-bottom: 20px;
@@ -61,6 +84,8 @@
 .dashboard-cards,
 .dashboard-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
     margin-bottom: 30px;
 }
 
@@ -71,10 +96,12 @@
     border-radius: 14px;
     padding: 22px;
     margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
 }
 
 .dashboard-cards .card,
 .stat-card {
+    background: var(--green-light);
     border: none;
 }
 
@@ -134,6 +161,8 @@ input[type="checkbox"] {
 /* BUTTONS */
 button,
 .btn {
+    background: var(--green-dark);
+    color: white;
     border: none;
     padding: 11px 18px;
     border-radius: 8px;
@@ -322,3 +351,131 @@ tr:hover {
 
 
 }
+
+.container
+{
+  display: grid;  
+
+  /* Sidebar is 260px wide, Main content takes up the remaining space (1fr) */
+  grid-template-columns: 260px 1fr; 
+  grid-template-rows: auto auto; /* allows rows to adjust based on content */
+  grid-template-areas: "navMenu main-content"; /* defines named areas for easier placement */
+
+
+  flex: 1; /* takes up remaining space */
+  gap: 20px;
+  width: 90%;
+  min-height: calc(100vh - 120px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+  background: transparent; /* transparent if overlaying */
+  padding: 20px;
+  border-radius: 25px;
+  padding-top: 20px; /* adds space below header */
+  padding-bottom: 20px; /* adds space above footer */
+
+}
+
+.navMenu
+{
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+
+  grid-area: navMenu; /* places navMenu in the defined grid area */
+  display: flex;
+  flex-direction: column;
+}
+
+
+.nav-item :active
+{
+  border-left: 4px solid #f5c84c;
+}
+
+.nav-links ul
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li
+{
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+    background: transparent;
+}
+
+.sidebar
+{
+  display: flex;
+  flex-direction: column; 
+
+  width: 260px;
+  height: 100%;
+  background: linear-gradient(100deg, #f3f3f3, #deede8);
+  padding: 25px;
+  border-radius: 25px;
+  color: #32474c;
+  overflow-y: auto; /* allows scrolling if content exceeds height */
+  align-items: center;
+  justify-content: space-between; /* push button to bottom */
+}
+
+.profile-widget
+{
+  padding: 15px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #f3f3f3,#90f012);
+  border-bottom: 1px solid #26ecd8;
+  
+}
+
+.main-content
+{
+  
+  gap: 20px;
+  align-items:center; /* aligns items to the top of the grid cells */
+  flex-direction: column;
+  display: flex;
+
+  background: #deede8;
+  padding: 25px;
+  border-radius: 25px;
+  overflow-y: auto; /* allows scrolling if content exceeds height */
+  grid-area: main-content;  /* allows grid placement */
+  
+}
+
+.main-content section
+{
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0);
+
+}
+
+/* FOOTER */
+footer{ 
+width:100%;
+display:flex;
+justify-content:center;
+align-items:flex-end;
+margin-top:auto;
+padding:20px 0;
+}
+.footer-bottom{
+display:flex;
+gap:25px;
+font-size:14px;
+color:#333;
+}
+.footer-bottom a{
+text-decoration:none;
+color:#333;
+cursor:pointer;
+}
+.footer-bottom a:hover{ text-decoration:underline; }

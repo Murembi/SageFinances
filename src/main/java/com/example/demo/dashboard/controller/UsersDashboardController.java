@@ -22,7 +22,7 @@ public class UsersDashboardController {
     private final UserDashboardService userDashboardService;
     private final LoanService loanService;
 
-    @GetMapping("/dashboard")
+    @GetMapping("/user/dashboard")
     public String dashboard(HttpSession session, Model model) {
 
         User user = (User) session.getAttribute("user");
@@ -30,6 +30,8 @@ public class UsersDashboardController {
         if (user == null) {
             return "redirect:/loginpage";
         }
+
+
 
         model.addAttribute("user", user);
 
