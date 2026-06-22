@@ -158,3 +158,7 @@
     </button>
 
 </form>
+
+<script src="${pageContext.request.contextPath}/js/user-dashboard.js"></script>
+
+</body>

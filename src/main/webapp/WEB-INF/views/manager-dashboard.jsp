@@ -264,5 +264,6 @@
 
 </div>
 
+<script src="${pageContext.request.contextPath}/js/manager-dashboard.js"></script>
 </body>
 </html>

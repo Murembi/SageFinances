@@ -82,5 +82,7 @@
 
 </div>
 
+
+<script src="${pageContext.request.contextPath}/js/login.js"></script>
 </body>
 </html>

@@ -103,11 +103,7 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
-<script>
-    function clearSearch() {
-            document.querySelector('input[name="keyword"]').value = '';
-        }
-</script>
 
+<script src="${pageContext.request.contextPath}/js/adminAuditLog.js"></script>
 </body>
 </html>

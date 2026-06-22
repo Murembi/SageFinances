@@ -241,5 +241,7 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
+
+<script src="${pageContext.request.contextPath}/js/loanPage.js"></script>
 </body>
 </html>

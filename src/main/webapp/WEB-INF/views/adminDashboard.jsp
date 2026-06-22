@@ -97,5 +97,6 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
+<script src="${pageContext.request.contextPath}/js/adminDashboard.js"></script>
 </body>
 </html>

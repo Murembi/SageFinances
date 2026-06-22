@@ -82,5 +82,7 @@
     %>
 </table>
 
+
+<script src="${pageContext.request.contextPath}/js/managerAsset.js"></script>
 </body>
 </html>
