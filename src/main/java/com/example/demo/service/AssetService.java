@@ -6,6 +6,7 @@ import com.example.demo.exception.AssetAlreadyExistsException;
 import com.example.demo.exception.AssetNotFoundException;
 import com.example.demo.repository.AssetRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public class AssetService {
 
     // 1 // add 1 asset
     //DONE
+    @Transactional
     public Asset addAsset(Asset asset) {
         asset.setCreatedAt(LocalDateTime.now());
 
@@ -405,6 +407,7 @@ public class AssetService {
 //    }
 
     // 24 // delete asset // REMOVE
+    @Transactional
     public void deleteAsset(Long id) {
 
         Asset asset = getAssetById(id);
@@ -437,6 +440,7 @@ public class AssetService {
     }
 
     //USED
+    @Transactional
     public void retireAsset(Long assetId) {
 
         Asset asset = repository.findById(assetId)
@@ -451,6 +455,7 @@ public class AssetService {
 
     //USED
     //create an asset used both by the manager and admin
+    @Transactional
     public Asset createAsset(AssetRequestDTO dto) {
 
         if (repository.existsBySerialNumber(dto.getSerialNumber())) {

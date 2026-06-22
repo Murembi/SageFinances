@@ -8,6 +8,7 @@ import com.example.demo.exception.UserAlreadyExistsException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.LoanRepository;
 import com.example.demo.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 
@@ -33,6 +34,7 @@ public class UserService {
     }
 
     // CREATE
+    @Transactional
     public User createUser(User user) {
 
         if (userRepository.existsByEmail(user.getEmail())) {
