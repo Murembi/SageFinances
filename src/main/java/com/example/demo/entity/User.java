@@ -35,8 +35,17 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
     public enum Role {
         ADMIN, MANAGER, BORROWER
+    }
+
+    public enum UserStatus {
+        ACTIVE,
+        INACTIVE,
+        DELETED
     }
 
 }

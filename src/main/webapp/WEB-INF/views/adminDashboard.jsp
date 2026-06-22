@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
@@ -13,9 +14,10 @@
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             width="120">
+             class="login-logo"
+             width="100">
     </div>
 
     <!-- System Title -->
@@ -38,46 +40,51 @@
            <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
            <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
            <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
-           <a href="${pageContext.request.contextPath}/settings">Settings</a> |
-           <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
+            <form action="${pageContext.request.contextPath}/logout"
+                  method="post">
+
+                <button type="submit">
+                    Log Out
+                </button>
+
+            </form>
         </div>
 
 
 
 <!-- ================= DASHBOARD CONTENT ================= -->
-<!-- ================= DASHBOARD CONTENT ================= -->
 <h3>System Overview</h3>
 
-<div class="admin-dashboard-cards">
+<div class="dashboard-grid">
 
-    <div class="card">
-        <h2>Total Assets</h2>
-        <label>${dashboard.totalAssets}</label>
+    <div class="stat-card">
+        <h3>Total Assets</h3>
+        <p>${dashboard.totalAssets}</p>
     </div>
 
-    <div class="card">
-        <h2>Available Assets</h2>
-        <label>${dashboard.availableAssets}</label>
+    <div class="stat-card">
+        <h3>Available Assets</h3>
+        <p>${dashboard.availableAssets}</p>
     </div>
 
-    <div class="card">
-        <h2>Loaned Assets</h2>
-        <label>${dashboard.loanedAssets}</label>
+    <div class="stat-card">
+        <h3>Loaned Assets</h3>
+        <p>${dashboard.loanedAssets}</p>
     </div>
 
-    <div class="card">
-        <h2>Retired Assets</h2>
-        <label>${dashboard.retiredAssets}</label>
+    <div class="stat-card">
+        <h3>Retired Assets</h3>
+        <p>${dashboard.retiredAssets}</p>
     </div>
 
-    <div class="card">
-        <h2>Total Users</h2>
-        <label>${dashboard.totalUsers}</label>
+    <div class="stat-card">
+        <h3>Total Users</h3>
+        <p>${dashboard.totalUsers}</p>
     </div>
 
-    <div class="card">
-        <h2>Pending Loans</h2>
-        <label>${dashboard.pendingLoans}</label>
+    <div class="stat-card">
+        <h3>Pending Loans</h3>
+        <p>${dashboard.pendingLoans}</p>
     </div>
 
 </div>

@@ -40,9 +40,13 @@ public class LoanPageController {
                 loanService.getLoansByStatus(
                         Loan.Status.PENDING));
 
+        model.addAttribute("returnedLoans",
+                loanService.getReturnedLoans());
+
         return "loanPage";
     }
 
+    //MODIFIED AND WORKS
     @PostMapping("/request")
     public String requestLoan(
             @RequestParam Long userId,
@@ -58,6 +62,13 @@ public class LoanPageController {
         return "redirect:/admin/loans";
     }
 
+    @PostMapping("/return/{id}")
+    public String returnLoan(@PathVariable Long id) {
+        loanService.returnLoan(id);
+        return "redirect:/admin/loans";
+    }
+
+    //MODIFIED AND WORKS
     @PostMapping("/approve/{id}")
     public String approveLoan(
             @PathVariable Long id) {

@@ -4,17 +4,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Asset</title>
+    <title>Asset Management</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
 <!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
 <div>
+
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             width="120">
+             class="login-logo"
+             width="100">
     </div>
 
     <!-- System Title -->
@@ -28,6 +31,8 @@
 
 </div>
 
+
+
 <!-- ================= NAVIGATION (SHARED) ================= -->
         <div>
            <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
@@ -40,6 +45,7 @@
         </div>
 
 </div>
+
 
 <!-- ================= CREATE ASSET ================= -->
 
@@ -56,6 +62,8 @@
 
     <button type="submit">Create</button>
 </form>
+
+
 
 <!-- ================= SEARCH ================= -->
 
@@ -89,7 +97,6 @@
         <th>Location</th>
         <th>Condition</th>
         <th>Status</th>
-        <th>Actions</th>
     </tr>
 
     <c:forEach var="a" items="${assets}">

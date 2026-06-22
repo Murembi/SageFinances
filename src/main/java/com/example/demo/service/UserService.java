@@ -2,7 +2,13 @@ package com.example.demo.service;
 
 
 import com.example.demo.entity.User;
+import com.example.demo.exception.AccountInactiveException;
+import com.example.demo.exception.InvalidCredentialsException;
+import com.example.demo.exception.UserAlreadyExistsException;
+import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.repository.LoanRepository;
 import com.example.demo.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 
@@ -28,7 +34,14 @@ public class UserService {
     }
 
     // CREATE
+    @Transactional
     public User createUser(User user) {
+
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new UserAlreadyExistsException(
+                    "Email " + user.getEmail() + " already exists."
+            );
+        }
         User newUser = User.builder()
                 .name(user.getName())
                 .department(user.getDepartment())
@@ -36,6 +49,7 @@ public class UserService {
                 .passwordHash(user.getPasswordHash())
                 .createdAt(LocalDateTime.now())
                 .role(User.Role.BORROWER)
+                .status(User.UserStatus.ACTIVE)
 
                 .build();
 
@@ -52,16 +66,25 @@ public class UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        if (user.getStatus() == User.UserStatus.DELETED ||
+                user.getStatus() == User.UserStatus.INACTIVE) {
+            throw new AccountInactiveException(
+                    "Account is inactive."
+            );
+        }
         // Compare provided password with stored password (should be hashed in production)
         if (user.getPasswordHash() != null && user.getPasswordHash().equals(password)) {
             return user;
         }
-        throw new RuntimeException("Invalid credentials");
+        throw new InvalidCredentialsException(
+                "Invalid credentials."
+        );
 
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(
+                 id ));
     }
 
     //
@@ -105,16 +128,26 @@ public class UserService {
     }
 
     // Update only the user's role
+    //used
     public User updateUserRole(Long id, User.Role newRole) {
         User user = getUserById(id);
         user.setRole(newRole);
         return userRepository.save(user);
     }
 
-    // DELETE
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    // DELETE //NEED TO KEEP HISTORY/RECORDS
+    // implemenet a new soft delete
+    // prevents systems from crashing
+    // SOFT DELETE
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(
+                        userId ));
+
+        user.setStatus(User.UserStatus.DELETED);
+        userRepository.save(user);
     }
+
 
     public List<User> searchUsers(String keyword) {
         return userRepository.findAll().stream()
@@ -126,4 +159,7 @@ public class UserService {
                 )
                 .toList();
     }
+    //cannot delete a user because of the foreign key
+
+
 }

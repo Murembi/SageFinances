@@ -26,7 +26,6 @@ public class LoginController {
         this.userDashboardService = userDashboardService;
     }
 
-
     @GetMapping("/loginpage")
     public String showLoginPage() {
         return "login";
@@ -36,10 +35,13 @@ public class LoginController {
     public String logIn(
             @RequestParam String email,
             @RequestParam String password,
-            HttpSession session) {
+            HttpSession session,Model model
+            ) {
+        try{
 
         User user = userService.getUserByLoginDetails(email, password);
         session.setAttribute("user", user);
+
         // redirection after logging
         if (user.getRole() == User.Role.ADMIN) {
             return "redirect:/admin/dashboard";
@@ -49,6 +51,13 @@ public class LoginController {
             return "redirect:/manager/dashboard";
         }
         return "redirect:/user-dashboard";
+
+    } catch (RuntimeException e) {
+            System.out.println("LOGIN ERROR: " + e.getMessage());
+            model.addAttribute("error", e.getMessage());
+
+            return "login";
+        }
     }
 
     @GetMapping("/user-dashboard")
@@ -58,6 +67,14 @@ public class LoginController {
 
         if (loggedInUser == null) {
             return "redirect:/loginpage";
+
+        }
+        // Check if account is inactive/deleted
+        if (loggedInUser.getStatus() == User.UserStatus.DELETED) {
+
+            session.invalidate();
+
+            return "redirect:/loginpage?error=inactive";
         }
 
         Long userId = loggedInUser.getUserId();
@@ -74,5 +91,11 @@ public class LoginController {
         model.addAttribute("pendingLoans", userDashboardService.getMyPendingRequests(userId));
         model.addAttribute("loanedAssets", userDashboardService.getMyLoanedAssets(userId));
         return "user-dashboard";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/loginpage";
     }
 }

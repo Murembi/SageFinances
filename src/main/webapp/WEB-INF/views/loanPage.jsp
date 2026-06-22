@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Loan</title>
+    <title>Loan Management</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
@@ -13,9 +14,10 @@
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             width="120">
+             class="login-logo"
+             width="100">
     </div>
 
     <!-- System Title -->
@@ -61,6 +63,7 @@
 <table border="1">
 
     <tr>
+
         <th>ID</th>
         <th>Title</th>
         <th>Category</th>
@@ -79,7 +82,7 @@
 
             <td>
 
-                <form action="/loan-page/request" method="post">
+                <form action="${pageContext.request.contextPath}/admin/loans/request" method="post">
 
                     <input type="hidden"
                            name="assetId"
@@ -137,21 +140,16 @@
 
             <td>
 
-                <a href="/loan-page/edit/${loan.loanId}">
-                    Edit
-                </a>
+                <c:if test="${loan.status == 'APPROVED'}">
+                    <form action="${pageContext.request.contextPath}/admin/loans/return/${loan.loanId}"
+                          method="post">
 
-                |
+                        <button type="submit">
+                            Return Asset
+                        </button>
 
-                <form action="/loan-page/delete/${loan.loanId}"
-                      method="post"
-                      style="display:inline;">
-
-                    <button type="submit">
-                        Delete
-                    </button>
-
-                </form>
+                    </form>
+                </c:if>
 
             </td>
 
@@ -170,6 +168,7 @@
 <table border="1">
 
     <tr>
+
         <th>Loan ID</th>
         <th>User</th>
         <th>Asset</th>
@@ -178,19 +177,19 @@
         <th>Actions</th>
     </tr>
 
-    <c:forEach items="${requests}" var="request">
+    <c:forEach items="${requests}" var="loanRequest">
 
         <tr>
 
-            <td>${request.loanId}</td>
-            <td>${request.user.name}</td>
-            <td>${request.asset.title}</td>
-            <td>${request.status}</td>
-            <td>${request.requestDate}</td>
+            <td>${loanRequest.loanId}</td>
+            <td>${loanRequest.user.name}</td>
+            <td>${loanRequest.asset.title}</td>
+            <td>${loanRequest.status}</td>
+            <td>${loanRequest.requestDate}</td>
 
             <td>
 
-                <form action="/loan-page/approve/${request.loanId}"
+                <form action="${pageContext.request.contextPath}/admin/loans/approve/${loanRequest.loanId}"
                       method="post">
 
                     <button type="submit">
@@ -199,9 +198,8 @@
 
                 </form>
 
-                <form action="/loan-page/reject/${request.loanId}"
+                <form action="${pageContext.request.contextPath}/admin/loans/reject/${loanRequest.loanId}"
                       method="post">
-
                     <button type="submit">
                         Reject
                     </button>
@@ -214,6 +212,27 @@
 
     </c:forEach>
 
+</table>
+<h2>Returned Assets</h2>
+
+<table border="1">
+    <tr>
+        <th>Loan ID</th>
+        <th>User</th>
+        <th>Asset</th>
+        <th>Status</th>
+        <th>Return Date</th>
+    </tr>
+
+    <c:forEach items="${returnedLoans}" var="loan">
+        <tr>
+            <td>${loan.loanId}</td>
+            <td>${loan.user.name}</td>
+            <td>${loan.asset.title}</td>
+            <td>${loan.status}</td>
+            <td>${loan.returnDate}</td>
+        </tr>
+    </c:forEach>
 </table>
 
 <!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->

@@ -3,7 +3,6 @@ package com.example.demo.dashboard.service;
 import com.example.demo.dashboard.dto.AvailableAssetDTO;
 import com.example.demo.dashboard.dto.MyLoanedAssetDTO;
 import com.example.demo.dashboard.dto.PendingLoanDTO;
-import com.example.demo.dashboard.dto.UserLoanDTO;
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
@@ -42,6 +41,8 @@ public class UserDashboardService {
                 )
         );
 
+
+
         return dto;
     }
 
@@ -62,7 +63,7 @@ public class UserDashboardService {
             dto.setAssetTitle(loan.getAsset().getTitle());
             dto.setRequestDate(loan.getRequestDate());
             dto.setStatus(loan.getStatus().name());
-
+            dto.setPhotoPath(loan.getAsset().getPhotoPath());
             list.add(dto);
         }
 
@@ -84,7 +85,7 @@ public class UserDashboardService {
             dto.setAssetName(asset.getTitle());
             dto.setCategory(asset.getCategory());
             dto.setStatus(asset.getStatus().name());
-
+            dto.setPhotoPath(asset.getPhotoPath());
             list.add(dto);
         }
 
@@ -109,6 +110,7 @@ public class UserDashboardService {
             dto.setCheckoutDate(loan.getCheckoutDate());
             dto.setDueDate(loan.getDueDate());
             dto.setStatus(loan.getStatus().name());
+            dto.setPhotoPath(loan.getAsset().getPhotoPath());
 
             list.add(dto);
         }

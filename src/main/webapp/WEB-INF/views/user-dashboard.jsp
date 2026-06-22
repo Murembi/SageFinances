@@ -1,8 +1,24 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.demo.dashboard.dto.AvailableAssetDTO" %>
 <%@ page import="com.example.demo.dashboard.dto.PendingLoanDTO" %>
 <%@ page import="com.example.demo.dashboard.dto.MyLoanedAssetDTO" %>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/styles.css">
+
+    <img src="${pageContext.request.contextPath}/images/img_1.png"
+         alt="Logo"
+         class="login-logo"
+         width="100">
+</head>
+<body>
 <h1>User Dashboard</h1>
 
 <div class="dashboard-cards">
@@ -29,6 +45,7 @@
 
     <table border="1">
         <tr>
+            <th>Image</th>
             <th>Select</th>
             <th>ID</th>
             <th>Asset Name</th>
@@ -43,6 +60,13 @@
             for (AvailableAssetDTO asset : assets) {
         %>
         <tr>
+            <td>
+                <img src="<%= request.getContextPath() + asset.getPhotoPath() %>"
+                     alt="<%= asset.getAssetName() %>"
+                     width="80"
+                     height="80">
+            </td>
+
             <td>
                 <input type="checkbox"
                        name="assetIds"
@@ -66,6 +90,7 @@
 <h3>Pending Loans</h3>
 <table border="1">
     <tr>
+        <th>Image</th>
         <th>Asset Name</th>
         <th>Request Date</th>
         <th>Due Date</th>
@@ -78,6 +103,12 @@
         for (PendingLoanDTO loan : pendingLoans) {
     %>
     <tr>
+        <td>
+            <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
+                 alt="<%= loan.getAssetTitle() %>"
+                 width="80"
+                 height="80">
+        </td>
         <td><%= loan.getAssetTitle() %></td>
         <td><%= loan.getRequestDate() %></td>
         <td><%= loan.getDueDate() %></td>
@@ -90,6 +121,7 @@
 <h3>My Loaned Assets</h3>
 <table border="1">
     <tr>
+        <th>Image</th>
         <th>Asset Name</th>
         <th>Checkout Date</th>
         <th>Due Date</th>
@@ -102,7 +134,12 @@
 
         for (MyLoanedAssetDTO loan : loanedAssets) {
     %>
-    <tr>
+    <tr><td>
+        <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
+             alt="<%= loan.getAssetName() %>"
+             width="80"
+             height="80">
+    </td>
         <td><%= loan.getAssetName() %></td>
         <td><%= loan.getCheckoutDate() %></td>
         <td><%= loan.getDueDate() %></td>
@@ -112,3 +149,12 @@
         }
     %>
 </table>
+
+<form action="${pageContext.request.contextPath}/logout"
+      method="post">
+
+    <button type="submit">
+        Logout
+    </button>
+
+</form>

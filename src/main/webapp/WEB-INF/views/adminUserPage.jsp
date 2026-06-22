@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User</title>
+    <title>Admin User Page</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
@@ -13,9 +14,10 @@
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/mecer-inter-ed-logo.jpg"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             width="120">
+             class="login-logo"
+             width="100">
     </div>
 
     <!-- System Title -->
@@ -70,6 +72,7 @@
         <th>Email</th>
         <th>Department</th>
         <th>Role</th>
+        <th>Status</th>
         <th>Actions</th>
     </tr>
 
@@ -82,25 +85,34 @@
             <td>${user.email}</td>
             <td>${user.department}</td>
             <td>${user.role}</td>
+            <td>${user.status}</td>
 
             <td>
-
-                <!-- EDIT -->
-                <a href="/admin/users/edit/${user.userId}">
-                    Edit
-                </a>
-
-                |
-
-                <!-- DELETE -->
-                <form action="${pageContext.request.contextPath}/api/users/${user.userId}"
+                <!-- UPDATE ROLE -->
+                <form action="${pageContext.request.contextPath}/admin/users/update-role/${user.userId}"
                       method="post"
-                      style="display:inline;">
+                      >
 
-                    <input type="hidden" name="_method" value="delete"/>
+                    <select name="role">
+                        <option value="BORROWER">Borrower</option>
+                        <option value="MANAGER">Manager</option>
+                        <option value="ADMIN">Admin</option>
+                    </select>
 
                     <button type="submit">
-                        Delete
+                        Update Role
+                    </button>
+
+                </form>
+
+                <!-- DELETE -->
+                <form action="${pageContext.request.contextPath}/admin/users/delete/${user.userId}"
+                      method="post"
+                      onsubmit="return confirm('Deactivate this user?');"
+                      >
+
+                    <button type="submit">
+                        Deactivate
                     </button>
 
                 </form>

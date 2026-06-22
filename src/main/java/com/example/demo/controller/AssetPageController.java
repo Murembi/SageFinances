@@ -73,6 +73,7 @@ public class AssetPageController {
         return "redirect:/admin/assets";
     }
 
+    // REMOVE CANT DELETE AN ASSET
     // =========================
     // DELETE ASSET (FROM JSP BUTTON)
     // =========================

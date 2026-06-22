@@ -12,4 +12,5 @@ public class MyLoanedAssetDTO {
     private LocalDateTime checkoutDate;
     private LocalDateTime dueDate;
     private String status;
+    private String photoPath;
 }
