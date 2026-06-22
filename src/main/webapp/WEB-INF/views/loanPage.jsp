@@ -55,56 +55,56 @@
 
 <h2>Available Assets</h2>
 
-<form method="get">
-    <input type="text" name="assetSearch" placeholder="Search Assets">
-    <button type="submit">Search</button>
-</form>
+<%--<form method="get">--%>
+<%--    <input type="text" name="assetSearch" placeholder="Search Assets">--%>
+<%--    <button type="submit">Search</button>--%>
+<%--</form>--%>
 
-<table border="1">
+<%--<table border="1">--%>
 
-    <tr>
+<%--    <tr>--%>
 
-        <th>ID</th>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
+<%--        <th>ID</th>--%>
+<%--        <th>Title</th>--%>
+<%--        <th>Category</th>--%>
+<%--        <th>Status</th>--%>
+<%--        <th>Action</th>--%>
+<%--    </tr>--%>
 
-    <c:forEach items="${assets}" var="asset">
+<%--    <c:forEach items="${assets}" var="asset">--%>
 
-        <tr>
+<%--        <tr>--%>
 
-            <td>${asset.assetId}</td>
-            <td>${asset.title}</td>
-            <td>${asset.category}</td>
-            <td>${asset.status}</td>
+<%--            <td>${asset.assetId}</td>--%>
+<%--            <td>${asset.title}</td>--%>
+<%--            <td>${asset.category}</td>--%>
+<%--            <td>${asset.status}</td>--%>
 
-            <td>
+<%--            <td>--%>
 
-                <form action="${pageContext.request.contextPath}/admin/loans/request" method="post">
+<%--                <form action="${pageContext.request.contextPath}/admin/loans/request" method="post">--%>
 
-                    <input type="hidden"
-                           name="assetId"
-                           value="${asset.assetId}">
+<%--                    <input type="hidden"--%>
+<%--                           name="assetId"--%>
+<%--                           value="${asset.assetId}">--%>
 
-                    <input type="hidden"
-                           name="userId"
-                           value="${sessionScope.user.userId}">
+<%--                    <input type="hidden"--%>
+<%--                           name="userId"--%>
+<%--                           value="${sessionScope.user.userId}">--%>
 
-                    <button type="submit">
-                        Request Loan
-                    </button>
+<%--                    <button type="submit">--%>
+<%--                        Request Loan--%>
+<%--                    </button>--%>
 
-                </form>
+<%--                </form>--%>
 
-            </td>
+<%--            </td>--%>
 
-        </tr>
+<%--        </tr>--%>
 
-    </c:forEach>
+<%--    </c:forEach>--%>
 
-</table>
+<%--</table>--%>
 
 <br><br>
 
