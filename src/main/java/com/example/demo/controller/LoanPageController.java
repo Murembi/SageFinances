@@ -33,7 +33,7 @@ public class LoanPageController {
 
         model.addAttribute(
                 "loans",
-                loanService.getAllLoans());
+                loanService.getLoansByStatus(Loan.Status.APPROVED));
 
         model.addAttribute(
                 "requests",

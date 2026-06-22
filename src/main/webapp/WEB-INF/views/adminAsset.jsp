@@ -97,6 +97,7 @@
         <th>Location</th>
         <th>Condition</th>
         <th>Status</th>
+        <th>Action</th>
     </tr>
 
     <c:forEach var="a" items="${assets}">

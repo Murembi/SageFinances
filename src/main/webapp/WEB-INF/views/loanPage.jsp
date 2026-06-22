@@ -53,7 +53,7 @@
 
 <!-- AVAILABLE ASSETS -->
 
-<h2>Available Assets</h2>
+<!-- <h2>Available Assets</h2> -->
 
 <%--<form method="get">--%>
 <%--    <input type="text" name="assetSearch" placeholder="Search Assets">--%>
@@ -106,16 +106,20 @@
 
 <%--</table>--%>
 
-<br><br>
+<!-- <br><br> -->
 
 <!-- ALL LOANS -->
 
-<h2>All Loans</h2>
+<h2>Active Loans</h2>
 
-<form method="get">
-    <input type="text" name="loanSearch" placeholder="Search Loans">
-    <button type="submit">Search</button>
-</form>
+<%--<h3>Search Active Loans</h3>--%>
+
+<%--<form method="get">--%>
+<%--    <input type="text"--%>
+<%--           name="loanSearch"--%>
+<%--           placeholder="Search by borrower, asset, or loan ID">--%>
+<%--    <button type="submit">Search</button>--%>
+<%--</form>--%>
 
 <table border="1">
 
