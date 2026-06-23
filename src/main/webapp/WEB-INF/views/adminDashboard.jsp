@@ -21,10 +21,10 @@
 
             
 
-            <aside id ="sidebar" class=" sidebar"> 
+
 
                 <!-- Logo -->
-                <div>
+                <div class="container-logo">
                     <img src="${pageContext.request.contextPath}/images/img_1.png"
                         alt="Logo"
                         class="login-logo"
@@ -32,30 +32,28 @@
                 </div>
 
 <!-- ================= NAVIGATION (SHARED) ================= -->
-        <div>
-           <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
-           <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
-           <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
-           <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
-           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
-            <form action="${pageContext.request.contextPath}/logout"
-                  method="post">
 
+
+
+
+            <ProfileWidget class="container-userinfo">
                 <!-- User Info -->
-                <p class="profile-widget">
-                    Username: ${username} <br>
-                    Role: ${userRole}
+                <p>
+                Username: ${username} <br>
+                Role: ${userRole}
                 </p>
+            </ProfileWidget>
 
 
+            <div class="container-links">
                 <!-- ================= NAVIGATION (SHARED) ================= -->
-            <div class="navMenu">
-            <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
-            <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
-            <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
-            <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
-                <form action="${pageContext.request.contextPath}/logout"
-                    method="post">
+            <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
+                       <a href="${pageContext.request.contextPath}/admin/assets">Assets</a>
+                       <a href="${pageContext.request.contextPath}/admin/users">Users</a>
+                       <a href="${pageContext.request.contextPath}/admin/loans">Loans</a>
+                       <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a>
+                        <form action="${pageContext.request.contextPath}/logout"
+                              method="post">
 
                     <button type="submit">
                         Log Out
@@ -64,7 +62,7 @@
                 </form>
             </div>
 
-            </aside>
+
 
         </nav>
 

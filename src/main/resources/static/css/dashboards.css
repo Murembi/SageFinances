@@ -74,27 +74,48 @@ body
 
 
   flex: 1; /* takes up remaining space */
-  gap: 20px;
+  gap: 0px;
   width: 90%;
   min-height: calc(100vh - 120px);
   box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-  background: transparent; /* transparent if overlaying */
+  background: black; /* transparent if overlaying */
+  padding: 0px;
+  border-radius: 0px;
   padding: 20px;
-  border-radius: 25px;
-  padding-top: 20px; /* adds space below header */
-  padding-bottom: 20px; /* adds space above footer */
+
 
 }
+
+    .container-logo, .container-userinfo, .container-links
+    {
+          margin-bottom: 25px;
+          width: 100%;
+          box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+          background: transparent; /* transparent if overlaying */
+          padding: 20px;
+          border-radius: 25px;
+          padding-top: 20px; /* adds space below header */
+          padding-bottom: 20px; /* adds space above footer */
+
+    }
+
+    .container-links
+    {
+        display:
+    }
 
 .navMenu
 {
   list-style: none;
   padding: 0;
-  margin-top: 20px;
 
   grid-area: navMenu; /* places navMenu in the defined grid area */
   display: flex;
   flex-direction: column;
+  gap: 0px:
+  justify-content: center;
+
+  align-self: stretch;
 }
 
 
@@ -140,8 +161,8 @@ body
 {
   padding: 15px;
   border-radius: 20px;
-  background: linear-gradient(145deg, #f3f3f3,#90f012);
   border-bottom: 1px solid #26ecd8;
+  box-shadow: 0 3px 10px (0, 0, 0, 0.4);
   
 }
 

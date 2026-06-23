@@ -70,45 +70,7 @@
         <a id="contactLink">Contact Us</a>
     </div>
 </footer>
-             alt="Logo"
-             class="login-logo"
-             width="100">
 
-        <h1>Asset Management System</h1>
-
-        <p class="login-subtitle">
-           Sign in to continue
-        </p>
-
-        <form action="${pageContext.request.contextPath}/auth/login"
-              method="post">
-
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email"
-                       name="email"
-                       placeholder="Enter your email"
-                       required>
-            </div>
-
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password"
-                       name="password"
-                       placeholder="Enter your password"
-                       required>
-            </div>
-            <c:if test="${not empty error}">
-                <div class="error-box">
-                        ${error}
-                </div>
-            </c:if>
-
-            <button type="submit" class="login-btn">
-                Log In
-            </button>
-
-        </form>
 
         <div class="register-link">
             <p>
