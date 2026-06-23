@@ -1,5 +1,6 @@
 package com.example.demo.dashboard.controller;
 
+import com.example.demo.dto.DashboardDTO;
 import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +32,17 @@ public class UsersDashboardController {
             return "redirect:/loginpage";
         }
 
-
+        DashboardDTO dashboard =
+                userDashboardService.getUserDashboard(user.getUserId());
 
         model.addAttribute("user", user);
 
+        // card
+        model.addAttribute("availableAssetsCount", dashboard.getAvailableAssets());
+        model.addAttribute("myLoans", dashboard.getMyLoans());
+        model.addAttribute("myPendingRequests", dashboard.getMyPendingRequests());
+
+        // table
         model.addAttribute("availableAssets",
                 userDashboardService.getAvailableAssets());
 

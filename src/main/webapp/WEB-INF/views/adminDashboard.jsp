@@ -31,6 +31,15 @@
                         width="100">
                 </div>
 
+<!-- ================= NAVIGATION (SHARED) ================= -->
+        <div>
+           <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
+           <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
+           <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
+           <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
+           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
+            <form action="${pageContext.request.contextPath}/logout"
+                  method="post">
 
                 <!-- User Info -->
                 <p class="profile-widget">
@@ -108,5 +117,6 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </footer>
 
+<script src="${pageContext.request.contextPath}/js/adminDashboard.js"></script>
 </body>
 </html>

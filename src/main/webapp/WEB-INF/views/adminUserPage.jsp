@@ -39,6 +39,7 @@
            <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
            <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
            <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
+           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
            <a href="${pageContext.request.contextPath}/settings">Settings</a> |
            <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
         </div>
@@ -124,12 +125,10 @@
 
 </table>
 
-
-
 <!-- REGISTER USER -->
 <h3>Register New User</h3>
 
-<form action="${pageContext.request.contextPath}/users/register" method="post">
+<form action="${pageContext.request.contextPath}/admin/users/create" method="post">
 
     <p>
         Name: <input type="text" name="name" required>
@@ -137,6 +136,7 @@
 
     <p>
         Email: <input type="email" name="email" required>
+        <small>Must be a company email (@sageassets.co.za)</small>
     </p>
 
     <p>
@@ -166,11 +166,7 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
-<script>
-    function clearSearch() {
-        document.querySelector('input[name="keyword"]').value = '';
-    }
-</script>
 
+<script src="${pageContext.request.contextPath}/js/adminUserPage.js"></script>
 </body>
 </html>

@@ -46,7 +46,7 @@ public class Asset {
     private Status status;
 
     public enum Status {
-        AVAILABLE, LOANED, RETIRED
+        AVAILABLE, LOANED, RETIRED, RESERVED
     }
 
 }
