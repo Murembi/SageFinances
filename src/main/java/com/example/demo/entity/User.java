@@ -1,27 +1,33 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
-
+@Getter
+@Setter
 @Entity
+@Data
+@Builder
 @Table(name = "user")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
+    @Column(nullable = false)
     private String name;
     private String department;
+
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
     @Column(name = "password_hash")
     private String passwordHash;
@@ -29,11 +35,17 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
     public enum Role {
-        Admin, Manager, Borrower
+        ADMIN, MANAGER, BORROWER
     }
 
-    public enum Status {
-        ACTIVE, WARNING, BANNED
+    public enum UserStatus {
+        ACTIVE,
+        INACTIVE,
+        DELETED
     }
+
 }
