@@ -112,6 +112,7 @@
                 <thead>
                 <tr>
                     <th>Loan ID</th>
+                    <th>Image</th>
                     <th>Asset</th>
                     <th>Borrower</th>
                     <th>Checkout Date</th>
@@ -124,6 +125,18 @@
                 <c:forEach items="${approvedLoanList}" var="loan">
                     <tr>
                         <td>${loan.loanId}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${not empty loan.asset.photoPath}">
+                                    <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                                         alt="Asset Image"
+                                         width="80">
+                                </c:when>
+                                <c:otherwise>
+                                    No image
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                         <td>${loan.asset.title}</td>
                         <td>${loan.user.name}</td>
                         <td>${loan.checkoutDate}</td>
@@ -230,7 +243,7 @@
 
                                     <form action="${pageContext.request.contextPath}/manager/dashboard/approve"
                                           method="post"
-                                          style="display:inline;">
+                                          >
 
                                         <input type="hidden" name="loanId" value="${req.id}" />
 
@@ -242,7 +255,7 @@
 
                                     <form action="${pageContext.request.contextPath}/manager/dashboard/reject"
                                           method="post"
-                                          style="display:inline;">
+                                          >
 
                                         <input type="hidden" name="loanId" value="${req.id}" />
 
@@ -264,6 +277,5 @@
 
 </div>
 
-<script src="${pageContext.request.contextPath}/js/manager-dashboard.js"></script>
 </body>
 </html>

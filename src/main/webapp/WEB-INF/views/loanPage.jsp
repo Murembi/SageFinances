@@ -174,6 +174,7 @@
     <tr>
 
         <th>Loan ID</th>
+        <th>Image</th>
         <th>User</th>
         <th>Asset</th>
         <th>Status</th>
@@ -186,6 +187,18 @@
         <tr>
 
             <td>${loanRequest.loanId}</td>
+            <td>
+                <c:choose>
+                    <c:when test="${not empty loan.asset.photoPath}">
+                        <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                             alt="Asset Image"
+                             width="80">
+                    </c:when>
+                    <c:otherwise>
+                        No image
+                    </c:otherwise>
+                </c:choose>
+            </td>
             <td>${loanRequest.user.name}</td>
             <td>${loanRequest.asset.title}</td>
             <td>${loanRequest.status}</td>
