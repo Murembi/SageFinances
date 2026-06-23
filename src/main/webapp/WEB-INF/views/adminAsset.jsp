@@ -168,7 +168,8 @@
         <input type="text" id="editCategory" name="category"><br><br>
 
         Serial:
-        <input type="text" id="editSerial" name="serialNumber"><br><br>
+        <input type="text" id="editSerial" name="serialNumber" readonly
+               style="background-color:#e9ecef; color:#6c757d;"><br><br>
 
         Cost:
         <input type="number" step="0.01" id="editCost" name="cost"><br><br>
