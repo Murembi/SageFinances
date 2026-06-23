@@ -17,6 +17,7 @@
 
     <form action="${pageContext.request.contextPath}/manager/dashboard/assets/add"
           method="post"
+          enctype="multipart/form-data"
           class="asset-form">
 
         <div class="form-group">
@@ -44,6 +45,7 @@
             <label>Acquisition Date</label>
             <input type="date"
                    name="acquisitionDate"
+                   max="<%= java.time.LocalDate.now() %>"
                    required>
         </div>
 
@@ -51,6 +53,7 @@
             <label>Cost</label>
             <input type="number"
                    step="0.01"
+                   min="0"
                    name="cost"
                    required>
         </div>
@@ -64,7 +67,7 @@
 
         <div class="form-group">
             <label>Condition</label>
-            <select name="condition" required>
+            <select name="assetCondition" required>
                 <option value="">Select Condition</option>
                 <option value="NEW">New</option>
                 <option value="GOOD">Good</option>
@@ -74,10 +77,11 @@
         </div>
 
         <div class="form-group">
-            <label>Photo Path</label>
-            <input type="text"
-                   name="photoPath"
-                   placeholder="/images/laptop.jpg">
+            <label>Asset Photo</label>
+            <input type="file"
+                   name="imageFile"
+                   accept="image/*"
+                    required>
         </div>
 
         <button type="submit" class="btn-primary">

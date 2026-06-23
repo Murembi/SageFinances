@@ -23,6 +23,7 @@ import com.example.demo.dashboard.dto.ManagerDashboardDTO;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/manager/dashboard")
@@ -165,11 +166,12 @@ public class ManagersDashboardController {
     }
 
     @PostMapping("/assets/add")
-    public String createAsset(@ModelAttribute AssetRequestDTO dto) {
+    public String createAsset(@ModelAttribute AssetRequestDTO dto,
+                              @RequestParam("imageFile") MultipartFile imageFile) {
 
-        assetService.createAsset(dto);
+        assetService.createAsset(dto, imageFile);
 
-        return "redirect:/manager/dashboard";
+        return "redirect:/manager/dashboard/assets";
     }
     @PostMapping("/approve")
     public String approveLoan(@RequestParam Long loanId) {

@@ -6,159 +6,219 @@
 <%@ page import="com.example.demo.dashboard.dto.MyLoanedAssetDTO" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/styles.css">
-
-    <img src="${pageContext.request.contextPath}/images/img_1.png"
-         alt="Logo"
-         class="login-logo"
-         width="100">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
+
 <body>
-<h1>User Dashboard</h1>
 
-<div class="dashboard-cards">
-
-    <div class="card">
-        <h2>Available Assets</h2>
-        <label>${availableAssetsCount}</label>
+<header class="header">
+    <div class="logo">
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
+             alt="Logo"
+             class="login-logo"
+             width="100">
     </div>
 
-    <div class="card">
-        <h2>My Loans</h2>
-        <label>${myLoans}</label>
-    </div>
+    <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
+</header>
 
-    <div class="card">
-        <h2>Pending Requests</h2>
-        <label>${myPendingRequests}</label>
-    </div>
+<div class="container">
+
+    <aside class="sidebar">
+
+        <ul class="sidebar-menu">
+            <li>
+                <a href="${pageContext.request.contextPath}/user-dashboard">Dashboard</a>
+            </li>
+        </ul>
+
+        <form action="${pageContext.request.contextPath}/logout" method="post">
+            <button type="submit" class="logout-btn">Logout →</button>
+        </form>
+
+    </aside>
+
+    <main class="main-content">
+
+        <section class="dashboard-header">
+            <h1>User Dashboard</h1>
+            <p>Welcome back, ${username}</p>
+        </section>
+
+        <section class="manager-dashboard-cards">
+            <div class="dashboard-grid">
+
+                <div class="stat-card">
+                    <h2>Available Assets</h2>
+                    <p>${availableAssetsCount}</p>
+                </div>
+
+                <div class="stat-card">
+                    <h2>My Loans</h2>
+                    <p>${myLoans}</p>
+                </div>
+
+                <div class="stat-card">
+                    <h2>Pending Requests</h2>
+                    <p>${myPendingRequests}</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="table-section">
+            <h2>Available Assets</h2>
+
+            <form action="${pageContext.request.contextPath}/request-loans" method="post">
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Select</th>
+                        <th>ID</th>
+                        <th>Asset Name</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <%
+                        List<AvailableAssetDTO> assets =
+                                (List<AvailableAssetDTO>) request.getAttribute("availableAssets");
+
+                        if (assets != null) {
+                            for (AvailableAssetDTO asset : assets) {
+                    %>
+                    <tr>
+                        <td>
+                            <img src="<%= request.getContextPath() + asset.getPhotoPath() %>"
+                                 alt="<%= asset.getAssetName() %>"
+                                 width="80"
+                                 height="80">
+                        </td>
+
+                        <td>
+                            <input type="checkbox"
+                                   name="assetIds"
+                                   value="<%= asset.getAssetId() %>">
+                        </td>
+
+                        <td><%= asset.getAssetId() %></td>
+                        <td><%= asset.getAssetName() %></td>
+                        <td><%= asset.getCategory() %></td>
+                        <td><%= asset.getStatus() %></td>
+                    </tr>
+                    <%
+                            }
+                        }
+                    %>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <button type="submit" class="approve-btn">
+                    Request Selected Assets
+                </button>
+
+            </form>
+        </section>
+
+        <section class="table-section">
+            <h2>Pending Loans</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Asset Name</th>
+                    <th>Request Date</th>
+                    <th>Due Date</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <%
+                    List<PendingLoanDTO> pendingLoans =
+                            (List<PendingLoanDTO>) request.getAttribute("pendingLoans");
+
+                    if (pendingLoans != null) {
+                        for (PendingLoanDTO loan : pendingLoans) {
+                %>
+                <tr>
+                    <td>
+                        <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
+                             alt="<%= loan.getAssetTitle() %>"
+                             width="80"
+                             height="80">
+                    </td>
+                    <td><%= loan.getAssetTitle() %></td>
+                    <td><%= loan.getRequestDate() %></td>
+                    <td><%= loan.getDueDate() %></td>
+                </tr>
+                <%
+                        }
+                    }
+                %>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="table-section">
+            <h2>My Loaned Assets</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Asset Name</th>
+                    <th>Checkout Date</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <%
+                    List<MyLoanedAssetDTO> loanedAssets =
+                            (List<MyLoanedAssetDTO>) request.getAttribute("loanedAssets");
+
+                    if (loanedAssets != null) {
+                        for (MyLoanedAssetDTO loan : loanedAssets) {
+                %>
+                <tr>
+                    <td>
+                        <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
+                             alt="<%= loan.getAssetName() %>"
+                             width="80"
+                             height="80">
+                    </td>
+                    <td><%= loan.getAssetName() %></td>
+                    <td><%= loan.getCheckoutDate() %></td>
+                    <td><%= loan.getDueDate() %></td>
+                    <td><%= loan.getStatus() %></td>
+                </tr>
+                <%
+                        }
+                    }
+                %>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
 
 </div>
-<h3>Available Assets</h3>
-
-<form action="${pageContext.request.contextPath}/request-loans" method="post">
-
-    <table border="1">
-        <tr>
-            <th>Image</th>
-            <th>Select</th>
-            <th>ID</th>
-            <th>Asset Name</th>
-            <th>Category</th>
-            <th>Status</th>
-        </tr>
-
-        <%
-            List<AvailableAssetDTO> assets =
-                    (List<AvailableAssetDTO>) request.getAttribute("availableAssets");
-
-            for (AvailableAssetDTO asset : assets) {
-        %>
-        <tr>
-            <td>
-                <img src="<%= request.getContextPath() + asset.getPhotoPath() %>"
-                     alt="<%= asset.getAssetName() %>"
-                     width="80"
-                     height="80">
-            </td>
-
-            <td>
-                <input type="checkbox"
-                       name="assetIds"
-                       value="<%= asset.getAssetId() %>">
-            </td>
-            <td><%= asset.getAssetId() %></td>
-            <td><%= asset.getAssetName() %></td>
-            <td><%= asset.getCategory() %></td>
-            <td><%= asset.getStatus() %></td>
-        </tr>
-        <%
-            }
-        %>
-    </table>
-
-    <br>
-
-    <button type="submit">Request Selected Assets</button>
-
-</form>
-<h3>Pending Loans</h3>
-<table border="1">
-    <tr>
-        <th>Image</th>
-        <th>Asset Name</th>
-        <th>Request Date</th>
-        <th>Due Date</th>
-    </tr>
-
-    <%
-        List<PendingLoanDTO> pendingLoans =
-                (List<PendingLoanDTO>) request.getAttribute("pendingLoans");
-
-        for (PendingLoanDTO loan : pendingLoans) {
-    %>
-    <tr>
-        <td>
-            <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
-                 alt="<%= loan.getAssetTitle() %>"
-                 width="80"
-                 height="80">
-        </td>
-        <td><%= loan.getAssetTitle() %></td>
-        <td><%= loan.getRequestDate() %></td>
-        <td><%= loan.getDueDate() %></td>
-    </tr>
-    <%
-        }
-    %>
-</table>
-
-<h3>My Loaned Assets</h3>
-<table border="1">
-    <tr>
-        <th>Image</th>
-        <th>Asset Name</th>
-        <th>Checkout Date</th>
-        <th>Due Date</th>
-        <th>Status</th>
-    </tr>
-
-    <%
-        List<MyLoanedAssetDTO> loanedAssets =
-                (List<MyLoanedAssetDTO>) request.getAttribute("loanedAssets");
-
-        for (MyLoanedAssetDTO loan : loanedAssets) {
-    %>
-    <tr><td>
-        <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
-             alt="<%= loan.getAssetName() %>"
-             width="80"
-             height="80">
-    </td>
-        <td><%= loan.getAssetName() %></td>
-        <td><%= loan.getCheckoutDate() %></td>
-        <td><%= loan.getDueDate() %></td>
-        <td><%= loan.getStatus() %></td>
-    </tr>
-    <%
-        }
-    %>
-</table>
-
-<form action="${pageContext.request.contextPath}/logout"
-      method="post">
-
-    <button type="submit">
-        Logout
-    </button>
-
-</form>
 
 <script src="${pageContext.request.contextPath}/js/user-dashboard.js"></script>
 
 </body>
+</html>

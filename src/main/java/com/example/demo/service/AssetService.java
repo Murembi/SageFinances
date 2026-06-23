@@ -7,8 +7,11 @@ import com.example.demo.exception.AssetNotFoundException;
 import com.example.demo.repository.AssetRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -210,14 +213,13 @@ public class AssetService {
     //USED
     //create an asset used both by the manager and admin
     @Transactional
-    public Asset createAsset(AssetRequestDTO dto) {
+    public Asset createAsset(AssetRequestDTO dto, MultipartFile imageFile) {
 
         if (repository.existsBySerialNumber(dto.getSerialNumber())) {
             throw new AssetAlreadyExistsException( "Asset with serial number " +
                     dto.getSerialNumber() + " already exists"
             );
         }
-
         Asset asset = new Asset();
 
         asset.setTitle(dto.getTitle());
@@ -226,17 +228,31 @@ public class AssetService {
         asset.setAcquisitionDate(dto.getAcquisitionDate());
         asset.setCost(dto.getCost());
         asset.setLocation(dto.getLocation());
-
-        // DTO field  Entity field
         asset.setCondition(dto.getAssetCondition());
-
-        asset.setPhotoPath(dto.getPhotoPath());
-
         asset.setCreatedAt(LocalDateTime.now());
-
-        // Force new assets to start as AVAILABLE
         asset.setStatus(Asset.Status.AVAILABLE);
 
+        if (!imageFile.isEmpty()) {
+            try {
+                String fileName =
+                        System.currentTimeMillis() + "_" +
+                                imageFile.getOriginalFilename();
+
+                String uploadPath =
+                        System.getProperty("user.dir") + "/src/main/webapp/uploads/";
+
+                File uploadDir = new File(uploadPath);
+                uploadDir.mkdirs();
+
+                System.out.println("Saving image to: " + uploadPath + fileName);
+                imageFile.transferTo(new File(uploadPath + fileName));
+
+                asset.setPhotoPath("/uploads/" + fileName);
+
+            } catch (IOException e) {
+                throw new RuntimeException("Image upload failed");
+            }
+        }
         Asset saved = repository.save(asset);
 
         auditLogService.createAuditLog(
