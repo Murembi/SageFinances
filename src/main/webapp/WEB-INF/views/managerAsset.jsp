@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.demo.entity.Asset" %>
@@ -19,6 +20,62 @@
         <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Assets</a>
     </li>
     </ul>
+
+
+<h3>All Assets</h3>
+
+<form method="get"
+      action="${pageContext.request.contextPath}/manager/dashboard/assets"
+      style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+
+    <!-- SEARCH -->
+    <input type="text"
+           name="keyword"
+           placeholder="Search assets..."
+           value="${keyword}">
+
+    <!-- LOCATION -->
+    <select name="location">
+        <option value="">All Locations</option>
+        <c:forEach var="loc" items="${locations}">
+            <option value="${loc}"
+                ${loc == location ? 'selected' : ''}>
+                ${loc}
+            </option>
+        </c:forEach>
+    </select>
+
+    <!-- CONDITION -->
+    <select name="condition">
+        <option value="">All Conditions</option>
+        <c:forEach var="cond" items="${conditions}">
+            <option value="${cond}"
+                ${cond == condition ? 'selected' : ''}>
+                ${cond}
+            </option>
+        </c:forEach>
+    </select>
+
+    <!-- STATUS -->
+    <select name="status">
+        <option value="">All Status</option>
+        <c:forEach var="s" items="${statuses}">
+            <option value="${s}"
+                ${status == s ? 'selected' : ''}>
+                ${s}
+            </option>
+        </c:forEach>
+    </select>
+
+    <!-- BUTTONS -->
+    <button type="submit">Search</button>
+
+    <a href="${pageContext.request.contextPath}/manager/dashboard/assets">
+        <button type="button">Reset</button>
+    </a>
+
+</form>
+
 
 <table border="1">
     <tr>
