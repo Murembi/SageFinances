@@ -20,7 +20,7 @@
     </li>
     </ul>
 
-<table border="1">
+<table class="table-container">
     <tr>
         <th>Image</th>
         <th>ID</th>

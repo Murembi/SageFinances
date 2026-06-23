@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard</title>
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboards.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 
@@ -28,28 +29,33 @@
 </header>
 
 <div class="container">
+    <nav class = "navMenu">
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="sidebar">
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="sidebar">
 
-        <ul class="sidebar-menu">
-            <li>
-                <a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a>
-            </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Retire Assets</a>
-            </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/manager/dashboard/assets/add">Add Assets</a>
-            <li>
-                <a href="${pageContext.request.contextPath}/manager/dashboard/loanHistory">Reports</a>
-            </li>
-        </ul>
-        <form action="${pageContext.request.contextPath}/logout" method="post">
-            <button type="submit" class="logout-btn">Logout →</button>
-        </form>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="${pageContext.request.contextPath}/manager/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/manager/dashboard/assets">Retire Assets</a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/manager/dashboard/assets/add">Add Assets</a>
+                <li>
+                    <a href="${pageContext.request.contextPath}/manager/dashboard/loanHistory">Reports</a>
+                </li>
+            </ul>
+            <form action="${pageContext.request.contextPath}/logout" method="post">
+                <button type="submit" class="logout-btn">Logout →</button>
+            </form>
 
-    </aside>
+        </aside>
+
+    </nav>
+
+    
 
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="main-content">
@@ -108,7 +114,8 @@
 
             <h2>Approved Loans</h2>
 
-            <table>
+            <div class="table-wrapper">
+                <table class="table-container">
                 <thead>
                 <tr>
                     <th>Loan ID</th>
@@ -153,16 +160,16 @@
                     </tr>
                 </c:forEach>
                 </tbody>
-            </table>
+                </table>
+            </div>
 
         </section>
-
-        <!-- RETURNED ASSETS TABLE -->
         <section class="table-section">
 
             <h2>Returned Assets</h2>
 
-            <table>
+            <div class="table-wrapper">
+                <table class="table-container">
                 <thead>
                 <tr>
                     <th>Loan ID</th>
@@ -184,7 +191,8 @@
                     </tr>
                 </c:forEach>
                 </tbody>
-            </table>
+                </table>
+            </div>
 
         </section>
 
@@ -193,7 +201,8 @@
 
         <h2>Overdue Loans</h2>
 
-        <table border="1">
+        <div class="table-wrapper">
+            <table class="table-container">
             <tr>
                 <th>Loan ID</th>
                 <th>User</th>

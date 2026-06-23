@@ -27,7 +27,7 @@
 
     <c:when test="${not empty loans}">
     <!-- Results Table -->
-    <table border="1">
+    <table class="table-container">
 
         <tr>
             <th>Loan ID</th>

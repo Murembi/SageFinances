@@ -86,7 +86,9 @@
 
 <!-- ================= TABLE ================= -->
 
-<table border="1">
+<h3>All Assets</h3>
+
+<table class="table-container">
 
     <tr>
         <th>ID</th>

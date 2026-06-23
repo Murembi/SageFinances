@@ -1,14 +1,14 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.DashboardDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.example.demo.dashboard.service.UserDashboardService;
 
+import com.example.demo.dashboard.service.UserDashboardService;
+import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 
@@ -41,6 +41,9 @@ public class LoginController {
 
         User user = userService.getUserByLoginDetails(email, password);
         session.setAttribute("user", user);
+        session.setAttribute("userId", user.getUserId());
+        session.setAttribute("username", user.getName());
+        session.setAttribute("userRole", user.getRole().toString());
 
         // redirection after logging
         if (user.getRole() == User.Role.ADMIN) {
