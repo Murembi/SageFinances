@@ -84,7 +84,7 @@
 
 <h3>All Assets</h3>
 
-<table border="1">
+<table class="table-container">
 
     <tr>
         <th>ID</th>

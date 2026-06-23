@@ -10,7 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asset Management System | Borrower Dashboard</title>
     
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboards.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+
 </head>
 <body>
 
@@ -39,29 +41,29 @@
 
             <h1>User Dashboard</h1>
 
-        <div class="dashboard-cards">
+            <div class="dashboard-cards">
 
-            <div class="card">
-                <h2>Available Assets</h2>
-                <label>${availableAssetsCount}</label>
+                <div class="card">
+                    <h2>Available Assets</h2>
+                    <label>${availableAssetsCount}</label>
+                </div>
+
+                <div class="card">
+                    <h2>My Loans</h2>
+                    <label>${myLoans}</label>
+                </div>
+
+                <div class="card">
+                    <h2>Pending Requests</h2>
+                    <label>${myPendingRequests}</label>
+                </div>
+
             </div>
-
-            <div class="card">
-                <h2>My Loans</h2>
-                <label>${myLoans}</label>
-            </div>
-
-            <div class="card">
-                <h2>Pending Requests</h2>
-                <label>${myPendingRequests}</label>
-            </div>
-
-        </div>
         <h3>Available Assets</h3>
 
         <form action="${pageContext.request.contextPath}/request-loans" method="post">
 
-            <table border="1">
+            <table class="table-container">
                 <tr>
                     <th>Select</th>
                     <th>ID</th>
@@ -98,7 +100,7 @@
 
         </form>
         <h3>Pending Loans</h3>
-        <table border="1">
+        <table class="table-container">
             <tr>
                 <th>Asset Name</th>
                 <th>Request Date</th>
@@ -122,7 +124,7 @@
         </table>
 
         <h3>My Loaned Assets</h3>
-        <table border="1">
+        <table class="table-container">
             <tr>
                 <th>Asset Name</th>
                 <th>Checkout Date</th>

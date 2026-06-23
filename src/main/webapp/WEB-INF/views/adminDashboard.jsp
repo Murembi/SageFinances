@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asset Management System | Admin Dashboard</title>
     
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboards.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
@@ -63,7 +64,7 @@
             <!-- ================= DASHBOARD CONTENT ================= -->
             <h3>System Overview</h3>
 
-            <div class="dashboard-grid">
+            <div class="dashboard-cards">
 
                 <div class="stat-card">
                     <h3>Total Assets</h3>

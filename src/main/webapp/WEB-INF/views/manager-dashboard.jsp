@@ -65,7 +65,7 @@
         </section>
 
         <!-- DASHBOARD CARDS -->
-        <section class="manager-dashboard-cards">
+        <section class="dashboard-cards">
 
             <div class="card">
                 <h2>Total Assets</h2>
@@ -113,7 +113,8 @@
 
             <h2>Approved Loans</h2>
 
-            <table>
+            <div class="table-wrapper">
+                <table class="table-container">
                 <thead>
                 <tr>
                     <th>Loan ID</th>
@@ -145,16 +146,16 @@
                     </tr>
                 </c:forEach>
                 </tbody>
-            </table>
+                </table>
+            </div>
 
         </section>
-
-        <!-- RETURNED ASSETS TABLE -->
         <section class="table-section">
 
             <h2>Returned Assets</h2>
 
-            <table>
+            <div class="table-wrapper">
+                <table class="table-container">
                 <thead>
                 <tr>
                     <th>Loan ID</th>
@@ -176,7 +177,8 @@
                     </tr>
                 </c:forEach>
                 </tbody>
-            </table>
+                </table>
+            </div>
 
         </section>
 
@@ -185,7 +187,8 @@
 
         <h2>Overdue Loans</h2>
 
-        <table border="1">
+        <div class="table-wrapper">
+            <table class="table-container">
             <tr>
                 <th>Loan ID</th>
                 <th>User</th>
@@ -205,8 +208,9 @@
                     <td>${loan.status}</td>
                 </tr>
             </c:forEach>
-        </table>
-    </section>
+            </table>
+        </div>
+        </section>
     </main>
 
 </div>

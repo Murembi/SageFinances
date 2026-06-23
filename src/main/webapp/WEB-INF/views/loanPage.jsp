@@ -59,7 +59,7 @@
     <button type="submit">Search</button>
 </form>
 
-<table border="1">
+<table class="table-container">
 
     <tr>
 
@@ -116,7 +116,7 @@
     <button type="submit">Search</button>
 </form>
 
-<table border="1">
+<table class="table-container">
 
     <tr>
         <th>Loan ID</th>
@@ -164,7 +164,7 @@
 
 <h2>Loan Requests</h2>
 
-<table border="1">
+<table class="table-container">
 
     <tr>
 
@@ -214,7 +214,7 @@
 </table>
 <h2>Returned Assets</h2>
 
-<table border="1">
+<table class="table-container">
     <tr>
         <th>Loan ID</th>
         <th>User</th>
