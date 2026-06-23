@@ -8,13 +8,20 @@ import com.example.demo.entity.Loan;
 import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
 import jakarta.servlet.http.HttpSession;
+import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.dashboard.dto.PendingLoanDTO;
 import com.example.demo.dashboard.service.ManagerDashboardService;
+import com.example.demo.dashboard.dto.ManagerDashboardDTO;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/manager/dashboard")
@@ -29,13 +36,15 @@ public class ManagersDashboardController {
     @GetMapping
     public String managerDashboard(Model model, HttpSession session) {
 
-        if (session.getAttribute("userId") == null) {
-            return "redirect:/login";
-        }
+        //NEEDS FIXING
+//        if (session.getAttribute("userId") == null) {
+//            return "redirect:/loginpage";
+//        }
 
-        if (!session.getAttribute("userRole").toString().equals("MANAGER")) {
-            return "redirect:/login";
-        }
+        //NEEDS FIXING
+//        if (!session.getAttribute("userRole").toString().equals("MANAGER")) {
+//            return "redirect:/loginpage";
+//        }
 
         DashboardDTO dashboard = managerDashboardService.getManagerDashboard();
 
@@ -63,6 +72,7 @@ public class ManagersDashboardController {
                 managerDashboardService.getPendingLoans();
 
         model.addAttribute("loanRequests", pendingLoansList);
+
         return "manager-dashboard";
     }
 
@@ -139,6 +149,17 @@ public class ManagersDashboardController {
 
         assetService.createAsset(dto);
 
+        return "redirect:/manager/dashboard";
+    }
+    @PostMapping("/approve")
+    public String approveLoan(@RequestParam Long loanId) {
+        loanService.approveLoan(loanId);
+        return "redirect:/manager/dashboard";
+    }
+
+    @PostMapping("/reject")
+    public String rejectLoan(@RequestParam Long loanId) {
+        loanService.rejectLoan(loanId);
         return "redirect:/manager/dashboard";
     }
 

@@ -39,6 +39,7 @@
            <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
            <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
            <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
+           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
            <a href="${pageContext.request.contextPath}/settings">Settings</a> |
            <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
         </div>
@@ -52,69 +53,73 @@
 
 <!-- AVAILABLE ASSETS -->
 
-<h2>Available Assets</h2>
+<!-- <h2>Available Assets</h2> -->
 
-<form method="get">
-    <input type="text" name="assetSearch" placeholder="Search Assets">
-    <button type="submit">Search</button>
-</form>
+<%--<form method="get">--%>
+<%--    <input type="text" name="assetSearch" placeholder="Search Assets">--%>
+<%--    <button type="submit">Search</button>--%>
+<%--</form>--%>
 
 <table class="table-container">
 
-    <tr>
+<%--    <tr>--%>
 
-        <th>ID</th>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
+<%--        <th>ID</th>--%>
+<%--        <th>Title</th>--%>
+<%--        <th>Category</th>--%>
+<%--        <th>Status</th>--%>
+<%--        <th>Action</th>--%>
+<%--    </tr>--%>
 
-    <c:forEach items="${assets}" var="asset">
+<%--    <c:forEach items="${assets}" var="asset">--%>
 
-        <tr>
+<%--        <tr>--%>
 
-            <td>${asset.assetId}</td>
-            <td>${asset.title}</td>
-            <td>${asset.category}</td>
-            <td>${asset.status}</td>
+<%--            <td>${asset.assetId}</td>--%>
+<%--            <td>${asset.title}</td>--%>
+<%--            <td>${asset.category}</td>--%>
+<%--            <td>${asset.status}</td>--%>
 
-            <td>
+<%--            <td>--%>
 
-                <form action="${pageContext.request.contextPath}/admin/loans/request" method="post">
+<%--                <form action="${pageContext.request.contextPath}/admin/loans/request" method="post">--%>
 
-                    <input type="hidden"
-                           name="assetId"
-                           value="${asset.assetId}">
+<%--                    <input type="hidden"--%>
+<%--                           name="assetId"--%>
+<%--                           value="${asset.assetId}">--%>
 
-                    <input type="hidden"
-                           name="userId"
-                           value="${sessionScope.user.userId}">
+<%--                    <input type="hidden"--%>
+<%--                           name="userId"--%>
+<%--                           value="${sessionScope.user.userId}">--%>
 
-                    <button type="submit">
-                        Request Loan
-                    </button>
+<%--                    <button type="submit">--%>
+<%--                        Request Loan--%>
+<%--                    </button>--%>
 
-                </form>
+<%--                </form>--%>
 
-            </td>
+<%--            </td>--%>
 
-        </tr>
+<%--        </tr>--%>
 
-    </c:forEach>
+<%--    </c:forEach>--%>
 
-</table>
+<%--</table>--%>
 
-<br><br>
+<!-- <br><br> -->
 
 <!-- ALL LOANS -->
 
-<h2>All Loans</h2>
+<h2>Active Loans</h2>
 
-<form method="get">
-    <input type="text" name="loanSearch" placeholder="Search Loans">
-    <button type="submit">Search</button>
-</form>
+<%--<h3>Search Active Loans</h3>--%>
+
+<%--<form method="get">--%>
+<%--    <input type="text"--%>
+<%--           name="loanSearch"--%>
+<%--           placeholder="Search by borrower, asset, or loan ID">--%>
+<%--    <button type="submit">Search</button>--%>
+<%--</form>--%>
 
 <table class="table-container">
 
@@ -169,6 +174,7 @@
     <tr>
 
         <th>Loan ID</th>
+        <th>Image</th>
         <th>User</th>
         <th>Asset</th>
         <th>Status</th>
@@ -181,6 +187,18 @@
         <tr>
 
             <td>${loanRequest.loanId}</td>
+            <td>
+                <c:choose>
+                    <c:when test="${not empty loan.asset.photoPath}">
+                        <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                             alt="Asset Image"
+                             width="80">
+                    </c:when>
+                    <c:otherwise>
+                        No image
+                    </c:otherwise>
+                </c:choose>
+            </td>
             <td>${loanRequest.user.name}</td>
             <td>${loanRequest.asset.title}</td>
             <td>${loanRequest.status}</td>
@@ -240,5 +258,7 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
+
+<script src="${pageContext.request.contextPath}/js/loanPage.js"></script>
 </body>
 </html>

@@ -36,6 +36,11 @@ public class UserService {
     // CREATE
     @Transactional
     public User createUser(User user) {
+        if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
+            throw new RuntimeException(
+                    "Email must end with @sageassets.co.za"
+            );
+        }
 
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new UserAlreadyExistsException(
@@ -56,6 +61,33 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
+    @Transactional
+    public User createUserByAdmin(User user) {
+
+        if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
+            throw new RuntimeException(
+                    "Email must end with @sageassets.co.za"
+            );
+        }
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new UserAlreadyExistsException(
+                    "Email " + user.getEmail() + " already exists."
+            );
+        }
+
+        User newUser = User.builder()
+                .name(user.getName())
+                .department(user.getDepartment())
+                .email(user.getEmail())
+                .passwordHash(user.getPasswordHash())
+                .createdAt(LocalDateTime.now())
+                .role(user.getRole())
+                .status(User.UserStatus.ACTIVE)
+                .build();
+
+        return userRepository.save(newUser);
+    }
+
     // READ
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -64,7 +96,7 @@ public class UserService {
     public  User getUserByLoginDetails(String email, String password) {
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid credentials."));
 
         if (user.getStatus() == User.UserStatus.DELETED ||
                 user.getStatus() == User.UserStatus.INACTIVE) {

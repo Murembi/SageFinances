@@ -56,7 +56,7 @@ public class LoginController {
         return "redirect:/user-dashboard";
 
     } catch (RuntimeException e) {
-            System.out.println("LOGIN ERROR: " + e.getMessage());
+
             model.addAttribute("error", e.getMessage());
 
             return "login";

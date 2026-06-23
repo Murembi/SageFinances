@@ -87,6 +87,6 @@
     </form>
 
 </div>
-
+<script src="${pageContext.request.contextPath}/js/addAsset.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asset Management System | Manager Dashboard</title>
+    <title>Manager Dashboard</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboards.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
@@ -65,46 +65,47 @@
         </section>
 
         <!-- DASHBOARD CARDS -->
-        <section class="dashboard-cards">
+                <section class="manager-dashboard-cards">
+        <div class = "dashboard-grid" >
+                    <div class="stat-card">
+                        <h2>Total Assets</h2>
+                        <p>${totalAssets}</p>
+                    </div>
 
-            <div class="card">
-                <h2>Total Assets</h2>
-                <span>${totalAssets}</span>
-            </div>
+                    <div class="stat-card">
+                        <h2>Available Assets</h2>
+                        <p>${availableAssets}</p>
+                    </div>
 
-            <div class="card">
-                <h2>Available Assets</h2>
-                <span>${availableAssets}</span>
-            </div>
+                    <div class="stat-card">
+                        <h2>Loaned Assets</h2>
+                        <p>${loanedAssets}</p>
+                    </div>
 
-            <div class="card">
-                <h2>Loaned Assets</h2>
-                <span>${loanedAssets}</span>
-            </div>
+                    <div class="stat-card">
+                        <h2>Retired Assets</h2>
+                        <p>${retiredAssets}</p>
+                    </div>
 
-            <div class="card">
-                <h2>Retired Assets</h2>
-                <span>${retiredAssets}</span>
-            </div>
+                    <div class="stat-card">
+                        <h2>Total Loans</h2>
+                        <p>${totalLoans}</p>
+                    </div>
 
-            <div class="card">
-                <h2>Total Loans</h2>
-                <span>${totalLoans}</span>
-            </div>
+                    <div class="stat-card">
+                        <h2>Approved Loans</h2>
+                        <p>${approvedLoans}</p>
+                    </div>
 
-            <div class="card">
-                <h2>Approved Loans</h2>
-                <span>${approvedLoans}</span>
-            </div>
-
-            <div class="card">
-                <h2>Pending Loans</h2>
-                <span>${pendingLoans}</span>
-            </div>
-            <div class="card">
-                <h2>Overdue Loans</h2>
-                <p>${overdueLoans}</p>
-            </div>
+                    <div class="stat-card">
+                        <h2>Pending Loans</h2>
+                        <p>${pendingLoans}</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2>Overdue Loans</h2>
+                        <p>${overdueLoans}</p>
+                    </div>
+              </div>
 
         </section>
 
@@ -118,6 +119,7 @@
                 <thead>
                 <tr>
                     <th>Loan ID</th>
+                    <th>Image</th>
                     <th>Asset</th>
                     <th>Borrower</th>
                     <th>Checkout Date</th>
@@ -130,6 +132,18 @@
                 <c:forEach items="${approvedLoanList}" var="loan">
                     <tr>
                         <td>${loan.loanId}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${not empty loan.asset.photoPath}">
+                                    <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                                         alt="Asset Image"
+                                         width="80">
+                                </c:when>
+                                <c:otherwise>
+                                    No image
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                         <td>${loan.asset.title}</td>
                         <td>${loan.user.name}</td>
                         <td>${loan.checkoutDate}</td>
@@ -208,9 +222,66 @@
                     <td>${loan.status}</td>
                 </tr>
             </c:forEach>
-            </table>
-        </div>
-        </section>
+</table>
+<table>
+            <h2>Loan Requests Queue</h2>
+
+                        <thead>
+                            <tr>
+                                <th>Asset Name</th>
+                                <th>Borrower</th>
+                                <th>Request Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <c:forEach items="${loanRequests}" var="req">
+                            <tr>
+
+                                <td>${req.assetTitle}</td>
+                                <td>${req.borrowerName}</td>
+                                <td>${req.requestDate}</td>
+                                <td>${req.dueDate}</td>
+                                <td>${req.status}</td>
+
+                                <td>
+
+                                    <form action="${pageContext.request.contextPath}/manager/dashboard/approve"
+                                          method="post"
+                                          >
+
+                                        <input type="hidden" name="loanId" value="${req.id}" />
+
+                                        <button type="submit" class="approve-btn">
+                                            Approve
+                                        </button>
+
+                                    </form>
+
+                                    <form action="${pageContext.request.contextPath}/manager/dashboard/reject"
+                                          method="post"
+                                          >
+
+                                        <input type="hidden" name="loanId" value="${req.id}" />
+
+                                        <button type="submit" class="reject-btn">
+                                            Reject
+                                        </button>
+
+                                    </form>
+
+                                </td>
+
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+        </table>
+    </section>
     </main>
 
 </div>

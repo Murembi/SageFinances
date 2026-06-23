@@ -27,9 +27,8 @@ public class AssetPageController {
 
         List<Asset> assets;
 
-        // simple search (matches your JSP search bar)
-        if (keyword != null && !keyword.isEmpty()) {
-            assets = service.searchByTitle(keyword);
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            assets = service.searchAssets(keyword);
         } else {
             assets = service.getAllAssets();
         }
@@ -37,7 +36,7 @@ public class AssetPageController {
         model.addAttribute("assets", assets);
         model.addAttribute("keyword", keyword);
 
-        return "adminAsset"; // -> /WEB-INF/views/adminAsset.jsp
+        return "adminAsset";
     }
 
     // =========================
@@ -46,7 +45,32 @@ public class AssetPageController {
     @PostMapping("/create")
     public String createAsset(@ModelAttribute Asset asset) {
         service.addAsset(asset);
-        return "redirect:/assets";
+        return "redirect:/admin/assets";
+    }
+    // =========================
+    // EDIT ASSET (FROM JSP BUTTON)
+    // =========================
+    @GetMapping("/edit/{id}")
+    public String showEditPage(@PathVariable Long id,
+                               Model model) {
+
+        Asset asset = service.getAssetById(id);
+
+        model.addAttribute("asset", asset);
+        model.addAttribute("assets", service.getAllAssets());
+
+        return "adminAsset";
+    }
+
+    // =========================
+    // UPDATE ASSET (FROM JSP BUTTON)
+    // =========================
+    @PostMapping("/update")
+    public String updateAsset(@ModelAttribute Asset asset) {
+
+        service.editAsset(asset.getAssetId(), asset);
+
+        return "redirect:/admin/assets";
     }
 
     // REMOVE CANT DELETE AN ASSET
@@ -56,6 +80,6 @@ public class AssetPageController {
     @PostMapping("/delete/{id}")
     public String deleteAsset(@PathVariable Long id) {
         service.deleteAsset(id);
-        return "redirect:/assets";
+        return "redirect:/admin/assets";
     }
 }
