@@ -26,14 +26,8 @@
         <h1>Asset Management System</h1>
 
         <p class="login-subtitle">
-            Sign in to continue
+           Sign in to continue
         </p>
-
-        <c:if test="${not empty error}">
-            <div class="error-box">
-                    ${error}
-            </div>
-        </c:if>
 
         <form action="${pageContext.request.contextPath}/auth/login"
               method="post">
@@ -53,6 +47,11 @@
                        placeholder="Enter your password"
                        required>
             </div>
+            <c:if test="${not empty error}">
+                <div class="error-box">
+                        ${error}
+                </div>
+            </c:if>
 
             <button type="submit" class="login-btn">
                 Log In
@@ -70,15 +69,7 @@
         </div>
 
 <!-- ================= FOOTER ================= -->
-<footer>
-    <div class="footer-bottom">
-        <a href="https://mecerintered.co.za/terms-and-conditions">
-            Terms & Conditions
-        </a>
 
-        <a id="contactLink">Contact Us</a>
-    </div>
-</footer>
 
 <!-- ================= CONTACT POPUP ================= -->
 <div id="contactPopup" class="popup">
@@ -87,8 +78,12 @@
     <p><i class="fa-solid fa-envelope"></i> info@mecerintered.co.za</p>
     <p><i class="fa-solid fa-phone"></i> (+27) 10 730 0860</p>
 
-    <button onclick="closePopup()">Close</button>
+
 </div>
 
+
+<script src="${pageContext.request.contextPath}/js/login.js"></script>
+    </div>
+    </div>
 </body>
 </html>

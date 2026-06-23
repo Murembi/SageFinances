@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Admin Audit Log</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
@@ -103,11 +104,7 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
-<script>
-    function clearSearch() {
-            document.querySelector('input[name="keyword"]').value = '';
-        }
-</script>
 
+<script src="${pageContext.request.contextPath}/js/adminAuditLog.js"></script>
 </body>
 </html>

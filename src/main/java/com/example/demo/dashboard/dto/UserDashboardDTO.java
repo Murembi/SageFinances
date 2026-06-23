@@ -7,9 +7,6 @@ import java.time.LocalDateTime;
 @Data
 public class UserDashboardDTO {
 
-    private String assetName;
-    private LocalDateTime requestDate;
-    private String status;
     private long availableAssets;
     private long myLoans;
     private long pendingRequests;

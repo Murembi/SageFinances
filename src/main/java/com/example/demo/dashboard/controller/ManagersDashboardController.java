@@ -151,5 +151,16 @@ public class ManagersDashboardController {
 
         return "redirect:/manager/dashboard";
     }
+    @PostMapping("/approve")
+    public String approveLoan(@RequestParam Long loanId) {
+        loanService.approveLoan(loanId);
+        return "redirect:/manager/dashboard";
+    }
+
+    @PostMapping("/reject")
+    public String rejectLoan(@RequestParam Long loanId) {
+        loanService.rejectLoan(loanId);
+        return "redirect:/manager/dashboard";
+    }
 
 }

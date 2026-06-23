@@ -61,5 +61,6 @@
         Back to Dashboard
     </a>
 
+<script src="${pageContext.request.contextPath}/js/loanHistory.js"></script>
 </body>
 </html>

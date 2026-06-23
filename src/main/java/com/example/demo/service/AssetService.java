@@ -189,9 +189,22 @@ public class AssetService {
                         new AssetNotFoundException(
                                 "Asset with ID " + assetId + " not found."
                         ));
+
+        String oldStatus = asset.getStatus().name();
+
         asset.setStatus(Asset.Status.RETIRED);
 
         repository.save(asset);
+
+        auditLogService.createAuditLog(
+                null,
+                "ASSET",
+                assetId,
+                "RETIRE",
+                oldStatus,
+                Asset.Status.RETIRED.name()
+        );
+        System.out.println("RETIRE ASSET CALLED: " + assetId);
     }
 
     //USED

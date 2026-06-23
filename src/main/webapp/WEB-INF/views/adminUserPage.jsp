@@ -125,12 +125,10 @@
 
 </table>
 
-
-
 <!-- REGISTER USER -->
 <h3>Register New User</h3>
 
-<form action="${pageContext.request.contextPath}/users/register" method="post">
+<form action="${pageContext.request.contextPath}/admin/users/create" method="post">
 
     <p>
         Name: <input type="text" name="name" required>
@@ -138,6 +136,7 @@
 
     <p>
         Email: <input type="email" name="email" required>
+        <small>Must be a company email (@sageassets.co.za)</small>
     </p>
 
     <p>
@@ -167,11 +166,7 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
-<script>
-    function clearSearch() {
-        document.querySelector('input[name="keyword"]').value = '';
-    }
-</script>
 
+<script src="${pageContext.request.contextPath}/js/adminUserPage.js"></script>
 </body>
 </html>

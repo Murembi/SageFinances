@@ -131,6 +131,8 @@ public class LoanService {
         loan.setAsset(asset);
         loan.setRequestDate(LocalDateTime.now());
         loan.setStatus(Loan.Status.PENDING);
+        asset.setStatus(Asset.Status.RESERVED);
+        assetRepository.save(asset);
 
         Loan saved = loanRepository.save(loan);
 
@@ -212,6 +214,7 @@ public class LoanService {
         Loan.Status old = loan.getStatus();
 
         loan.setStatus(Loan.Status.REJECTED);
+        loan.getAsset().setStatus(Asset.Status.AVAILABLE);
 
         Loan saved = loanRepository.save(loan);
 

@@ -69,5 +69,7 @@
 </footer>
 
 
+
+<script src="${pageContext.request.contextPath}/js/register.js"></script>
 </body>
 </html>
