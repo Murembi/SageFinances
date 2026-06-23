@@ -41,7 +41,7 @@ public class UserService {
                     "Email must end with @sageassets.co.za"
             );
         }
-        
+
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new UserAlreadyExistsException(
                     "Email " + user.getEmail() + " already exists."
@@ -96,7 +96,7 @@ public class UserService {
     public  User getUserByLoginDetails(String email, String password) {
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid credentials."));
 
         if (user.getStatus() == User.UserStatus.DELETED ||
                 user.getStatus() == User.UserStatus.INACTIVE) {

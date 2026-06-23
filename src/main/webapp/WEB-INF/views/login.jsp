@@ -26,14 +26,8 @@
         <h1>Asset Management System</h1>
 
         <p class="login-subtitle">
-            Sign in to continue
+           Sign in to continue
         </p>
-
-        <c:if test="${not empty error}">
-            <div class="error-box">
-                    ${error}
-            </div>
-        </c:if>
 
         <form action="${pageContext.request.contextPath}/auth/login"
               method="post">
@@ -53,6 +47,11 @@
                        placeholder="Enter your password"
                        required>
             </div>
+            <c:if test="${not empty error}">
+                <div class="error-box">
+                        ${error}
+                </div>
+            </c:if>
 
             <button type="submit" class="login-btn">
                 Log In
@@ -84,5 +83,7 @@
 
 
 <script src="${pageContext.request.contextPath}/js/login.js"></script>
+    </div>
+    </div>
 </body>
 </html>
