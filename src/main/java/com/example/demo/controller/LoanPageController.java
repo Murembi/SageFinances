@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.LoanRequestDTO;
 import com.example.demo.entity.Loan;
+import com.example.demo.entity.User;
 import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +26,13 @@ public class LoanPageController {
     }
 
     @GetMapping
-    public String showLoanPage(Model model) {
+    public String showLoanPage(Model model, HttpSession session) {
 
+        User user = (User) session.getAttribute("user");
+
+        if (user == null || user.getRole() != User.Role.ADMIN) {
+            return "redirect:/loginpage";
+        }
         model.addAttribute(
                 "assets",
                 assetService.getAvailableAssets()
@@ -50,7 +57,13 @@ public class LoanPageController {
     @PostMapping("/request")
     public String requestLoan(
             @RequestParam Long userId,
-            @RequestParam Long assetId) {
+            @RequestParam Long assetId,
+            HttpSession session) {
+
+        User user = (User) session.getAttribute("user");
+        if (user == null || user.getRole() != User.Role.ADMIN) {
+            return "redirect:/loginpage";
+        }
 
         LoanRequestDTO dto = new LoanRequestDTO();
 
@@ -63,16 +76,27 @@ public class LoanPageController {
     }
 
     @PostMapping("/return/{id}")
-    public String returnLoan(@PathVariable Long id) {
+    public String returnLoan(@PathVariable Long id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+
+        if (user == null || user.getRole() != User.Role.ADMIN) {
+            return "redirect:/loginpage";
+        }
         loanService.returnLoan(id);
+
         return "redirect:/admin/loans";
     }
 
     //MODIFIED AND WORKS
     @PostMapping("/approve/{id}")
     public String approveLoan(
-            @PathVariable Long id) {
+            @PathVariable Long id, HttpSession session) {
 
+        User user = (User) session.getAttribute("user");
+
+        if (user == null || user.getRole() != User.Role.ADMIN) {
+            return "redirect:/loginpage";
+        }
         loanService.approveLoan(id);
 
         return "redirect:/admin/loans";
@@ -80,8 +104,12 @@ public class LoanPageController {
 
     @PostMapping("/reject/{id}")
     public String rejectLoan(
-            @PathVariable Long id) {
+            @PathVariable Long id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
 
+        if (user == null || user.getRole() != User.Role.ADMIN) {
+            return "redirect:/loginpage";
+        }
         loanService.rejectLoan(id);
 
         return "redirect:/admin/loans";
@@ -89,8 +117,12 @@ public class LoanPageController {
 
     @PostMapping("/delete/{id}")
     public String deleteLoan(
-            @PathVariable Long id) {
+            @PathVariable Long id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
 
+        if (user == null || user.getRole() != User.Role.ADMIN) {
+            return "redirect:/loginpage";
+        }
         loanService.deleteLoan(id);
 
         return "redirect:/admin/loans";

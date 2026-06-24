@@ -78,10 +78,12 @@
 
     <main class="main-content">
 
-        <c:if test="${not empty successMessage}">
-        <div class="popup success">
-                ${successMessage}
-        </div>
+        <c:if test="${not empty generatedPassword}">
+            <div class="popup success">
+                <strong>User Created Successfully</strong><br>
+                Email: ${generatedEmail}<br>
+                Password: ${generatedPassword}
+            </div>
         </c:if>
 <section class="card">
     <h3>Search Users</h3>
@@ -168,12 +170,12 @@
             <option value="BORROWER">BORROWER</option>
         </select>
 
-        <label>Password</label>
-        <input type="password" name="passwordHash" required>
-
         <button type="submit">Create User</button>
     </form>
 </section>
+
+    </main>
+</div>
 
 <footer class="footer">
     <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a>
