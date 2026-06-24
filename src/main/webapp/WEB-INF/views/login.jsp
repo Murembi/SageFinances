@@ -18,12 +18,12 @@
 
     <div class="login-card">
 
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
-             alt="Logo"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
+             alt="Sage logo"
              class="login-logo"
-             width="100">
+             >
 
-        <h1>Sage Assets</h1>
+        <h1>Welcome</h1>
 
         <p class="login-subtitle">
            Sign in to continue

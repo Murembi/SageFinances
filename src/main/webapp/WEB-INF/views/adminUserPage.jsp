@@ -2,171 +2,185 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin User Page</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+    <meta charset="UTF-8">
+    <title>Admin Users</title>
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/styles.css?v=10">
 </head>
+
 <body>
 
-<!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
-<div>
-
-    <!-- Logo -->
+<header class="header">
     <div>
         <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
-             class="login-logo"
-             width="100">
+             class="logo-img">
     </div>
 
-    <!-- System Title -->
-    <h2>Admin Users</h2>
-
-    <!-- User Info -->
-    <p>
-        Username: ${username} <br>
-        Role: ${userRole}
-    </p>
-
-</div>
+    <div>
+        <h2 class="header-title">Admin Users</h2>
+        <p class="user-info">
+            Welcome, ${username}
+        </p>
+    </div>
 
 
+</header>
 
-<!-- ================= NAVIGATION (SHARED) ================= -->
-        <div>
-           <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
-           <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
-           <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
-           <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
-           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
-           <a href="${pageContext.request.contextPath}/settings">Settings</a> |
-           <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
-        </div>
+<div class="container">
 
+    <aside class="sidebar">
 
+        <ul class="sidebar-menu">
 
-<h3>Search Users</h3>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/dashboard">
+                    Dashboard
+                </a>
+            </li>
 
-<form method="get" action="/admin/users">
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/assets">
+                    Assets
+                </a>
+            </li>
 
-    <input type="text"
-           name="keyword"
-           placeholder="Search by name, email, department, role"
-           value="${keyword}">
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/users">
+                    Users
+                </a>
+            </li>
 
-    <button type="submit">Search</button>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/loans">
+                    Loans
+                </a>
+            </li>
 
-    <button type="button" onclick="clearSearch()">Reset</button>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/auditlog">
+                    Audit Log
+                </a>
+            </li>
 
-</form>
+            <li>
+                <a href="${pageContext.request.contextPath}/settings">
+                    Settings
+                </a>
+            </li>
 
-<!-- USERS TABLE -->
-<h3>All Users</h3>
+        </ul>
 
-<table border="1">
+        <a href="${pageContext.request.contextPath}/loginpage"
+           class="btn logout-btn">
+            Log Out
+        </a>
 
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Department</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Actions</th>
-    </tr>
+    </aside>
 
-    <c:forEach var="user" items="${users}">
+    <main class="main-content">
 
+<section class="card">
+    <h3>Search Users</h3>
+
+    <form method="get" action="${pageContext.request.contextPath}/admin/users">
+        <label>Search</label>
+        <input type="text"
+               name="keyword"
+               placeholder="Search by name, email, department, role"
+               value="${keyword}">
+
+        <button type="submit">Search</button>
+        <button type="button" class="btn-light" onclick="clearSearch()">Reset</button>
+    </form>
+</section>
+
+<section class="card">
+    <h3>All Users</h3>
+
+    <table>
         <tr>
-
-            <td>${user.userId}</td>
-            <td>${user.name}</td>
-            <td>${user.email}</td>
-            <td>${user.department}</td>
-            <td>${user.role}</td>
-            <td>${user.status}</td>
-
-            <td>
-                <!-- UPDATE ROLE -->
-                <form action="${pageContext.request.contextPath}/admin/users/update-role/${user.userId}"
-                      method="post"
-                      >
-
-                    <select name="role">
-                        <option value="BORROWER">Borrower</option>
-                        <option value="MANAGER">Manager</option>
-                        <option value="ADMIN">Admin</option>
-                    </select>
-
-                    <button type="submit">
-                        Update Role
-                    </button>
-
-                </form>
-
-                <!-- DELETE -->
-                <form action="${pageContext.request.contextPath}/admin/users/delete/${user.userId}"
-                      method="post"
-                      onsubmit="return confirm('Deactivate this user?');"
-                      >
-
-                    <button type="submit">
-                        Deactivate
-                    </button>
-
-                </form>
-
-            </td>
-
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
         </tr>
 
-    </c:forEach>
+        <c:forEach var="user" items="${users}">
+            <tr>
+                <td>${user.userId}</td>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.department}</td>
+                <td>${user.role}</td>
+                <td>
+                    <span class="status available">${user.status}</span>
+                </td>
 
-</table>
+                <td>
+                    <form action="${pageContext.request.contextPath}/admin/users/update-role/${user.userId}"
+                          method="post">
+                        <select name="role">
+                            <option value="BORROWER">Borrower</option>
+                            <option value="MANAGER">Manager</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
 
-<!-- REGISTER USER -->
-<h3>Register New User</h3>
+                        <button type="submit">Update Role</button>
+                    </form>
 
-<form action="${pageContext.request.contextPath}/admin/users/create" method="post">
+                    <form action="${pageContext.request.contextPath}/admin/users/delete/${user.userId}"
+                          method="post"
+                          onsubmit="return confirm('Deactivate this user?');">
+                        <button type="submit" class="btn-danger">Deactivate</button>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+</section>
 
-    <p>
-        Name: <input type="text" name="name" required>
-    </p>
+<section class="card">
+    <h3>Register New User</h3>
 
-    <p>
-        Email: <input type="email" name="email" required>
+    <form action="${pageContext.request.contextPath}/admin/users/create" method="post">
+
+        <label>Name</label>
+        <input type="text" name="name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
         <small>Must be a company email (@sageassets.co.za)</small>
-    </p>
 
-    <p>
-        Department: <input type="text" name="department" required>
-    </p>
+        <label>Department</label>
+        <input type="text" name="department" required>
 
-    <p>
-        Role:
+        <label>Role</label>
         <select name="role">
             <option value="ADMIN">ADMIN</option>
             <option value="MANAGER">MANAGER</option>
             <option value="BORROWER">BORROWER</option>
         </select>
-    </p>
 
-    <p>
-        Password: <input type="password" name="passwordHash" required>
-    </p>
+        <label>Password</label>
+        <input type="password" name="passwordHash" required>
 
-    <button type="submit">Create User</button>
+        <button type="submit">Create User</button>
+    </form>
+</section>
 
-</form>
-
-<!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
-<div>
-    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
+<footer class="footer">
+    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a>
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
-</div>
-
+</footer>
 
 <script src="${pageContext.request.contextPath}/js/adminUserPage.js"></script>
+
 </body>
 </html>
