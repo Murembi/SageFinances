@@ -28,7 +28,7 @@ public class UsersDashboardController {
 
         User user = (User) session.getAttribute("user");
 
-        if (user == null) {
+        if (user == null || user.getRole() != User.Role.BORROWER) {
             return "redirect:/loginpage";
         }
 
@@ -62,10 +62,7 @@ public class UsersDashboardController {
 
         User user = (User) session.getAttribute("user");
 
-        System.out.println("USER FROM SESSION: " + user);
-        System.out.println("SELECTED ASSETS: " + assetIds);
-
-        if (user == null) {
+        if (user == null || user.getRole() != User.Role.BORROWER) {
             return "redirect:/loginpage";
         }
 

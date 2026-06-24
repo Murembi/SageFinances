@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
 import com.example.demo.exception.AccountInactiveException;
 import com.example.demo.exception.InvalidCredentialsException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
 //Hashing Password
@@ -62,7 +64,7 @@ public class UserService {
     }
 
     @Transactional
-    public User createUserByAdmin(User user) {
+    public UserCreationResponse createUserByAdmin(User user) {
 
         if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
             throw new RuntimeException(
@@ -74,18 +76,27 @@ public class UserService {
                     "Email " + user.getEmail() + " already exists."
             );
         }
+        String generatedPassword = UUID.randomUUID()
+                .toString()
+                .replace("-", "")
+                .substring(0, 8);
+
 
         User newUser = User.builder()
                 .name(user.getName())
                 .department(user.getDepartment())
                 .email(user.getEmail())
-                .passwordHash(user.getPasswordHash())
+                .passwordHash(generatedPassword)
                 .createdAt(LocalDateTime.now())
                 .role(user.getRole())
                 .status(User.UserStatus.ACTIVE)
                 .build();
 
-        return userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);
+        return new UserCreationResponse(
+                savedUser,
+                generatedPassword
+        );
     }
 
     // READ
@@ -119,45 +130,6 @@ public class UserService {
                  id ));
     }
 
-    //
-    // the entire user
-    public User updateUser(Long id, User updatedUser) {
-        User existingUser = getUserById(id);
-        existingUser.setName(updatedUser.getName());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setDepartment(updatedUser.getDepartment());
-        existingUser.setRole(updatedUser.getRole());
-        return userRepository.save(existingUser);
-    }
-
-    // UPDATE SPECIFIC THINGS ABOUT THE USER
-    // Update only the user's name
-    public User updateUserName(Long id, String newName) {
-        User user = getUserById(id);
-        user.setName(newName);
-        return userRepository.save(user);
-    }
-
-    // Update only the user's department
-    public User updateUserDepartment(Long id, String newDepartment) {
-        User user = getUserById(id);
-        user.setDepartment(newDepartment);
-        return userRepository.save(user);
-    }
-
-    // Update only the user's email
-    public User updateUserEmail(Long id, String newEmail) {
-        User user = getUserById(id);
-        user.setEmail(newEmail);
-        return userRepository.save(user);
-    }
-
-    // Update only the user's password
-    public User updateUserPassword(Long id, String newPassword) {
-        User user = getUserById(id);
-        user.setPasswordHash(newPassword);
-        return userRepository.save(user);
-    }
 
     // Update only the user's role
     //used

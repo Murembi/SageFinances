@@ -18,10 +18,7 @@ public class AssetPageController {
         this.service = service;
     }
 
-    // =========================
     // LOAD ASSET PAGE (JSP)
-    // =========================
-
 
     @GetMapping
     public String loadAssetPage(
@@ -48,17 +45,13 @@ public class AssetPageController {
         return "adminAsset";
     }
 
-    // =========================
     // CREATE ASSET (FROM JSP FORM)
-    // =========================
     @PostMapping("/create")
     public String createAsset(@ModelAttribute Asset asset) {
         service.addAsset(asset);
         return "redirect:/admin/assets";
     }
-    // =========================
     // EDIT ASSET (FROM JSP BUTTON)
-    // =========================
     @GetMapping("/edit/{id}")
     public String showEditPage(@PathVariable Long id,
                                Model model) {
@@ -71,9 +64,7 @@ public class AssetPageController {
         return "adminAsset";
     }
 
-    // =========================
     // UPDATE ASSET (FROM JSP BUTTON)
-    // =========================
     @PostMapping("/update")
     public String updateAsset(@ModelAttribute Asset asset) {
 
@@ -83,9 +74,7 @@ public class AssetPageController {
     }
 
     // REMOVE CANT DELETE AN ASSET
-    // =========================
     // DELETE ASSET (FROM JSP BUTTON)
-    // =========================
     @PostMapping("/delete/{id}")
     public String deleteAsset(@PathVariable Long id) {
         service.deleteAsset(id);
