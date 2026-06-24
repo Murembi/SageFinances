@@ -37,7 +37,8 @@ h3 {
 
 /* HEADER */
 .header {
-    background: var(--card);
+    /* background: var(--card); */
+    background: transparent;
     border-bottom: 1px solid var(--border);
     padding: 18px 25px;
     margin-bottom: 20px;
@@ -48,12 +49,20 @@ h3 {
 }
 
 .logo-img {
-    width: 120px;
-    height: auto;
+    width: auto;
+    height: 28px;
+    object-fit: contain;
+    transform: translateY(4px); /* moved image slightly down */
 }
 
+.login-logo
 .header-title {
     color: var(--green-dark);
+}
+
+.header-text
+{
+    justify-self: auto;
 }
 
 .user-info {
@@ -170,7 +179,9 @@ button,
     font-weight: 600;
     text-decoration: none;
     display: inline-block;
+
 }
+
 
 button:hover,
 .btn:hover {
@@ -222,7 +233,7 @@ tr:hover {
     font-size: 12px;
     font-weight: 600;
 }
-
+.container
 .pending {
     background: #FFF3CD;
     color: #856404;
@@ -255,22 +266,43 @@ tr:hover {
     color: #374151;
 }
 
+
 /* FOOTER */
 .footer {
     margin-top: 30px;
     padding: 18px;
     text-align: center;
     color: var(--muted);
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: center;
 }
 
 .footer a {
     color: var(--green-dark);
     text-decoration: none;
     margin: 0 10px;
+    cursor: pointer;
+    transition: text-decoration 0.2s ease;
 }
 
 .footer a:hover {
     text-decoration: underline;
+}
+
+.footer-bottom
+{
+    display:flex;
+    gap:25px;
+    font-size:14px;
+    color:#333;
+    justify-content: center;  /* Centers the links */
+}
+.footer-bottom a{
+
+color:#333;
+
 }
 
 /* MOBILE */
@@ -349,7 +381,7 @@ tr:hover {
         cursor: pointer;
     }
 }
-    /* ================= LOGIN PAGE ================= */
+/*  LOGIN PAGE  */
 
 .login-page {
     min-height: 100vh;
@@ -374,7 +406,8 @@ tr:hover {
         box-shadow: 0 18px 45px rgba(47, 93, 80, 0.14);
     }
 
-    .login-logo {
+    .login-logo 
+    {
         width: 95px;
         height: auto;
         margin-bottom: 18px;
@@ -476,7 +509,7 @@ tr:hover {
             width: 82px;
         }
     }
-/* ===== DASHBOARDS: SIMPLE CLEAN STYLE ===== */
+
 
 body {
     margin: 0;
@@ -487,29 +520,51 @@ body {
 
 /* Header */
 .header {
-    height: 72px;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
     gap: 18px;
-    padding: 0 28px;
+   
 }
 
 .header-text {
     font-size: 21px;
     font-weight: 700;
     color: #2F5D50;
+    justify-self: auto;
 }
 
-.login-logo {
-    width: 200px;
-    height: auto;
+/* HEADER */
+.header {
+    background: var(--card);
+    /* background: transparent; */
+    border-bottom: 1px solid var(--border);
+    padding: 18px 25px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.logo-img {
+    width: auto;
+    height: 28px;
+    object-fit: contain;
+    transform: translateY(4px); /* moved image slightly down */
+}
+
+.login-logo
+.header-title {
+    color: var(--green-dark);
+}
+
+
 
 /* Layout */
-.container {
+.container 
+{
     display: flex;
+    margin-top: 20px;
     min-height: calc(100vh - 72px);
+    
 }
 
 /* Sidebar */
@@ -517,12 +572,17 @@ body {
     width: 220px;
     background: #F1F7F3;
     padding: 25px 18px;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 72px);  /* Match container height */
 }
 
 .sidebar-menu {
     list-style: none;
     padding: 0;
     margin: 0;
+
+    flex-grow: 1;  /* Takes available space */
 }
 
 .sidebar-menu a {
@@ -549,6 +609,7 @@ body {
     color: white;
     font-weight: 700;
     cursor: pointer;
+    margin-top: auto; /* suppose to pushe button to bottom of sidebar */
 }
 
 /* Main */
@@ -700,3 +761,4 @@ td form {
         padding: 20px;
     }
 }
+.footer

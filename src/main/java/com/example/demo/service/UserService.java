@@ -24,13 +24,17 @@ public class UserService {
     // Inject the UserRepository to interact with the database
     private final UserRepository userRepository;
 
+    private final EmailService emailService;
+
     // Password encoder removed to avoid dependency on Spring Security here.
 
    // Constructor-based dependency injection
    // BCryptPasswordEncoder encoder
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, EmailService emailService) 
+    {
         this.userRepository = userRepository;
+        this.emailService = emailService;
     }
 
     // CREATE
@@ -85,7 +89,20 @@ public class UserService {
                 .status(User.UserStatus.ACTIVE)
                 .build();
 
-        return userRepository.save(newUser);
+        String htmlBody = """
+            <h1> Welcome, %s!</h1>
+            <p>An Administrator has created your profile in the system.</p>
+            <p>Login email: <strong>%s</strong></p>
+            <p> Login Password: <strong>%s</strong></p>
+                """.formatted(newUser.getName(), newUser.getEmail(), newUser.getPasswordHash()); //change getPasswordHash() to the auto generated
+
+
+        User savedUser = userRepository.save(newUser);
+
+        emailService.sendHtmlEmail(newUser.getEmail(), "Your Profile has been created", htmlBody);
+
+        //return userRepository.save(newUser);  //send the email before saving
+        return savedUser; //email succeeds and database save too
     }
 
     // READ
