@@ -21,20 +21,29 @@ public class AssetPageController {
     // =========================
     // LOAD ASSET PAGE (JSP)
     // =========================
+
+
     @GetMapping
-    public String loadAssetPage(Model model,
-                                @RequestParam(required = false) String keyword) {
+    public String loadAssetPage(
+            Model model,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) String condition,
+            @RequestParam(required = false) String status) {
 
-        List<Asset> assets;
+        List<Asset> assets =
+                service.searchAssets(keyword, location, condition, status);
 
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            assets = service.searchAssets(keyword);
-        } else {
-            assets = service.getAllAssets();
-        }
-
+        model.addAttribute("status", status);
+        model.addAttribute("statuses", Asset.Status.values());
         model.addAttribute("assets", assets);
+
         model.addAttribute("keyword", keyword);
+        model.addAttribute("location", location);
+        model.addAttribute("condition", condition);
+
+        model.addAttribute("locations", service.getAllLocations());
+        model.addAttribute("conditions", service.getAllConditions());
 
         return "adminAsset";
     }

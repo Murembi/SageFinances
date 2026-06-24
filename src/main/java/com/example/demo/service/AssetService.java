@@ -254,24 +254,64 @@ public class AssetService {
 
 
     //actuall working search method
-    public List<Asset> searchAssets(String keyword) {
-
-        if (keyword == null || keyword.trim().isEmpty()) {
-            return getAllAssets();
-        }
-
-        String k = keyword.toLowerCase();
+    public List<Asset> searchAssets(
+            String keyword,
+            String location,
+            String condition,
+            String status) {
 
         return repository.findAll()
                 .stream()
-                .filter(a ->
-                        (a.getTitle() != null && a.getTitle().toLowerCase().contains(k)) ||
-                                (a.getCategory() != null && a.getCategory().toLowerCase().contains(k)) ||
-                                (a.getSerialNumber() != null && a.getSerialNumber().toLowerCase().contains(k)) ||
-                                (a.getLocation() != null && a.getLocation().toLowerCase().contains(k)) ||
-                                (a.getCondition() != null && a.getCondition().toLowerCase().contains(k)) ||
-                                (a.getStatus() != null && a.getStatus().name().toLowerCase().contains(k))
-                )
+                .filter(a -> {
+
+                    boolean matchesKeyword =
+                            keyword == null || keyword.isBlank() ||
+                                    (a.getTitle() != null && a.getTitle().toLowerCase().contains(keyword.toLowerCase())) ||
+                                    (a.getCategory() != null && a.getCategory().toLowerCase().contains(keyword.toLowerCase())) ||
+                                    (a.getSerialNumber() != null && a.getSerialNumber().toLowerCase().contains(keyword.toLowerCase())) ||
+                                    (a.getLocation() != null && a.getLocation().toLowerCase().contains(keyword.toLowerCase())) ||
+                                    (a.getCondition() != null && a.getCondition().toLowerCase().contains(keyword.toLowerCase())) ||
+                                    (a.getStatus() != null && a.getStatus().name().toLowerCase().contains(keyword.toLowerCase()));
+
+                    boolean matchesLocation =
+                            location == null || location.isBlank() ||
+                                    location.equalsIgnoreCase(a.getLocation());
+
+                    boolean matchesCondition =
+                            condition == null || condition.isBlank() ||
+                                    condition.equalsIgnoreCase(a.getCondition());
+
+                    boolean matchesStatus =
+                            status == null || status.isBlank() ||
+                                    a.getStatus().name().equalsIgnoreCase(status);
+
+                    return matchesKeyword &&
+                            matchesLocation &&
+                            matchesCondition &&
+                            matchesStatus;
+                })
+                .toList();
+    }
+
+    public List<String> getAllLocations() {
+
+        return repository.findAll()
+                .stream()
+                .map(Asset::getLocation)
+                .filter(location -> location != null && !location.isBlank())
+                .distinct()
+                .sorted()
+                .toList();
+    }
+
+    public List<String> getAllConditions() {
+
+        return repository.findAll()
+                .stream()
+                .map(Asset::getCondition)
+                .filter(condition -> condition != null && !condition.isBlank())
+                .distinct()
+                .sorted()
                 .toList();
     }
 }
