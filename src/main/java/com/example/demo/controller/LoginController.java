@@ -94,8 +94,45 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public String logout(HttpSession session) { //calss the logout method
+    public String logout(HttpSession session) { //calls the logout method
         session.invalidate(); //destroy the session
         return "redirect:/loginpage";
     }
+
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage() {
+        return "forgot-password";
+    }
+
+    @PostMapping("/forgot-password")
+    public String resetPassword(
+            @RequestParam String email,
+            @RequestParam String newPassword,
+            @RequestParam String confirmPassword,
+            Model model) {
+
+        try {
+
+            userService.resetPassword(
+                    email,
+                    newPassword,
+                    confirmPassword
+            );
+
+            model.addAttribute(
+                    "successMessage",
+                    "Password updated successfully."
+            );
+
+        } catch (RuntimeException e) {
+
+            model.addAttribute(
+                    "error",
+                    e.getMessage()
+            );
+        }
+
+        return "forgot-password";
+    }
 }
+
