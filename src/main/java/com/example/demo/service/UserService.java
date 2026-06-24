@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
 import com.example.demo.exception.AccountInactiveException;
 import com.example.demo.exception.InvalidCredentialsException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
 //Hashing Password
@@ -62,7 +64,7 @@ public class UserService {
     }
 
     @Transactional
-    public User createUserByAdmin(User user) {
+    public UserCreationResponse createUserByAdmin(User user) {
 
         if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
             throw new RuntimeException(
@@ -74,18 +76,27 @@ public class UserService {
                     "Email " + user.getEmail() + " already exists."
             );
         }
+        String generatedPassword = UUID.randomUUID()
+                .toString()
+                .replace("-", "")
+                .substring(0, 8);
+
 
         User newUser = User.builder()
                 .name(user.getName())
                 .department(user.getDepartment())
                 .email(user.getEmail())
-                .passwordHash(user.getPasswordHash())
+                .passwordHash(generatedPassword)
                 .createdAt(LocalDateTime.now())
                 .role(user.getRole())
                 .status(User.UserStatus.ACTIVE)
                 .build();
 
-        return userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);
+        return new UserCreationResponse(
+                savedUser,
+                generatedPassword
+        );
     }
 
     // READ

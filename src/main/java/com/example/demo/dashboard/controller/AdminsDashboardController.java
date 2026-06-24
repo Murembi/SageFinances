@@ -1,6 +1,7 @@
 package com.example.demo.dashboard.controller;
 
 import com.example.demo.dashboard.service.AdminDashboardService;
+import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,11 +35,15 @@ public class AdminsDashboardController {
     public String createUserFromAdmin(@ModelAttribute User user,
                                       RedirectAttributes redirectAttributes) {
 
-        userService.createUserByAdmin(user);
+        UserCreationResponse response =
+                userService.createUserByAdmin(user);
 
         redirectAttributes.addFlashAttribute(
                 "successMessage",
-                "New user created in system."
+                "User created successfully. Email: "
+                        + response.getUser().getEmail()
+                        + " | Generated Password: "
+                        + response.getGeneratedPassword()
         );
 
         return "redirect:/admin/users";

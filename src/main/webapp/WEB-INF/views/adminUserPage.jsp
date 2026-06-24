@@ -66,11 +66,6 @@
                 </a>
             </li>
 
-            <li>
-                <a href="${pageContext.request.contextPath}/settings">
-                    Settings
-                </a>
-            </li>
 
         </ul>
 
@@ -83,6 +78,11 @@
 
     <main class="main-content">
 
+        <c:if test="${not empty successMessage}">
+        <div class="popup success">
+                ${successMessage}
+        </div>
+        </c:if>
 <section class="card">
     <h3>Search Users</h3>
 
