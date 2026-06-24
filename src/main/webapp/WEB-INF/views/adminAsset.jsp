@@ -46,26 +46,68 @@
 
 </div>
 
+<!-- CREATE ASSET -->
+<div class="form-container">
 
-<!-- ================= CREATE ASSET ================= -->
+    <h2>Add Asset</h2>
 
-<h3>Create Asset</h3>
+    <!-- OPEN MODAL BUTTON -->
+        <button type="button" class="btn" onclick="openAddAssetModal()">
+            + Add New Asset
+        </button>
 
-<form action="${pageContext.request.contextPath}/admin/assets/create" method="post">
+</div>
 
-    Title: <input type="text" name="title"><br>
-    Category: <input type="text" name="category"><br>
-    Serial Number: <input type="text" name="serialNumber"><br>
-    Cost: <input type="number" step="0.01" name="cost"><br>
-    Location: <input type="text" name="location"><br>
-    Condition: <input type="text" name="condition"><br>
+<!-- MODAL OUTSIDE CONTAINER -->
+<div id="addAssetModal" class="modal">
 
-    <button type="submit">Create</button>
-</form>
+    <h3>Add New Asset</h3>
 
+    <form action="${pageContext.request.contextPath}/admin/assets/create"
+          method="post">
 
+        <label>Asset Title</label>
+        <input type="text" name="title" required>
 
-<!-- ================= SEARCH ================= -->
+        <label>Category</label>
+        <input type="text" name="category" required>
+
+        <label>Serial Number</label>
+        <input type="text" name="serialNumber" required>
+
+        <label>Acquisition Date</label>
+        <input type="date" name="acquisitionDate" required>
+
+        <label>Cost</label>
+        <input type="number" step="0.01" name="cost" required>
+
+        <label>Location</label>
+        <input type="text" name="location" required>
+
+        <label>Condition</label>
+        <select name="condition" required>
+            <option value="">Select</option>
+            <option value="NEW">New</option>
+            <option value="GOOD">Good</option>
+            <option value="FAIR">Fair</option>
+            <option value="DAMAGED">Damaged</option>
+        </select>
+
+        <label>Photo Path</label>
+        <input type="text" name="photoPath">
+
+        <br><br>
+
+        <button type="submit">Add Asset</button>
+        <button type="button" onclick="closeAddAssetModal()">Cancel</button>
+
+    </form>
+
+</div>
+
+<script src="${pageContext.request.contextPath}/js/addAsset.js"></script>
+
+<!-- SEARCH ASSERT -->
 
 <h3>All Assets</h3>
 
@@ -84,7 +126,7 @@
 
 
 
-<!-- ================= TABLE ================= -->
+<!-- TABLE -->
 
 <table border="1">
 
@@ -114,7 +156,7 @@
             <td>${a.status}</td>
 
             <td>
-
+                <div class="action-buttons">
                 <button type="button"
                         onclick="openModal(
                             '${a.assetId}',
@@ -128,17 +170,14 @@
                         )">
                     Edit
                 </button>
-
                 |
-
                 <form action="${pageContext.request.contextPath}/admin/assets/delete/${a.assetId}"
-                      method="post"
-                      style="display:inline;">
+                      method="post">
 
                     <button type="submit">Delete</button>
 
                 </form>
-
+            </div>
             </td>
 
         </tr>
@@ -146,14 +185,9 @@
     </c:forEach>
 
 </table>
-<div id="editModal"
-     style="display:none;
-            position:fixed;
-            top:20%;
-            left:35%;
-            background:white;
-            border:1px solid black;
-            padding:20px;">
+
+<!-- EDIT ASSET -->
+<div id="editModal" class="modal">
 
     <h3>Edit Asset</h3>
 
@@ -164,23 +198,16 @@
 
         Title:
         <input type="text" id="editTitle" name="title"><br><br>
-
         Category:
         <input type="text" id="editCategory" name="category"><br><br>
-
         Serial:
-        <input type="text" id="editSerial" name="serialNumber" readonly
-               style="background-color:#e9ecef; color:#6c757d;"><br><br>
-
+        <input type="text" id="editSerial" name="serialNumber" readonly class="readonly-field"><br><br>
         Cost:
         <input type="number" step="0.01" id="editCost" name="cost"><br><br>
-
         Location:
         <input type="text" id="editLocation" name="location"><br><br>
-
         Condition:
         <input type="text" id="editCondition" name="condition"><br><br>
-
         Status:
         <select id="editStatus" name="status">
             <option value="AVAILABLE">AVAILABLE</option>
@@ -188,17 +215,17 @@
             <option value="RETIRED">RETIRED</option>
         </select>
         <br><br>
-
         <button type="submit">Update</button>
         <button type="button" onclick="closeModal()">Cancel</button>
 
     </form>
 </div>
 
+
 <!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
 
 <!--Terms Modal-->
-<div id="termsModal" style="display:none; position:fixed; top:15%; left:25%; width:50%; background:white; border:1px solid #000; padding:20px; z-index:9999;">
+<div id="termsModal" class="modal">
     <h2>Terms & Conditions</h2>
 
     <p>
@@ -215,7 +242,7 @@
 </div>
 
 <!--Contact Modal-->
-<div id="contactModal" style="display:none; position:fixed; top:15%; left:25%; width:50%; background:white; border:1px solid #000; padding:20px; z-index:9999;">
+<div id="contactModal" class="modal">
     <h2>Contact Us</h2>
 
     <p>Email: support@sageassets.com</p>
@@ -230,6 +257,5 @@
 
 
 <script src="${pageContext.request.contextPath}/js/adminAsset.js"></script>
-</body>
 </body>
 </html>

@@ -1,9 +1,27 @@
 function clearSearch() {
     document.querySelector('input[name="keyword"]').value = '';
 }
+
+// Add Asset Modal Popup Function
+function openAddAssetModal() {
+    document.getElementById("addAssetModal").style.display = "block";
+}
+
+function closeAddAssetModal() {
+    document.getElementById("addAssetModal").style.display = "none";
+}
+
+window.onclick = function (event) {
+    const modal = document.getElementById("addAssetModal");
+
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
 // Edit Modal Popup Function
 
-function openModal(id, title, category, serial, cost, location, condition) {
+function openModal(id, title, category, serial, cost, location, condition, status) {
 
     document.getElementById("editId").value = id;
     document.getElementById("editTitle").value = title;

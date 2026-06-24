@@ -44,6 +44,58 @@
            <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
         </div>
 
+<!-- CREATE USER -->
+<body>
+
+<div id="customAlert" class="alert" style="display: none;"></div>
+
+<div class="form-container">
+
+    <h2>Register Users</h2>
+
+    <!-- OPEN MODAL BUTTON -->
+    <button type="button" class="btn" onclick="openUserModal()">
+        + Create User
+    </button>
+
+</div>
+
+       <div id="userModal" class="modal">
+
+           <h3>Register User</h3>
+
+           <form id="createUserForm"
+                 action="${pageContext.request.contextPath}/users/register"
+                 method="post"
+                 autocomplete="off">
+
+               <c:if test="${not empty error}">
+                   <p style="color:red;">${error}</p>
+               </c:if>
+
+               <label>Full Name</label>
+               <input type="text" id="name" name="name" required>
+
+               <label>Email</label>
+               <input type="email" id="email" name="email" required>
+
+               <label>Department</label>
+               <input type="text" id="department" name="department" required>
+
+               <label>Password</label>
+               <input type="password" id="passwordHash" name="passwordHash" required>
+
+               <br><br>
+
+               <button type="submit" class="btn">
+                   Create User
+               </button>
+
+               <button type="button" class="btn-light" onclick="closeUserModal()">
+                   Cancel
+               </button>
+       </form>
+</div>
 
 
 <h3>Search Users</h3>
@@ -124,48 +176,6 @@
     </c:forEach>
 
 </table>
-
-<!-- REGISTER USER -->
-<h3>Register New User</h3>
-
-<form action="${pageContext.request.contextPath}/admin/users/create" method="post">
-
-    <p>
-        Name: <input type="text" name="name" required>
-    </p>
-
-    <p>
-        Email: <input type="email" name="email" required>
-        <small>Must be a company email (@sageassets.co.za)</small>
-    </p>
-
-    <p>
-        Department: <input type="text" name="department" required>
-    </p>
-
-    <p>
-        Role:
-        <select name="role">
-            <option value="ADMIN">ADMIN</option>
-            <option value="MANAGER">MANAGER</option>
-            <option value="BORROWER">BORROWER</option>
-        </select>
-    </p>
-
-    <p>
-        Password: <input type="password" name="passwordHash" required>
-    </p>
-
-    <button type="submit">Create User</button>
-
-</form>
-
-<!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
-<div>
-    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
-    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
-</div>
-
 
 <script src="${pageContext.request.contextPath}/js/adminUserPage.js"></script>
 </body>

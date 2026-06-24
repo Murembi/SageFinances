@@ -348,6 +348,60 @@ tr:hover {
         border-radius: 8px;
         cursor: pointer;
     }
+}
 
+/*  MODALS  */
 
+.modal {
+     display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border: 1px solid var(--border);
+        padding: 20px;
+        border-radius: 12px;
+        z-index: 9999;
+
+        width: 90%;
+        max-width: 600px;
+        max-height: 85vh;
+        overflow-y: auto;
+}
+
+#editModal {
+
+     width: 90%;
+     max-width: 600px;
+}
+
+#termsModal,
+#contactModal {
+    top: 15%;
+    left: 25%;
+    width: 50%;
+}
+
+.readonly-field {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.inline-form {
+    display: inline;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+/* VERY IMPORTANT */
+.action-buttons form {
+    display: inline;
+    margin: 0;
 }
