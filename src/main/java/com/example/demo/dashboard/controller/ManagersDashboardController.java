@@ -6,10 +6,10 @@ import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
+import com.example.demo.entity.User;
 import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
 import jakarta.servlet.http.HttpSession;
-import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +49,11 @@ public class ManagersDashboardController {
 //            return "redirect:/loginpage";
 //        }
 
+        User user = (User) session.getAttribute("user");
+
+        if (user == null || user.getRole() != User.Role.MANAGER) {
+            return "redirect:/loginpage";
+        }
         DashboardDTO dashboard = managerDashboardService.getManagerDashboard();
 
 
