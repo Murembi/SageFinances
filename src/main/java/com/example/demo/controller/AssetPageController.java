@@ -1,12 +1,18 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Asset;
-import com.example.demo.service.AssetService;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import com.example.demo.entity.Asset;
+import com.example.demo.service.AssetService;
 
 @Controller
 @RequestMapping("/admin/assets")
@@ -18,12 +24,10 @@ public class AssetPageController {
         this.service = service;
     }
 
-    // =========================
-    // LOAD ASSET PAGE (JSP)
-    // =========================
+
     @GetMapping
-    public String loadAssetPage(Model model,
-                                @RequestParam(required = false) String keyword) {
+    public String loadAssetPage(Model model, @RequestParam(required = false) String keyword) 
+    {
 
         List<Asset> assets;
 
@@ -39,20 +43,15 @@ public class AssetPageController {
         return "adminAsset";
     }
 
-    // =========================
-    // CREATE ASSET (FROM JSP FORM)
-    // =========================
+    
     @PostMapping("/create")
     public String createAsset(@ModelAttribute Asset asset) {
         service.addAsset(asset);
         return "redirect:/admin/assets";
     }
-    // =========================
-    // EDIT ASSET (FROM JSP BUTTON)
-    // =========================
+    
     @GetMapping("/edit/{id}")
-    public String showEditPage(@PathVariable Long id,
-                               Model model) {
+    public String showEditPage(@PathVariable Long id, Model model) {
 
         Asset asset = service.getAssetById(id);
 
@@ -62,9 +61,7 @@ public class AssetPageController {
         return "adminAsset";
     }
 
-    // =========================
-    // UPDATE ASSET (FROM JSP BUTTON)
-    // =========================
+
     @PostMapping("/update")
     public String updateAsset(@ModelAttribute Asset asset) {
 
@@ -73,10 +70,7 @@ public class AssetPageController {
         return "redirect:/admin/assets";
     }
 
-    // REMOVE CANT DELETE AN ASSET
-    // =========================
-    // DELETE ASSET (FROM JSP BUTTON)
-    // =========================
+    
     @PostMapping("/delete/{id}")
     public String deleteAsset(@PathVariable Long id) {
         service.deleteAsset(id);

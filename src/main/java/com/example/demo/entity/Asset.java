@@ -1,13 +1,21 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -45,8 +53,28 @@ public class Asset {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Lob
+    @Column(name = "photo", columnDefinition = "LONGBLOB") 
+    private byte[] photo;
+
     public enum Status {
         AVAILABLE, LOANED, RETIRED, RESERVED
     }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+//    public String getPhotoType() {
+//        return photoType;
+//    }
+//
+//    public void setPhotoType(String photoType) {
+//        this.photoType = photoType;
+//    }
 
 }
