@@ -18,12 +18,12 @@
 
     <div class="login-card">
 
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
-             alt="Logo"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
+             alt="Sage logo"
              class="login-logo"
-             width="100">
+             >
 
-        <h1>Asset Management System</h1>
+        <h1>Welcome</h1>
 
         <p class="login-subtitle">
            Sign in to continue
@@ -68,18 +68,12 @@
             </p>
         </div>
 
-<!-- ================= FOOTER ================= -->
-
 
 <!-- ================= CONTACT POPUP ================= -->
-<div id="contactPopup" class="popup">
-    <h3>Contact Us</h3>
-
-    <p><i class="fa-solid fa-envelope"></i> info@mecerintered.co.za</p>
-    <p><i class="fa-solid fa-phone"></i> (+27) 10 730 0860</p>
-
-
-</div>
+        <div class="login-contact">
+            <span>Need help?</span>
+            <a href="#">Contact Support</a>
+        </div>
 
 
 <script src="${pageContext.request.contextPath}/js/login.js"></script>

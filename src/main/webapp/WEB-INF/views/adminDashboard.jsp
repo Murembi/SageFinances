@@ -2,101 +2,104 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
+
 <body>
 
-<!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
-<div>
-
-    <!-- Logo -->
-    <div>
+<header class="header">
+    <div class="logo">
         <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
              class="login-logo"
              width="100">
     </div>
 
-    <!-- System Title -->
-    <h2>Admin Dashboard</h2>
+    <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
+</header>
 
-    <!-- User Info -->
-    <p>
-        Username: ${username} <br>
-        Role: ${userRole}
-    </p>
+<div class="container">
 
-</div>
+    <aside class="sidebar">
 
+        <ul class="sidebar-menu">
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/assets">Assets</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/users">Users</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/loans">Loans</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a>
+            </li>
+        </ul>
 
+        <form action="${pageContext.request.contextPath}/logout" method="post">
+            <button type="submit" class="logout-btn">Logout →</button>
+        </form>
 
-<!-- ================= NAVIGATION (SHARED) ================= -->
-        <div>
-           <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
-           <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
-           <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
-           <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
-           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
-            <form action="${pageContext.request.contextPath}/logout"
-                  method="post">
+    </aside>
 
-                <button type="submit">
-                    Log Out
-                </button>
+    <main class="main-content">
 
-            </form>
-        </div>
+        <section class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+            <p>Username: ${username} | Role: ${userRole}</p>
+        </section>
 
+        <section class="manager-dashboard-cards">
+            <div class="dashboard-grid">
 
+                <div class="stat-card">
+                    <h2>Total Assets</h2>
+                    <p>${dashboard.totalAssets}</p>
+                </div>
 
-<!-- ================= DASHBOARD CONTENT ================= -->
-<h3>System Overview</h3>
+                <div class="stat-card">
+                    <h2>Available Assets</h2>
+                    <p>${dashboard.availableAssets}</p>
+                </div>
 
-<div class="dashboard-grid">
+                <div class="stat-card">
+                    <h2>Loaned Assets</h2>
+                    <p>${dashboard.loanedAssets}</p>
+                </div>
 
-    <div class="stat-card">
-        <h3>Total Assets</h3>
-        <p>${dashboard.totalAssets}</p>
-    </div>
+                <div class="stat-card">
+                    <h2>Retired Assets</h2>
+                    <p>${dashboard.retiredAssets}</p>
+                </div>
 
-    <div class="stat-card">
-        <h3>Available Assets</h3>
-        <p>${dashboard.availableAssets}</p>
-    </div>
+                <div class="stat-card">
+                    <h2>Total Users</h2>
+                    <p>${dashboard.totalUsers}</p>
+                </div>
 
-    <div class="stat-card">
-        <h3>Loaned Assets</h3>
-        <p>${dashboard.loanedAssets}</p>
-    </div>
+                <div class="stat-card">
+                    <h2>Pending Loans</h2>
+                    <p>${dashboard.pendingLoans}</p>
+                </div>
 
-    <div class="stat-card">
-        <h3>Retired Assets</h3>
-        <p>${dashboard.retiredAssets}</p>
-    </div>
+            </div>
+        </section>
 
-    <div class="stat-card">
-        <h3>Total Users</h3>
-        <p>${dashboard.totalUsers}</p>
-    </div>
+    </main>
 
-    <div class="stat-card">
-        <h3>Pending Loans</h3>
-        <p>${dashboard.pendingLoans}</p>
-    </div>
-
-</div>
-
-
-
-<!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
-<div>
-    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
-    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </div>
 
 <script src="${pageContext.request.contextPath}/js/adminDashboard.js"></script>
+
 </body>
 </html>

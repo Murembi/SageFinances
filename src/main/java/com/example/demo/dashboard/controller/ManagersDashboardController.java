@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.dto.DashboardDTO;
+import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
 import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
@@ -22,6 +23,7 @@ import com.example.demo.dashboard.dto.ManagerDashboardDTO;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/manager/dashboard")
@@ -85,9 +87,28 @@ public class ManagersDashboardController {
     }
 
     @GetMapping("/assets")
-    public String showAssetsPage(Model model) {
+    public String showAssetsPage(
+            Model model,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) String condition,
+            @RequestParam(required = false) String status) {
 
-        model.addAttribute("assets", assetService.getAllAssets());
+        List<Asset> assets =
+                assetService.searchAssets(keyword, location, condition, status);
+
+        model.addAttribute("assets", assets);
+
+        // keep selected values (like admin page)
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("location", location);
+        model.addAttribute("condition", condition);
+        model.addAttribute("status", status);
+
+        // dropdown data (same as admin)
+        model.addAttribute("locations", assetService.getAllLocations());
+        model.addAttribute("conditions", assetService.getAllConditions());
+        model.addAttribute("statuses", Asset.Status.values());
 
         return "managerAsset";
     }
@@ -145,11 +166,12 @@ public class ManagersDashboardController {
     }
 
     @PostMapping("/assets/add")
-    public String createAsset(@ModelAttribute AssetRequestDTO dto) {
+    public String createAsset(@ModelAttribute AssetRequestDTO dto,
+                              @RequestParam("imageFile") MultipartFile imageFile) {
 
-        assetService.createAsset(dto);
+        assetService.createAsset(dto, imageFile);
 
-        return "redirect:/manager/dashboard";
+        return "redirect:/manager/dashboard/assets";
     }
     @PostMapping("/approve")
     public String approveLoan(@RequestParam Long loanId) {

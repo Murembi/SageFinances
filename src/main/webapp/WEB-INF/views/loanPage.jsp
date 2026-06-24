@@ -2,263 +2,165 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Loan Management</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/styles.css?v=10">
 </head>
+
 <body>
 
-<!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
-<div>
+<header class="header">
+    <img src="${pageContext.request.contextPath}/images/img_1.png"
+         alt="Logo"
+         class="logo-img">
 
-    <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
-             alt="Logo"
-             class="login-logo"
-             width="100">
+        <h2 class="header-title">Admin Loans</h2>
+        <p class="user-info">
+            Welcome back
+        </p>
     </div>
+</header>
 
-    <!-- System Title -->
-    <h2>Admin Loans</h2>
+<div class="container">
 
-    <!-- User Info -->
-    <p>
-        Username: ${username} <br>
-        Role: ${userRole}
-    </p>
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/assets">Assets</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/users">Users</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/loans">Loans</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a></li>
+        </ul>
 
+        <a href="${pageContext.request.contextPath}/loginpage"
+           class="btn logout-btn">
+            Log out
+        </a>
+    </aside>
+
+    <main class="main-content">
+
+        <section class="card">
+            <h2>Active Loans</h2>
+
+            <table>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>User</th>
+                    <th>Asset</th>
+                    <th>Status</th>
+                    <th>Request Date</th>
+                    <th>Actions</th>
+                </tr>
+
+                <c:forEach items="${loans}" var="loan">
+                    <tr>
+                        <td>${loan.loanId}</td>
+                        <td>${loan.user.name}</td>
+                        <td>${loan.asset.title}</td>
+                        <td><span class="status approved">${loan.status}</span></td>
+                        <td>${loan.requestDate}</td>
+                        <td>
+                            <c:if test="${loan.status == 'APPROVED'}">
+                                <form action="${pageContext.request.contextPath}/admin/loans/return/${loan.loanId}"
+                                      method="post">
+                                    <button type="submit">Return Asset</button>
+                                </form>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </section>
+
+        <section class="card">
+            <h2>Loan Requests</h2>
+
+            <table>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>Image</th>
+                    <th>User</th>
+                    <th>Asset</th>
+                    <th>Status</th>
+                    <th>Request Date</th>
+                    <th>Actions</th>
+                </tr>
+
+                <c:forEach items="${requests}" var="loanRequest">
+                    <tr>
+                        <td>${loanRequest.loanId}</td>
+
+                        <td>
+                            <c:choose>
+                                <c:when test="${not empty loanRequest.asset.photoPath}">
+                                    <img src="${pageContext.request.contextPath}${loanRequest.asset.photoPath}"
+                                         alt="Asset Image"
+                                         width="80">
+                                </c:when>
+                                <c:otherwise>No image</c:otherwise>
+                            </c:choose>
+                        </td>
+
+                        <td>${loanRequest.user.name}</td>
+                        <td>${loanRequest.asset.title}</td>
+                        <td><span class="status pending">${loanRequest.status}</span></td>
+                        <td>${loanRequest.requestDate}</td>
+
+                        <td>
+                            <form action="${pageContext.request.contextPath}/admin/loans/approve/${loanRequest.loanId}"
+                                  method="post">
+                                <button type="submit">Approve</button>
+                            </form>
+
+                            <form action="${pageContext.request.contextPath}/admin/loans/reject/${loanRequest.loanId}"
+                                  method="post">
+                                <button type="submit" class="btn-danger">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </section>
+
+        <section class="card">
+            <h2>Returned Assets</h2>
+
+            <table>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>User</th>
+                    <th>Asset</th>
+                    <th>Status</th>
+                    <th>Return Date</th>
+                </tr>
+
+                <c:forEach items="${returnedLoans}" var="loan">
+                    <tr>
+                        <td>${loan.loanId}</td>
+                        <td>${loan.user.name}</td>
+                        <td>${loan.asset.title}</td>
+                        <td><span class="status returned">${loan.status}</span></td>
+                        <td>${loan.returnDate}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </section>
+
+    </main>
 </div>
 
-
-
-<!-- ================= NAVIGATION (SHARED) ================= -->
-        <div>
-           <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
-           <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
-           <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
-           <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
-           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
-           <a href="${pageContext.request.contextPath}/settings">Settings</a> |
-           <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
-        </div>
-
-    <!-- Actions -->
-
-
-</div>
-
-
-
-<!-- AVAILABLE ASSETS -->
-
-<!-- <h2>Available Assets</h2> -->
-
-<%--<form method="get">--%>
-<%--    <input type="text" name="assetSearch" placeholder="Search Assets">--%>
-<%--    <button type="submit">Search</button>--%>
-<%--</form>--%>
-
-<%--<table border="1">--%>
-
-<%--    <tr>--%>
-
-<%--        <th>ID</th>--%>
-<%--        <th>Title</th>--%>
-<%--        <th>Category</th>--%>
-<%--        <th>Status</th>--%>
-<%--        <th>Action</th>--%>
-<%--    </tr>--%>
-
-<%--    <c:forEach items="${assets}" var="asset">--%>
-
-<%--        <tr>--%>
-
-<%--            <td>${asset.assetId}</td>--%>
-<%--            <td>${asset.title}</td>--%>
-<%--            <td>${asset.category}</td>--%>
-<%--            <td>${asset.status}</td>--%>
-
-<%--            <td>--%>
-
-<%--                <form action="${pageContext.request.contextPath}/admin/loans/request" method="post">--%>
-
-<%--                    <input type="hidden"--%>
-<%--                           name="assetId"--%>
-<%--                           value="${asset.assetId}">--%>
-
-<%--                    <input type="hidden"--%>
-<%--                           name="userId"--%>
-<%--                           value="${sessionScope.user.userId}">--%>
-
-<%--                    <button type="submit">--%>
-<%--                        Request Loan--%>
-<%--                    </button>--%>
-
-<%--                </form>--%>
-
-<%--            </td>--%>
-
-<%--        </tr>--%>
-
-<%--    </c:forEach>--%>
-
-<%--</table>--%>
-
-<!-- <br><br> -->
-
-<!-- ALL LOANS -->
-
-<h2>Active Loans</h2>
-
-<%--<h3>Search Active Loans</h3>--%>
-
-<%--<form method="get">--%>
-<%--    <input type="text"--%>
-<%--           name="loanSearch"--%>
-<%--           placeholder="Search by borrower, asset, or loan ID">--%>
-<%--    <button type="submit">Search</button>--%>
-<%--</form>--%>
-
-<table border="1">
-
-    <tr>
-        <th>Loan ID</th>
-        <th>User</th>
-        <th>Asset</th>
-        <th>Status</th>
-        <th>Request Date</th>
-        <th>Actions</th>
-    </tr>
-
-    <c:forEach items="${loans}" var="loan">
-
-        <tr>
-
-            <td>${loan.loanId}</td>
-            <td>${loan.user.name}</td>
-            <td>${loan.asset.title}</td>
-            <td>${loan.status}</td>
-            <td>${loan.requestDate}</td>
-
-            <td>
-
-                <c:if test="${loan.status == 'APPROVED'}">
-                    <form action="${pageContext.request.contextPath}/admin/loans/return/${loan.loanId}"
-                          method="post">
-
-                        <button type="submit">
-                            Return Asset
-                        </button>
-
-                    </form>
-                </c:if>
-
-            </td>
-
-        </tr>
-
-    </c:forEach>
-
-</table>
-
-<br><br>
-
-<!-- PENDING REQUESTS -->
-
-<h2>Loan Requests</h2>
-
-<table border="1">
-
-    <tr>
-
-        <th>Loan ID</th>
-        <th>Image</th>
-        <th>User</th>
-        <th>Asset</th>
-        <th>Status</th>
-        <th>Request Date</th>
-        <th>Actions</th>
-    </tr>
-
-    <c:forEach items="${requests}" var="loanRequest">
-
-        <tr>
-
-            <td>${loanRequest.loanId}</td>
-            <td>
-                <c:choose>
-                    <c:when test="${not empty loan.asset.photoPath}">
-                        <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
-                             alt="Asset Image"
-                             width="80">
-                    </c:when>
-                    <c:otherwise>
-                        No image
-                    </c:otherwise>
-                </c:choose>
-            </td>
-            <td>${loanRequest.user.name}</td>
-            <td>${loanRequest.asset.title}</td>
-            <td>${loanRequest.status}</td>
-            <td>${loanRequest.requestDate}</td>
-
-            <td>
-
-                <form action="${pageContext.request.contextPath}/admin/loans/approve/${loanRequest.loanId}"
-                      method="post">
-
-                    <button type="submit">
-                        Approve
-                    </button>
-
-                </form>
-
-                <form action="${pageContext.request.contextPath}/admin/loans/reject/${loanRequest.loanId}"
-                      method="post">
-                    <button type="submit">
-                        Reject
-                    </button>
-
-                </form>
-
-            </td>
-
-        </tr>
-
-    </c:forEach>
-
-</table>
-<h2>Returned Assets</h2>
-
-<table border="1">
-    <tr>
-        <th>Loan ID</th>
-        <th>User</th>
-        <th>Asset</th>
-        <th>Status</th>
-        <th>Return Date</th>
-    </tr>
-
-    <c:forEach items="${returnedLoans}" var="loan">
-        <tr>
-            <td>${loan.loanId}</td>
-            <td>${loan.user.name}</td>
-            <td>${loan.asset.title}</td>
-            <td>${loan.status}</td>
-            <td>${loan.returnDate}</td>
-        </tr>
-    </c:forEach>
-</table>
-
-<!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
-<div>
-    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
+<footer class="footer">
+    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a>
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
-</div>
-
+</footer>
 
 <script src="${pageContext.request.contextPath}/js/loanPage.js"></script>
+
 </body>
 </html>

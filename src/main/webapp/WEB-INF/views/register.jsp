@@ -9,67 +9,80 @@
     <title>Register User</title>
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/styles.css">
+          href="${pageContext.request.contextPath}/css/styles.css?v=10">
 </head>
-<body>
 
-<div id="customAlert" class="alert" style="display: none;"></div>
+<body class="login-page">
 
-<div class="auth-container">
-    <form id="createUserForm"
-          action="${pageContext.request.contextPath}/users/register"
-          method="post"
-          autocomplete="off">
-        <h1>Register User</h1>
+<div class="login-container">
+
+    <div class="login-card">
+
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
+             alt="Logo"
+             class="login-logo">
+
+        <h1>Create Account</h1>
+
+        <p class="login-subtitle">
+            Register to access Sage Assets
+        </p>
+
         <c:if test="${not empty error}">
-            <p>${error}</p>
+            <div class="error-box">
+                    ${error}
+            </div>
         </c:if>
 
-        <div class="input-group">
-            <input type="text" id="name" name="name" required>
-            <label for="name">Full Name *</label>
-        </div>
+        <form action="${pageContext.request.contextPath}/users/register"
+              method="post">
 
-        <div class="input-group">
-            <input type="email" id="email" name="email" required>
-            <label for="email">Email *</label>
-        </div>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text"
+                       name="name"
+                       required>
+            </div>
 
-        <div class="input-group">
-            <input type="text" id="department" name="department" required>
-            <label for="department">Department *</label>
-        </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email"
+                       name="email"
+                       required>
+            </div>
 
-        <div class="input-group">
-        </div>
+            <div class="form-group">
+                <label>Department</label>
+                <input type="text"
+                       name="department"
+                       required>
+            </div>
 
-        <div class="input-group">
-            <input type="password" id="passwordHash" name="passwordHash" required>
-            <label for="passwordHash">Password *</label>
-        </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password"
+                       name="passwordHash"
+                       required>
+            </div>
 
-        <button type="submit" id="createUserBtn" class="submit-btn">
-            Create User <span class="arrow">&#8594;</span>
-        </button>
+            <button type="submit" class="login-btn">
+                Create Account
+            </button>
 
-        <p class="auth-switch">
+        </form>
+
+        <div class="register-link">
             Already have an account?
-            <a href="${pageContext.request.contextPath}/loginpage">Sign in</a>
-        </p>
-    </form>
+            <a href="${pageContext.request.contextPath}/loginpage">
+                Sign In
+            </a>
+        </div>
+
+    </div>
+
 </div>
 
-<footer>
-    <div class="footer-bottom">
-        <a href="https://mecerintered.co.za/terms-and-conditions">
-            Terms &amp; Conditions
-        </a>
-        <a href="#" id="contactLink">Contact Us</a>
-    </div>
-</footer>
-
-
-
 <script src="${pageContext.request.contextPath}/js/register.js"></script>
+
 </body>
 </html>

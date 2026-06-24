@@ -76,9 +76,51 @@
            placeholder="Search assets..."
            value="${keyword}">
 
+    <!-- Location Filter -->
+    <select name="location">
+
+        <option value="">All Locations</option>
+
+        <c:forEach var="loc" items="${locations}">
+            <option value="${loc}"
+                ${loc == location ? 'selected' : ''}>
+                ${loc}
+            </option>
+        </c:forEach>
+
+    </select>
+
+    <!-- Condition Filter -->
+    <select name="condition">
+
+        <option value="">All Conditions</option>
+
+        <c:forEach var="cond" items="${conditions}">
+            <option value="${cond}"
+                ${cond == condition ? 'selected' : ''}>
+                ${cond}
+            </option>
+        </c:forEach>
+
+    </select>
+
+    <!-- Status Filter -->
+    <select name="status">
+        <option value="">All Status</option>
+
+        <c:forEach var="s" items="${statuses}">
+            <option value="${s}"
+                ${status == s ? 'selected' : ''}>
+                ${s}
+            </option>
+        </c:forEach>
+    </select>
+
     <button type="submit">Search</button>
 
-    <button type="button" onclick="clearSearch()">Reset</button>
+    <a href="${pageContext.request.contextPath}/admin/assets">
+        <button type="button">Reset</button>
+    </a>
 
 </form>
 
