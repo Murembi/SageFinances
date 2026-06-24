@@ -80,7 +80,7 @@ public class LoanPageController {
         loanService.approveLoan(id);
 
         redirectAttributes.addFlashAttribute(
-                "successMessage",
+                "adminLoanPageSuccessMessage",
                 "Loan approved successfully."
         );
 
@@ -95,7 +95,7 @@ public class LoanPageController {
         loanService.rejectLoan(id);
 
         redirectAttributes.addFlashAttribute(
-                "successMessage",
+                "adminLoanPageSuccessMessage",
                 "Loan rejected successfully."
         );
 
@@ -110,7 +110,7 @@ public class LoanPageController {
         loanService.returnLoan(id);
 
         redirectAttributes.addFlashAttribute(
-                "successMessage",
+                "adminLoanPageSuccessMessage",
                 "Asset returned successfully."
         );
 

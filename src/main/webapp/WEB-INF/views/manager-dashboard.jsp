@@ -54,9 +54,9 @@
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="main-content">
 
-        <c:if test="${not empty successMessage}">
+        <c:if test="${not empty ManagerDashboardSuccessMessage}">
             <div class="toast-message">
-                ${successMessage}
+                ${ManagerDashboardSuccessMessage}
             </div>
         </c:if>
 

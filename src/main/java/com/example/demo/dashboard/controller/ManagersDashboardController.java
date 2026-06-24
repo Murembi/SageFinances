@@ -86,7 +86,7 @@ public class ManagersDashboardController {
         loanService.returnLoan(id);
 
         redirectAttributes.addFlashAttribute(
-                "successMessage",
+                "ManagerDashboardSuccessMessage",
                 "Asset returned successfully."
         );
 
@@ -188,7 +188,7 @@ public class ManagersDashboardController {
         loanService.approveLoan(loanId);
 
         redirectAttributes.addFlashAttribute(
-                "successMessage",
+                "ManagerDashboardSuccessMessage",
                 "Loan approved successfully."
         );
 
@@ -202,7 +202,7 @@ public class ManagersDashboardController {
         loanService.rejectLoan(loanId);
 
         redirectAttributes.addFlashAttribute(
-                "successMessage",
+                "ManagerDashboardSuccessMessage",
                 "Loan rejected successfully."
         );
 

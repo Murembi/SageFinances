@@ -45,9 +45,9 @@
 
     <main class="main-content">
 
-        <c:if test="${not empty successMessage}">
+        <c:if test="${not empty adminLoanPageSuccessMessage}">
             <div class="toast-message">
-                ${successMessage}
+                ${adminLoanPageSuccessMessage}
             </div>
         </c:if>
 
