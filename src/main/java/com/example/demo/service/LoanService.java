@@ -77,6 +77,23 @@ public class LoanService {
         Long userId = dto.getUserId();
         Long assetId = dto.getAssetId();
 
+        // limit user to 3 active loans
+        List<Loan.Status> activeStatuses = List.of(
+                Loan.Status.PENDING,
+                Loan.Status.APPROVED
+        );
+
+        int activeLoans = loanRepository.countByUser_UserIdAndStatusIn(
+                userId,
+                activeStatuses
+        );
+
+        if (activeLoans >= 6) {
+            throw new InvalidLoanActionException(
+                    "You can only have 6 active loans at a time."
+            );
+        }
+
         Loan.Status status = Loan.Status.PENDING;
 
         //if individual has already requested ths assert and pending

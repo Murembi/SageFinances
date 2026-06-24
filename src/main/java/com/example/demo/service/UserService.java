@@ -3,10 +3,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
-import com.example.demo.exception.AccountInactiveException;
-import com.example.demo.exception.InvalidCredentialsException;
-import com.example.demo.exception.UserAlreadyExistsException;
-import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.exception.*;
 import com.example.demo.repository.LoanRepository;
 import com.example.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -67,7 +64,7 @@ public class UserService {
     public UserCreationResponse createUserByAdmin(User user) {
 
         if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
-            throw new RuntimeException(
+            throw new InvalidEmailException(
                     "Email must end with @sageassets.co.za"
             );
         }
@@ -97,6 +94,25 @@ public class UserService {
                 savedUser,
                 generatedPassword
         );
+    }
+    public void resetPassword(
+            String email,
+            String newPassword,
+            String confirmPassword) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException(
+                "No user found with email: " + email
+        ));
+
+        if (!newPassword.equals(confirmPassword)) {
+            throw new InvalidCredentialsException(
+                    "Passwords do not match."
+            );
+        }
+
+        user.setPasswordHash(newPassword);
+        userRepository.save(user);
     }
 
     // READ
