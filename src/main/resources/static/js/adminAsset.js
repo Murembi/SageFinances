@@ -55,3 +55,12 @@ function openContact() {
 function closeContact() {
     document.getElementById("contactModal").style.display = "none";
 }
+
+// AUTO OPEN MODAL IF ERRORS EXIST
+window.onload = function () {
+    const hasErrors = document.body.getAttribute("data-has-errors") === "true";
+
+    if (hasErrors) {
+        openAddAssetModal();
+    }
+};

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,19 +25,20 @@
         <c:if test="${not empty error}">
             <p>${error}</p>
         </c:if>
-
+        
+        <!--required-->
         <div class="input-group">
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" >
             <label for="name">Full Name *</label>
         </div>
 
         <div class="input-group">
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" >
             <label for="email">Email *</label>
         </div>
 
         <div class="input-group">
-            <input type="text" id="department" name="department" required>
+            <input type="text" id="department" name="department" >
             <label for="department">Department *</label>
         </div>
 
@@ -44,9 +46,10 @@
         </div>
 
         <div class="input-group">
-            <input type="password" id="passwordHash" name="passwordHash" required>
+            <input type="password" id="passwordHash" name="passwordHash" >
             <label for="passwordHash">Password *</label>
         </div>
+<!--2 HERE-->
 
         <button type="submit" id="createUserBtn" class="submit-btn">
             Create User <span class="arrow">&#8594;</span>

@@ -1,10 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.AssetRequestDTO;
+import com.example.demo.repository.AssetRepository;
 import com.example.demo.entity.Asset;
 import com.example.demo.exception.AssetAlreadyExistsException;
 import com.example.demo.exception.AssetNotFoundException;
-import com.example.demo.repository.AssetRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +42,23 @@ public class AssetService {
         return saved;
     }
 
+    //ASSET Validation
+    public void addAssetFromDTO(AssetRequestDTO dto) {
+
+        Asset asset = new Asset();
+
+        asset.setTitle(dto.getTitle());
+        asset.setCategory(dto.getCategory());
+        asset.setSerialNumber(dto.getSerialNumber());
+        asset.setAcquisitionDate(dto.getAcquisitionDate());
+        asset.setCost(dto.getCost());
+        asset.setLocation(dto.getLocation());
+        asset.setCondition(dto.getAssetCondition());
+        asset.setPhotoPath(dto.getPhotoPath());
+        asset.setStatus(
+                Asset.Status.valueOf(dto.getStatus().toUpperCase()));
+        repository.save(asset);
+    }
 
     // 3 // list all assets
     public List<Asset> getAllAssets() {

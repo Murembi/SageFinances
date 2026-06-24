@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +8,7 @@
     <title>Asset Management</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
-<body>
+<body data-has-errors="${showModal}">
 
 <!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
 <div>
@@ -58,50 +59,70 @@
 
 </div>
 
-<!-- MODAL OUTSIDE CONTAINER -->
+<!-- MODAL FORM-->
 <div id="addAssetModal" class="modal">
 
     <h3>Add New Asset</h3>
 
-    <form action="${pageContext.request.contextPath}/admin/assets/create"
+    <form:form action="${pageContext.request.contextPath}/admin/assets/create"
+          modelAttribute="assetRequestDTO"
           method="post">
 
+<!--Add Validation on fields -->
+
         <label>Asset Title</label>
-        <input type="text" name="title" required>
+        <form:input path="title"/>
+        <form:errors path="title" cssClass="field-error"/>
 
         <label>Category</label>
-        <input type="text" name="category" required>
+        <form:input path="category"/>
+        <form:errors path="category" cssClass="field-error"/>
 
         <label>Serial Number</label>
-        <input type="text" name="serialNumber" required>
-
+        <form:input path="serialNumber"/>
+        <form:errors path="serialNumber" cssClass="field-error"/>
         <label>Acquisition Date</label>
-        <input type="date" name="acquisitionDate" required>
+        <form:input path="acquisitionDate" type="date"/>
 
         <label>Cost</label>
-        <input type="number" step="0.01" name="cost" required>
-
+        <form:input path="cost"/>
+        <form:errors path="cost" cssClass="field-error"/>
         <label>Location</label>
-        <input type="text" name="location" required>
+        <form:input path="location"/>
+        <form:errors path="location" cssClass="field-error"/>
 
         <label>Condition</label>
-        <select name="condition" required>
-            <option value="">Select</option>
-            <option value="NEW">New</option>
-            <option value="GOOD">Good</option>
-            <option value="FAIR">Fair</option>
-            <option value="DAMAGED">Damaged</option>
-        </select>
+        <form:select path="assetCondition">
+            <form:option value="">Select</form:option>
+            <form:option value="NEW">New</form:option>
+            <form:option value="GOOD">Good</form:option>
+            <form:option value="FAIR">Fair</form:option>
+            <form:option value="DAMAGED">Damaged</form:option>
+        </form:select>
+        <form:errors path="assetCondition" cssClass="field-error"/>
+
+        <form:select path="status">
+            <form:option value="">Select</form:option>
+            <form:option value="AVAILABLE">AVAILABLE</form:option>
+            <form:option value="LOANED">LOANED</form:option>
+            <form:option value="RETIRED">RETIRED</form:option>
+            <form:option value="RESERVED">RESERVED</form:option>
+        </form:select>
+        <form:errors path="status" cssClass="field-error"/>
+
 
         <label>Photo Path</label>
-        <input type="text" name="photoPath">
+        <form:input path="photoPath"/>
+        <form:errors path="photoPath" cssClass="field-error"/>
+
+        <!-- 2 here -->
 
         <br><br>
 
         <button type="submit">Add Asset</button>
         <button type="button" onclick="closeAddAssetModal()">Cancel</button>
 
-    </form>
+    </form:form>
 
 </div>
 
@@ -207,7 +228,7 @@
         Location:
         <input type="text" id="editLocation" name="location"><br><br>
         Condition:
-        <input type="text" id="editCondition" name="condition"><br><br>
+        <input type="text" id="editCondition" name="assetCondition"><br><br>
         Status:
         <select id="editStatus" name="status">
             <option value="AVAILABLE">AVAILABLE</option>

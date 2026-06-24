@@ -8,7 +8,6 @@ import com.example.demo.entity.Loan;
 import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
 import jakarta.servlet.http.HttpSession;
-import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.dashboard.dto.PendingLoanDTO;
 import com.example.demo.dashboard.service.ManagerDashboardService;
-import com.example.demo.dashboard.dto.ManagerDashboardDTO;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;

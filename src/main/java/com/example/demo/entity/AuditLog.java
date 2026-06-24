@@ -7,8 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+
 @Entity
 @Data
 @Table(name = "auditLog")

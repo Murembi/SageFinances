@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,13 +32,13 @@
 
         <form action="${pageContext.request.contextPath}/auth/login"
               method="post">
-
+<!--required-->
             <div class="form-group">
                 <label>Email Address</label>
                 <input type="email"
                        name="email"
                        placeholder="Enter your email"
-                       required>
+                       >
             </div>
 
             <div class="form-group">
@@ -45,7 +46,9 @@
                 <input type="password"
                        name="password"
                        placeholder="Enter your password"
-                       required>
+                       >
+                       
+                 <!--2 here-->
             </div>
             <c:if test="${not empty error}">
                 <div class="error-box">

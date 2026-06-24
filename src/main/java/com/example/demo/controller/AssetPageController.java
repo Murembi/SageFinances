@@ -1,9 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.service.AssetService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +39,10 @@ public class AssetPageController {
         model.addAttribute("assets", assets);
         model.addAttribute("keyword", keyword);
 
+        //for validation
+        model.addAttribute("assetRequestDTO", new AssetRequestDTO());
+        model.addAttribute("showModal", false);
+
         return "adminAsset";
     }
 
@@ -43,8 +50,21 @@ public class AssetPageController {
     // CREATE ASSET (FROM JSP FORM)
     // =========================
     @PostMapping("/create")
-    public String createAsset(@ModelAttribute Asset asset) {
-        service.addAsset(asset);
+    public String createAsset(@Valid @ModelAttribute("assetRequestDTO") AssetRequestDTO dto,
+                              BindingResult result,
+                              Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("assets", service.getAllAssets());
+            model.addAttribute("assetRequestDTO", dto);
+
+            model.addAttribute("showModal", true);
+
+            return "adminAsset";
+        }
+
+        service.addAssetFromDTO(dto);
+
         return "redirect:/admin/assets";
     }
     // =========================

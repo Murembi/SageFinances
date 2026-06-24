@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +8,7 @@
     <title>Admin User Page</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
-<body>
+<body data-has-errors="${showModal}">
 
 <!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
 <div>
@@ -45,7 +46,6 @@
         </div>
 
 <!-- CREATE USER -->
-<body>
 
 <div id="customAlert" class="alert" style="display: none;"></div>
 
@@ -64,26 +64,28 @@
 
            <h3>Register User</h3>
 
-           <form id="createUserForm"
-                 action="${pageContext.request.contextPath}/users/register"
-                 method="post"
-                 autocomplete="off">
+           <form:form
+                   modelAttribute="CreateUserRequestDTO"
+                   action="${pageContext.request.contextPath}/users/register"
+                   method="post"
+                   autocomplete="off">
 
-               <c:if test="${not empty error}">
-                   <p style="color:red;">${error}</p>
-               </c:if>
 
                <label>Full Name</label>
-               <input type="text" id="name" name="name" required>
+               <form:input path="name"/>
+               <form:errors path="name" cssClass="field-error"/>
 
                <label>Email</label>
-               <input type="email" id="email" name="email" required>
+               <form:input path="email"/>
+               <form:errors path="email" cssClass="field-error"/>
 
                <label>Department</label>
-               <input type="text" id="department" name="department" required>
+               <form:input path="department"/>
+               <form:errors path="department" cssClass="field-error"/>
 
                <label>Password</label>
-               <input type="password" id="passwordHash" name="passwordHash" required>
+               <form:password path="passwordHash"/>
+               <form:errors path="passwordHash" cssClass="field-error"/>
 
                <br><br>
 
@@ -91,10 +93,13 @@
                    Create User
                </button>
 
-               <button type="button" class="btn-light" onclick="closeUserModal()">
+               <button type="button"
+                       class="btn-light"
+                       onclick="closeUserModal()">
                    Cancel
                </button>
-       </form>
+
+           </form:form>
 </div>
 
 

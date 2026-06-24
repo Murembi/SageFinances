@@ -1,12 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.DashboardDTO;
+import com.example.demo.dto.LoginRequestDTO;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import com.example.demo.dashboard.service.UserDashboardService;
 
 import com.example.demo.entity.User;
@@ -31,15 +31,21 @@ public class LoginController {
         return "login";
     }
 
+    //Includes Validation
     @PostMapping("/auth/login")
     public String logIn(
-            @RequestParam String email,
-            @RequestParam String password,
-            HttpSession session,Model model
+            @Valid @ModelAttribute LoginRequestDTO loginDTO,
+            BindingResult result,
+            HttpSession session, Model model
             ) {
+        if (result.hasErrors()) {
+            return "login";
+        }
+
         try{
 
-        User user = userService.getUserByLoginDetails(email, password);
+        User user = userService.getUserByLoginDetails(loginDTO.getEmail(),
+                loginDTO.getPassword());
         session.setAttribute("user", user);
 
         // redirection after logging

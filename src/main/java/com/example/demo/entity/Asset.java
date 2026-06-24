@@ -9,8 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+
 @Entity
 @Data
 @Table(name = "asset")

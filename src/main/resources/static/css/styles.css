@@ -405,3 +405,32 @@ tr:hover {
     display: inline;
     margin: 0;
 }
+
+/* ERROR BOX */
+.error-box {
+    background-color: #ffe6e6;
+    border: 1px solid #ff4d4d;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+/* FIELD ERROR */
+.field-error {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 3px;
+}
+
+/* MODAL DEFAULT STATE */
+.modal {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 40%;
+}

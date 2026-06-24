@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.CreateUserRequestDTO;
 import com.example.demo.entity.User;
 import com.example.demo.exception.AccountInactiveException;
 import com.example.demo.exception.InvalidCredentialsException;
@@ -35,7 +36,7 @@ public class UserService {
 
     // CREATE
     @Transactional
-    public User createUser(User user) {
+    public User createUser(CreateUserRequestDTO user) {
         if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
             throw new RuntimeException(
                     "Email must end with @sageassets.co.za"
@@ -62,7 +63,7 @@ public class UserService {
     }
 
     @Transactional
-    public User createUserByAdmin(User user) {
+    public User createUserByAdmin(CreateUserRequestDTO user) {
 
         if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
             throw new RuntimeException(
