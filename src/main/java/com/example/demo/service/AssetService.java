@@ -29,7 +29,6 @@ public class AssetService {
     }
 
     // 1 // add 1 asset
-    //DONE
     @Transactional
     public Asset addAsset(Asset asset) {
         asset.setCreatedAt(LocalDateTime.now());
@@ -71,34 +70,6 @@ public class AssetService {
         return asset;
     }
 
-    // 5 // search by title // NO EXCEPTION REQUIRED
-    public List<Asset> searchByTitle(String title) {
-        List<Asset> result = repository.findAll()
-                .stream()
-                .filter(a -> a.getTitle() != null &&
-                        a.getTitle().toLowerCase().contains(title.toLowerCase()))
-                .toList();
-
-        auditLogService.createAuditLog(
-                null, "ASSET", null,
-                "SEARCH_TITLE", null, title
-        );
-
-        return result;
-    }
-
-
-
-
-
-
-
-    //Edit Assets
-    public Asset updateAsset(Asset asset) {
-        return repository.save(asset);
-    }
-
-
     // 14 // update full asset
     public Asset editAsset(Long id, Asset updatedAsset) {
 
@@ -128,27 +99,6 @@ public class AssetService {
 
         return saved;
     }
-
-    // 15 // update title
-    public Asset updateTitle(Long id, String title) {
-        Asset asset = getAssetById(id);
-
-        String old = asset.getTitle();
-        asset.setTitle(title);
-
-        Asset saved = repository.save(asset);
-
-        auditLogService.createAuditLog(
-                null, "ASSET", id,
-                "UPDATE_TITLE", old, title
-        );
-
-        return saved;
-    }
-
-
-
-
 
     // 24 // delete asset // REMOVE
     @Transactional

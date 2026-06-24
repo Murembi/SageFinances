@@ -35,23 +35,6 @@ public class LoanService {
         this.auditLogService = auditLogService;
     }
 
-    //Get all loans in the db
-    // DONE
-    public List<Loan> getAllLoans(){
-
-        List<Loan> loans = loanRepository.findAll();
-
-        auditLogService.createAuditLog(
-                null,
-                "LOAN",
-                null,
-                "READ_ALL",
-                null,
-                "Fetched all loans"
-        );
-
-        return loans;
-    }
 
     //get loan by ID
     //DONE
@@ -267,57 +250,6 @@ public class LoanService {
 
         return loans;
     }
-
-    //get the loan by the ID
-//    public List<Loan> getLoansByUser(Long userId) {
-//
-//        List<Loan> loans = loanRepository.findByUser_UserId(userId);
-//
-//        auditLogService.createAuditLog(
-//                null,
-//                "LOAN",
-//                userId,
-//                "FILTER_USER",
-//                null,
-//                "Fetched loans by user"
-//        );
-//
-//        return loans;
-//    }
-
-    // Duplicate request prevention
-
-    //checkout loans
-//    public Loan checkoutLoan(Long loanId){
-//        //looks fot the loanID in the db
-//        Loan loan = loanRepository.findById(loanId).orElse(null);
-//        if(loan == null)
-//            return null;
-//
-//        //only approved loans can be checked out
-//        if (loan.getStatus() != Loan.Status.APPROVED) {
-//            return null;
-//        }
-//        // retrieve the asset linked to the loan
-//        Asset asset = loan.getAsset();
-//        if (asset == null) return null;
-//
-//        if (asset.getStatus() != Asset.Status.AVAILABLE) {
-//            return null;
-//        }
-//
-//        // Records the exact time the loan started
-//        LocalDateTime now = LocalDateTime.now();
-//        loan.setCheckoutDate(now);
-//        loan.setDueDate(now.plusDays(10)); //set the due dateDouble check the loan days
-//
-//        loan.setStatus(Loan.Status.APPROVED);
-//        asset.setStatus(Asset. Status.LOANED);
-//
-//
-//        assetRepository.save(asset);
-//        return loanRepository.save(loan);
-//    }
 
     public List<Loan> getReturnedLoans() {
         return loanRepository.findByStatus(Loan.Status.RETURNED);

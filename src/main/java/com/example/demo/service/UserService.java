@@ -130,45 +130,6 @@ public class UserService {
                  id ));
     }
 
-    //
-    // the entire user
-    public User updateUser(Long id, User updatedUser) {
-        User existingUser = getUserById(id);
-        existingUser.setName(updatedUser.getName());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setDepartment(updatedUser.getDepartment());
-        existingUser.setRole(updatedUser.getRole());
-        return userRepository.save(existingUser);
-    }
-
-    // UPDATE SPECIFIC THINGS ABOUT THE USER
-    // Update only the user's name
-    public User updateUserName(Long id, String newName) {
-        User user = getUserById(id);
-        user.setName(newName);
-        return userRepository.save(user);
-    }
-
-    // Update only the user's department
-    public User updateUserDepartment(Long id, String newDepartment) {
-        User user = getUserById(id);
-        user.setDepartment(newDepartment);
-        return userRepository.save(user);
-    }
-
-    // Update only the user's email
-    public User updateUserEmail(Long id, String newEmail) {
-        User user = getUserById(id);
-        user.setEmail(newEmail);
-        return userRepository.save(user);
-    }
-
-    // Update only the user's password
-    public User updateUserPassword(Long id, String newPassword) {
-        User user = getUserById(id);
-        user.setPasswordHash(newPassword);
-        return userRepository.save(user);
-    }
 
     // Update only the user's role
     //used
