@@ -45,6 +45,12 @@
 
     <main class="main-content">
 
+        <c:if test="${not empty successMessage}">
+            <div class="toast-message">
+                ${successMessage}
+            </div>
+        </c:if>
+
         <section class="card">
             <h2>Active Loans</h2>
 

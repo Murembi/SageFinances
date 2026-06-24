@@ -7,6 +7,7 @@ import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin/loans")
@@ -62,31 +63,6 @@ public class LoanPageController {
         return "redirect:/admin/loans";
     }
 
-    @PostMapping("/return/{id}")
-    public String returnLoan(@PathVariable Long id) {
-        loanService.returnLoan(id);
-        return "redirect:/admin/loans";
-    }
-
-    //MODIFIED AND WORKS
-    @PostMapping("/approve/{id}")
-    public String approveLoan(
-            @PathVariable Long id) {
-
-        loanService.approveLoan(id);
-
-        return "redirect:/admin/loans";
-    }
-
-    @PostMapping("/reject/{id}")
-    public String rejectLoan(
-            @PathVariable Long id) {
-
-        loanService.rejectLoan(id);
-
-        return "redirect:/admin/loans";
-    }
-
     @PostMapping("/delete/{id}")
     public String deleteLoan(
             @PathVariable Long id) {
@@ -96,4 +72,53 @@ public class LoanPageController {
         return "redirect:/admin/loans";
     }
 
+    @PostMapping("/approve/{id}")
+    public String approveLoan(
+            @PathVariable Long id,
+            RedirectAttributes redirectAttributes) {
+
+        loanService.approveLoan(id);
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Loan approved successfully."
+        );
+
+        return "redirect:/admin/loans";
+    }
+
+    @PostMapping("/reject/{id}")
+    public String rejectLoan(
+            @PathVariable Long id,
+            RedirectAttributes redirectAttributes) {
+
+        loanService.rejectLoan(id);
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Loan rejected successfully."
+        );
+
+        return "redirect:/admin/loans";
+    }
+
+    @PostMapping("/return/{id}")
+    public String returnLoan(
+            @PathVariable Long id,
+            RedirectAttributes redirectAttributes) {
+
+        loanService.returnLoan(id);
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Asset returned successfully."
+        );
+
+        return "redirect:/admin/loans";
+    }
+
+
+
 }
+
+

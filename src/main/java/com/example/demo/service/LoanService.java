@@ -252,9 +252,9 @@ public class LoanService {
 
     //finding the loans by status
     //PENDING, APPROVED OR REJECTED
-    public List<Loan> getLoansByStatus(Loan.Status status){
+    public List<Loan> getLoansByStatus(Loan.Status status) {
 
-        List<Loan> loans = loanRepository.findByStatus(status);
+        List<Loan> loans = loanRepository.findByStatusWithUserAndAsset(status);
 
         auditLogService.createAuditLog(
                 null,
@@ -262,7 +262,7 @@ public class LoanService {
                 null,
                 "FILTER_STATUS",
                 null,
-                "loan Status requested"
+                "loan status requested"
         );
 
         return loans;

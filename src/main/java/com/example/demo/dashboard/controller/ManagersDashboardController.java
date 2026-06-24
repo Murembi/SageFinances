@@ -24,6 +24,7 @@ import com.example.demo.dashboard.dto.ManagerDashboardDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/manager/dashboard")
@@ -79,9 +80,15 @@ public class ManagersDashboardController {
     }
 
     @PostMapping("/return/{id}")
-    public String managerReturnLoan(@PathVariable Long id) {
+    public String managerReturnLoan(@PathVariable Long id,
+                                    RedirectAttributes redirectAttributes) {
 
         loanService.returnLoan(id);
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Asset returned successfully."
+        );
 
         return "redirect:/manager/dashboard";
     }
@@ -173,15 +180,32 @@ public class ManagersDashboardController {
 
         return "redirect:/manager/dashboard/assets";
     }
+
     @PostMapping("/approve")
-    public String approveLoan(@RequestParam Long loanId) {
+    public String approveLoan(@RequestParam Long loanId,
+                              RedirectAttributes redirectAttributes) {
+
         loanService.approveLoan(loanId);
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Loan approved successfully."
+        );
+
         return "redirect:/manager/dashboard";
     }
 
     @PostMapping("/reject")
-    public String rejectLoan(@RequestParam Long loanId) {
+    public String rejectLoan(@RequestParam Long loanId,
+                             RedirectAttributes redirectAttributes) {
+
         loanService.rejectLoan(loanId);
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Loan rejected successfully."
+        );
+
         return "redirect:/manager/dashboard";
     }
 
