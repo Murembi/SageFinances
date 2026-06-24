@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin/loans")
@@ -75,6 +76,11 @@ public class LoanPageController {
         return "redirect:/admin/loans";
     }
 
+    @PostMapping("/delete/{id}")
+    public String deleteLoan(
+            @PathVariable Long id) {
+
+        loanService.deleteLoan(id);
     @PostMapping("/return/{id}")
     public String returnLoan(@PathVariable Long id, HttpSession session) {
         User user = (User) session.getAttribute("user");
@@ -87,9 +93,10 @@ public class LoanPageController {
         return "redirect:/admin/loans";
     }
 
-    //MODIFIED AND WORKS
     @PostMapping("/approve/{id}")
     public String approveLoan(
+            @PathVariable Long id,
+            RedirectAttributes redirectAttributes) {
             @PathVariable Long id, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
@@ -99,11 +106,18 @@ public class LoanPageController {
         }
         loanService.approveLoan(id);
 
+        redirectAttributes.addFlashAttribute(
+                "adminLoanPageSuccessMessage",
+                "Loan approved successfully."
+        );
+
         return "redirect:/admin/loans";
     }
 
     @PostMapping("/reject/{id}")
     public String rejectLoan(
+            @PathVariable Long id,
+            RedirectAttributes redirectAttributes) {
             @PathVariable Long id, HttpSession session) {
         User user = (User) session.getAttribute("user");
 
@@ -112,9 +126,25 @@ public class LoanPageController {
         }
         loanService.rejectLoan(id);
 
+        redirectAttributes.addFlashAttribute(
+                "adminLoanPageSuccessMessage",
+                "Loan rejected successfully."
+        );
+
         return "redirect:/admin/loans";
     }
 
+    @PostMapping("/return/{id}")
+    public String returnLoan(
+            @PathVariable Long id,
+            RedirectAttributes redirectAttributes) {
+
+        loanService.returnLoan(id);
+
+        redirectAttributes.addFlashAttribute(
+                "adminLoanPageSuccessMessage",
+                "Asset returned successfully."
+        );
     @PostMapping("/delete/{id}")
     public String deleteLoan(
             @PathVariable Long id, HttpSession session) {
@@ -128,4 +158,8 @@ public class LoanPageController {
         return "redirect:/admin/loans";
     }
 
+
+
 }
+
+

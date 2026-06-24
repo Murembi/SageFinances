@@ -54,6 +54,12 @@
     <!-- MAIN CONTENT -->
     <main id="mainContent" class="main-content">
 
+        <c:if test="${not empty ManagerDashboardSuccessMessage}">
+            <div class="toast-message">
+                ${ManagerDashboardSuccessMessage}
+            </div>
+        </c:if>
+
         <section class="dashboard-header">
             <h1>Manager Dashboard</h1>
         </section>
@@ -277,5 +283,7 @@
 
 </div>
 
+
+<script src="${pageContext.request.contextPath}/js/manager-dashboard.js"></script>
 </body>
 </html>
