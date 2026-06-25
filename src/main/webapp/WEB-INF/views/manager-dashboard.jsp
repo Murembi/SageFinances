@@ -163,36 +163,7 @@
 
         </section>
 
-        <!-- RETURNED ASSETS TABLE -->
-        <section class="table-section">
 
-            <h2>Returned Assets</h2>
-
-            <table>
-                <thead>
-                <tr>
-                    <th>Loan ID</th>
-                    <th>Asset</th>
-                    <th>Borrower</th>
-                    <th>Return Date</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <c:forEach items="${returnedLoans}" var="loan">
-                    <tr>
-                        <td>${loan.loanId}</td>
-                        <td>${loan.asset.title}</td>
-                        <td>${loan.user.name}</td>
-                        <td>${loan.returnDate}</td>
-                        <td>${loan.status}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-
-        </section>
 
         <!-- LOANS OVERDUE TABLE -->
         <section class="table-section">

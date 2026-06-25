@@ -141,9 +141,9 @@
     </table>
 </section>
 
-        // add css
+
         <c:if test="${not empty generatedPassword}">
-            <div class="credentials-card">
+            <div class="toast-message">
 
                 <h4>User Created Successfully</h4>
 

@@ -181,6 +181,7 @@ public class ManagersDashboardController {
     public String createAsset(@ModelAttribute AssetRequestDTO dto,
                               @RequestParam("imageFile") MultipartFile imageFile) {
 
+
         assetService.createAsset(dto, imageFile);
 
         return "redirect:/manager/dashboard/assets";
