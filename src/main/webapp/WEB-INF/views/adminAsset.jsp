@@ -14,10 +14,9 @@
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Logo"
-             class="login-logo"
-             width="100">
+             class="dashboard-logo">
     </div>
 
     <!-- System Title -->

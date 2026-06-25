@@ -15,9 +15,9 @@
 
 <header class="header">
     <div>
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Logo"
-             class="logo-img">
+             class="dashboard-logo">
     </div>
 
     <div>
