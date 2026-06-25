@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.CreateUserRequestDTO;
 import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
 import com.example.demo.exception.*;
@@ -13,6 +14,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+
 
 //Hashing Password
 
@@ -22,13 +27,17 @@ public class UserService {
     // Inject the UserRepository to interact with the database
     private final UserRepository userRepository;
 
+    private final EmailService emailService;
+
     // Password encoder removed to avoid dependency on Spring Security here.
 
    // Constructor-based dependency injection
    // BCryptPasswordEncoder encoder
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, EmailService emailService) 
+    {
         this.userRepository = userRepository;
+        this.emailService = emailService;
     }
 
     // CREATE
@@ -60,6 +69,11 @@ public class UserService {
     }
 
     @Transactional
+    public User createUserByAdmin(CreateUserRequestDTO dto) {
+
+        if (!dto.getEmail().toLowerCase().endsWith("@sageassets.co.za")) 
+        {
+            throw new RuntimeException("Email must end with @sageassets.co.za");
     public UserCreationResponse createUserByAdmin(User user) {
 
         if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
@@ -67,10 +81,10 @@ public class UserService {
                     "Email must end with @sageassets.co.za"
             );
         }
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new UserAlreadyExistsException(
-                    "Email " + user.getEmail() + " already exists."
-            );
+
+        if (userRepository.existsByEmail(dto.getEmail())) 
+        {
+            throw new UserAlreadyExistsException("Email " + dto.getEmail() + " already exists.");
         }
         String generatedPassword = UUID.randomUUID()
                 .toString()
@@ -78,6 +92,60 @@ public class UserService {
                 .substring(0, 8);
 
 
+
+
+    String tempPassword = dto.getPasswordHash(); // raw password, before hashing
+
+    User newUser = User.builder()
+            .name(dto.getName())
+            .department(dto.getDepartment())
+            .email(dto.getEmail())
+            .passwordHash(tempPassword)
+            .createdAt(LocalDateTime.now())
+            .role(dto.getRole())
+            .status(User.UserStatus.ACTIVE)
+            .build();
+
+        String htmlBody = """
+            <html>
+            <body style="font-family: Arial, sans-serif; color: #deede8; max-width: 500px;">
+                <h2 style="color: #2F5D50;">SAGE ASSETS | Assets Management System</h2>
+                <p>Welcome %s,</p>
+                <p>An administrator has created a profile for you on the Asset Management System.</p>
+
+                <table style="background: #F1F7F3; border-radius: 8px; padding: 16px; margin: 16px 0;">
+                    <tr><td style="padding: 4px 12px;"><strong>Email:</strong></td><td style="padding: 4px 12px;">%s</td></tr>
+                    <tr><td style="padding: 4px 12px;"><strong>Temporary Password:</strong></td><td style="padding: 4px 12px;">%s</td></tr>
+                </table>
+
+                <p>Please log in and change your password as soon as possible.</p>
+
+                <p style="margin-top: 24px;">
+                    <a href="http://localhost:8083/loginpage"
+                    style="background: #2F5D50; color: white; padding: 10px 18px;
+                            border-radius: 8px; text-decoration: none;">
+                        Log In Now
+                    </a>
+                </p>
+
+                <p style="color: #6B7280; font-size: 13px; margin-top: 24px;">
+                    If you weren't expecting this account, please contact your IT administrator.
+                </p>
+            </body>
+        </html>
+                """.formatted(newUser.getName(), newUser.getEmail(), tempPassword); //change getPasswordHash() to the auto generated
+
+
+        User savedUser = userRepository.save(newUser);
+
+        emailService.sendHtmlEmail(newUser.getEmail(), "Your Profile has been created", htmlBody);
+
+      
+
+       
+);
+        //return userRepository.save(newUser);  //send the email before saving
+        return savedUser; //email succeeds and database save too
         User newUser = User.builder()
                 .name(user.getName())
                 .department(user.getDepartment())
