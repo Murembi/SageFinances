@@ -235,7 +235,8 @@ tr:hover {
 }
 
 .rejected,
-.damaged {
+.damaged,
+.due-date{
     background: #F8D7DA;
     color: #721C24;
 }
@@ -671,7 +672,8 @@ button,
     color: white;
 }
 
-.reject-btn {
+.reject-btn,
+.due-date{
     background: #FEE2E2;
     color: #991B1B;
 }

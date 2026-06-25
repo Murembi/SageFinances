@@ -162,7 +162,7 @@
                     </td>
                     <td><%= loan.getAssetTitle() %></td>
                     <td><%= loan.getRequestDate() %></td>
-                    <td><%= loan.getDueDate() %></td>
+                    <td class="due-date"><%= loan.getDueDate().toLocalDate() %></td>
                 </tr>
                 <%
                         }
@@ -203,7 +203,7 @@
                     </td>
                     <td><%= loan.getAssetName() %></td>
                     <td><%= loan.getCheckoutDate() %></td>
-                    <td><%= loan.getDueDate() %></td>
+                    <td class="due-date"><%= loan.getDueDate().toLocalDate()%></td>
                     <td><%= loan.getStatus() %></td>
                 </tr>
                 <%
