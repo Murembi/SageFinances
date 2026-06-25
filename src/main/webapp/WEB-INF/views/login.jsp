@@ -18,7 +18,7 @@
 
     <div class="login-card">
 
-        <img src="${pageContext.request.contextPath}/images/img.png"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Sage logo"
              class="login-logo"
              >
@@ -66,28 +66,12 @@
                     Create Account
                 </a>
             </p>
-        </div>
-
-
-
-
-<!-- ================= CONTACT POPUP ================= -->
-        <div class="login-contact">
-            <span>Need help?</span>
-            <a href="#">Contact Support</a>
             <p>
                 <a href="${pageContext.request.contextPath}/forgot-password">
                     Forgot Password?
                 </a>
             </p>
         </div>
-
-
-<!--  FOOTER -->
-<footer class="footer">
-    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
-    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
-</footer>
 
 
 <script src="${pageContext.request.contextPath}/js/login.js"></script>

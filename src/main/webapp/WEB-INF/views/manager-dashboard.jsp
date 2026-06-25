@@ -18,7 +18,7 @@
 <!-- HEADER -->
 <header class="header">
     <div class="logo">
-        <img src="${pageContext.request.contextPath}/images/img.png"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
              class="login-logo"
              width="100">
@@ -253,12 +253,6 @@
     </main>
 
 </div>
-
-<!--  FOOTER -->
-<footer class="footer">
-    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a> |
-    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
-</footer>
 
 
 <script src="${pageContext.request.contextPath}/js/manager-dashboard.js"></script>
