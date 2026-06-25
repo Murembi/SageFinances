@@ -62,7 +62,14 @@
                 <label>Password</label>
                 <input type="password"
                        name="passwordHash"
-                       required>
+                       required
+                       minlength="8"
+                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&!#^()_+\-=]).{8,}$"
+                       title="Password must be at least 8 characters and include uppercase, lowercase, number, and special character.">
+
+                <small class="password-hint">
+                    Use 8+ characters with uppercase, lowercase, number, and special character.
+                </small>
             </div>
 
             <button type="submit" class="login-btn">
