@@ -14,7 +14,7 @@
 
     <!-- Logo -->
     <div>
-        <img src="${pageContext.request.contextPath}/images/img.png"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
              class="login-logo"
              width="100">

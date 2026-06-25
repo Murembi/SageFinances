@@ -15,7 +15,7 @@
 
 <header class="header">
     <div>
-        <img src="${pageContext.request.contextPath}/images/img.png"
+        <img src="${pageContext.request.contextPath}/images/img_1.png"
              alt="Logo"
              class="logo-img">
     </div>
@@ -159,15 +159,6 @@
         </c:if>
 
 <section class="card">
-
-    <c:if test="${not empty errorMessages}">
-        <div class="error-box">
-            <c:forEach var="err" items="${errorMessages}">
-                <p>${err}</p>
-            </c:forEach>
-        </div>
-    </c:if> <!-- exposing the BindingResult errors as a flat list -->
-
     <h3>Register New User</h3>
 
     <form action="${pageContext.request.contextPath}/admin/users/create" method="post">
