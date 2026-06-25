@@ -147,6 +147,15 @@
 </section>
 
 <section class="card">
+
+    <c:if test="${not empty errorMessages}">
+        <div class="error-box">
+            <c:forEach var="err" items="${errorMessages}">
+                <p>${err}</p>
+            </c:forEach>
+        </div>
+    </c:if> <!-- exposing the BindingResult errors as a flat list -->
+
     <h3>Register New User</h3>
 
     <form action="${pageContext.request.contextPath}/admin/users/create" method="post">
