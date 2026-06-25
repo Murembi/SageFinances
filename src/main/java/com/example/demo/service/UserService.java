@@ -3,15 +3,14 @@ package com.example.demo.service;
 
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.example.demo.dto.LoginRequestDTO;
+import com.example.demo.dto.LoginResponseDTO;
 
-
+import java.util.Optional;
 import java.time.LocalDateTime;
 import java.util.List;
-
-
-//Hashing Password
 
 @Service
 public class UserService {
@@ -20,14 +19,12 @@ public class UserService {
     private final UserRepository userRepository;
 
     // BCryptPasswordEncoder is used to hash and verify passwords securely
-    //private final BCryptPasswordEncoder encoder ;
+    private final BCryptPasswordEncoder encoder ;
 
-    // Constructor-based dependency injection
-    //BCryptPasswordEncoder encoder
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
-        //this.encoder = encoder;
+        this.encoder = encoder;
     }
 
     // CREATE
@@ -36,12 +33,12 @@ public class UserService {
                 .name(user.getName())
                 .department(user.getDepartment())
                 .email(user.getEmail())
-                .passwordHash(user.getPasswordHash())
+
+                .passwordHash(encoder.encode(user.getPasswordHash()))
                 .createdAt(LocalDateTime.now())
                 .role(User.Role.Borrower)
 
                 .build();
-
         return userRepository.save(newUser);
     }
 
@@ -54,7 +51,6 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    //
     // the entire user
     public User updateUser(Long id, User updatedUser) {
         User existingUser = getUserById(id);
@@ -90,7 +86,7 @@ public class UserService {
     // Update only the user's password
     public User updateUserPassword(Long id, String newPassword) {
         User user = getUserById(id);
-        user.setPasswordHash(newPassword);
+        user.setPasswordHash(encoder.encode(newPassword));
         return userRepository.save(user);
     }
 
@@ -103,6 +99,33 @@ public class UserService {
 
     // DELETE
     public void deleteUser(Long id) {
+
         userRepository.deleteById(id);
+    }
+
+    //Login Authentication - Aaliyah
+    public LoginResponseDTO login(LoginRequestDTO loginDTO) {
+
+        // 1. Find user by email
+        Optional<User> userOptional = userRepository.findByEmail(loginDTO.getEmail());
+
+        if (userOptional.isEmpty()) {
+            return new LoginResponseDTO("User not found", false);
+        }
+
+        User user = userOptional.get();
+
+        // 2. Check password
+        boolean passwordMatches = encoder.matches(
+                loginDTO.getPassword(),
+                user.getPasswordHash()
+        );
+
+        if (!passwordMatches) {
+            return new LoginResponseDTO("Invalid password", false);
+        }
+
+        // 3. Success login
+        return new LoginResponseDTO("Login successful", true);
     }
 }
