@@ -3,7 +3,7 @@ function clearSearch() {
 }
 // Edit Modal Popup Function
 
-function openModal(id, title, category, serial, cost, location, condition) {
+function openModal(id, title, category, serial, cost, location, condition, status) {
 
     document.getElementById("editId").value = id;
     document.getElementById("editTitle").value = title;
@@ -16,7 +16,6 @@ function openModal(id, title, category, serial, cost, location, condition) {
 
     document.getElementById("editModal").style.display = "block";
 }
-
 function closeModal() {
     document.getElementById("editModal").style.display = "none";
 }

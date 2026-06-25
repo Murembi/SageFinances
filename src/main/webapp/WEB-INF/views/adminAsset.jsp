@@ -10,62 +10,95 @@
 <body>
 
 <!-- ================= HEADER (SHARED ACROSS ALL PAGES) ================= -->
-<div>
-
-    <!-- Logo -->
-    <div>
+<header class="header">
+    <div class="logo">
         <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Logo"
              class="dashboard-logo">
     </div>
 
-    <!-- System Title -->
-    <h2>Admin Assets</h2>
-
-    <!-- User Info -->
-    <p>
-        Username: ${username} <br>
-        Role: ${userRole}
-    </p>
-
-</div>
+    <span class="header-text">
+        ASSET MANAGEMENT SYSTEM
+    </span>
+</header>
 
 
 
 <!-- ================= NAVIGATION (SHARED) ================= -->
-        <div>
-           <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a> |
-           <a href="${pageContext.request.contextPath}/admin/assets">Assets</a> |
-           <a href="${pageContext.request.contextPath}/admin/users">Users</a> |
-           <a href="${pageContext.request.contextPath}/admin/loans">Loans</a> |
-           <a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a> |
-           <a href="${pageContext.request.contextPath}/settings">Settings</a> |
-           <a href="${pageContext.request.contextPath}/loginpage">Log out</a>
-        </div>
+<div class="container">
 
-</div>
+    <aside class="sidebar">
 
+        <ul class="sidebar-menu">
+            <li><a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/assets">Assets</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/users">Users</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/loans">Loans</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a></li>
+        </ul>
 
-<!-- ================= CREATE ASSET ================= -->
+        <form action="${pageContext.request.contextPath}/logout" method="post">
+            <button type="submit" class="logout-btn">
+                Logout →
+            </button>
+        </form>
 
-<h3>Create Asset</h3>
+    </aside>
+
+    <main class="main-content">
+        <section class="dashboard-header">
+            <h1>Admin Assets</h1>
+            <p>
+                Username: ${username} |
+                Role: ${userRole}
+            </p>
+        </section>
+
+        <section class="table-section">
 
 <form action="${pageContext.request.contextPath}/admin/assets/create" method="post">
 
-    Title: <input type="text" name="title"><br>
-    Category: <input type="text" name="category"><br>
-    Serial Number: <input type="text" name="serialNumber"><br>
-    Cost: <input type="number" step="0.01" name="cost"><br>
-    Location: <input type="text" name="location"><br>
-    Condition: <input type="text" name="condition"><br>
+    <div class="form-group">
+        <label>Title</label>
+        <input type="text" name="title" required>
+    </div>
 
-    <button type="submit">Create</button>
+    <div class="form-group">
+        <label>Category</label>
+        <input type="text" name="category" required>
+    </div>
+
+    <div class="form-group">
+        <label>Serial Number</label>
+        <input type="text" name="serialNumber" required>
+    </div>
+
+    <div class="form-group">
+        <label>Cost</label>
+        <input type="number" step="0.01" name="cost">
+    </div>
+
+    <div class="form-group">
+        <label>Location</label>
+        <input type="text" name="location" name="title" required>
+    </div>
+
+    <div class="form-group">
+        <label>Condition</label>
+        <input type="text" name="condition" name="title" required>
+    </div>
+
+    <button type="submit" class="login-btn" >
+        Create Asset
+    </button>
+
 </form>
+        </section>
 
 
 
 <!-- ================= SEARCH ================= -->
-
+        <section class="table-section">
 <h3>All Assets</h3>
 
 <form method="get" action="${pageContext.request.contextPath}/admin/assets">
@@ -187,14 +220,7 @@
     </c:forEach>
 
 </table>
-<div id="editModal"
-     style="display:none;
-            position:fixed;
-            top:-20%;
-            left:35%;
-            background:white;
-            border:1px solid black;
-            padding:20px;">
+<div id="editModal" class="edit-modal">
 
     <h3>Edit Asset</h3>
 
@@ -203,32 +229,50 @@
 
         <input type="hidden" id="editId" name="assetId">
 
-        Title:
-        <input type="text" id="editTitle" name="title"><br><br>
+        <div class="modal-row">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="editTitle" name="title">
+            </div>
 
-        Category:
-        <input type="text" id="editCategory" name="category"><br><br>
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" id="editCategory" name="category">
+            </div>
+        </div>
 
-        Serial:
-        <input type="text" id="editSerial" name="serialNumber" readonly
-               style="background-color:#e9ecef; color:#6c757d;"><br><br>
+        <div class="form-group">
+            <label>Serial</label>
+            <input type="text" id="editSerial" name="serialNumber" readonly class="readonly-input">
+        </div>
 
-        Cost:
-        <input type="number" step="0.01" id="editCost" name="cost"><br><br>
+        <div class="modal-row">
+            <div class="form-group">
+                <label>Cost</label>
+                <input type="number" step="0.01" id="editCost" name="cost">
+            </div>
 
-        Location:
-        <input type="text" id="editLocation" name="location"><br><br>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" id="editLocation" name="location">
+            </div>
+        </div>
 
-        Condition:
-        <input type="text" id="editCondition" name="condition"><br><br>
+        <div class="modal-row">
+            <div class="form-group">
+                <label>Condition</label>
+                <input type="text" id="editCondition" name="condition">
+            </div>
 
-        Status:
-        <select id="editStatus" name="status">
-            <option value="AVAILABLE">AVAILABLE</option>
-            <option value="LOANED">LOANED</option>
-            <option value="RETIRED">RETIRED</option>
-        </select>
-        <br><br>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="editStatus" name="status">
+                    <option value="AVAILABLE">AVAILABLE</option>
+                    <option value="LOANED">LOANED</option>
+                    <option value="RETIRED">RETIRED</option>
+                </select>
+            </div>
+        </div>
 
         <button type="submit">Update</button>
         <button type="button" onclick="closeModal()">Cancel</button>
@@ -236,41 +280,12 @@
     </form>
 </div>
 
+        </section>
+
+    </main>
+</div>
 <!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
 
-<!--Terms Modal-->
-<div id="termsModal" style="display:none; position:fixed; top:15%; left:25%; width:50%; background:white; border:1px solid #000; padding:20px; z-index:9999;">
-    <h2>Terms & Conditions</h2>
-
-    <p>
-        Users must handle assets responsibly. All actions are logged and monitored.
-    </p>
-
-    <ul>
-        <li>No unauthorized asset edits</li>
-        <li>Data must be accurate</li>
-        <li>System misuse may result in access removal</li>
-    </ul>
-
-    <button onclick="closeTerms()">Close</button>
-</div>
-
-<!--Contact Modal-->
-<div id="contactModal" style="display:none; position:fixed; top:15%; left:25%; width:50%; background:white; border:1px solid #000; padding:20px; z-index:9999;">
-    <h2>Contact Us</h2>
-
-    <p>Email: support@sageassets.com</p>
-    <p>Phone: +27 11 000 0000</p>
-
-    <button onclick="closeContact()">Close</button>
-</div>
-<div>
-    <a href="#" onclick="openTerms()">Terms & Conditions</a> |
-    <a href="#" onclick="openContact()">Contact Us</a>
-</div>
-
-
 <script src="${pageContext.request.contextPath}/js/adminAsset.js"></script>
-</body>
 </body>
 </html>

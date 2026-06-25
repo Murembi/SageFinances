@@ -737,3 +737,39 @@ td form {
     width: 70px;
     height: auto;
 }
+
+.edit-modal {
+    display: none;
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    max-width: 90%;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    z-index: 9999;
+}
+
+.modal-row{
+    display:flex;
+    gap:20px;
+    margin-bottom:15px;
+}
+
+.modal-group{
+    flex:1;
+}
+
+.modal-group label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:600;
+}
+
+.modal-group input,
+.modal-group select{
+    width:100%;
+}
