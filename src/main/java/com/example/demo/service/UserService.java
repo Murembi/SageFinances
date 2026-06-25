@@ -4,7 +4,6 @@ package com.example.demo.service;
 import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
 import com.example.demo.exception.*;
-import com.example.demo.repository.LoanRepository;
 import com.example.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -131,7 +130,7 @@ public class UserService {
                     "Account is inactive."
             );
         }
-        // Compare provided password with stored password (should be hashed in production)
+
         if (user.getPasswordHash() != null && user.getPasswordHash().equals(password)) {
             return user;
         }
