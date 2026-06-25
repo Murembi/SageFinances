@@ -164,6 +164,7 @@
 
     <tr>
         <th>ID</th>
+        <th>Image</th>
         <th>Title</th>
         <th>Category</th>
         <th>Serial</th>
@@ -179,6 +180,20 @@
         <tr>
 
             <td>${a.assetId}</td>
+
+            <td>
+                <c:choose>
+                    <c:when test="${not empty a.photoPath}">
+                        <img src="${pageContext.request.contextPath}${a.photoPath}"
+                             alt="${a.title}"
+                             class="asset-thumbnail">
+                    </c:when>
+                    <c:otherwise>
+                        No Image
+                    </c:otherwise>
+                </c:choose>
+            </td>
+
             <td>${a.title}</td>
             <td>${a.category}</td>
             <td>${a.serialNumber}</td>

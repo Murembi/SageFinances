@@ -197,8 +197,8 @@
                     <td>
                         <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
                              alt="<%= loan.getAssetName() %>"
-                             width="80"
-                             height="80">
+                             width=100
+                             height="100">
                     </td>
                     <td><%= loan.getAssetName() %></td>
                     <td><%= loan.getCheckoutDate().toLocalDate()%></td>

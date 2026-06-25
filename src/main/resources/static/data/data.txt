@@ -1,49 +1,309 @@
-
+DROP DATABASE IF EXISTS asset_management_system;
+CREATE DATABASE asset_management_system;
 USE asset_management_system;
-INSERT INTO user (name, department, email, role, password_hash, created_at) VALUES
-('John Smith', 'IT', 'john@company.com', 'Admin', 'hash1', NOW()),
-('Sarah Johnson', 'Finance', 'sarah@company.com', 'Manager', 'hash2', NOW()),
-('Michael Brown', 'Operations', 'michael@company.com', 'Borrower', 'hash3', NOW()),
-('Emily Davis', 'HR', 'emily@company.com', 'Manager', 'hash4', NOW()),
-('David Wilson', 'IT', 'david@company.com', 'Borrower', 'hash5', NOW()),
-('Jessica Lee', 'Logistics', 'jessica@company.com', 'Borrower', 'hash6', NOW()),
-('Daniel Taylor', 'Finance', 'daniel@company.com', 'Manager', 'hash7', NOW()),
-('Laura White', 'IT', 'laura@company.com', 'Borrower', 'hash8', NOW()),
-('James Martin', 'Operations', 'james@company.com', 'Borrower', 'hash9', NOW()),
-('Olivia Clark', 'HR', 'olivia@company.com', 'Admin', 'hash10', NOW());
 
-INSERT INTO asset (title, category, serial_number, acquisition_date, cost, location, asset_condition, photo_path, created_at, status) VALUES
-('Dell Laptop XPS 15', 'Electronics', 'SN1001', '2024-01-10', 25000.00, 'Office A', 'Good', '/img/laptop1.png', NOW(), 'AVAILABLE'),
-('HP Printer LaserJet', 'Electronics', 'SN1002', '2023-11-05', 8000.00, 'Office B', 'Good', '/img/printer1.png', NOW(), 'LOANED'),
-('Office Chair Ergonomic', 'Furniture', 'SN1003', '2022-06-15', 1500.00, 'Office C', 'Good', '/img/chair1.png', NOW(), 'AVAILABLE'),
-('MacBook Pro 14', 'Electronics', 'SN1004', '2024-03-20', 35000.00, 'Office A', 'Excellent', '/img/mac1.png', NOW(), 'LOANED'),
-('Projector Epson X200', 'Electronics', 'SN1005', '2023-08-12', 12000.00, 'Meeting Room', 'Good', '/img/proj1.png', NOW(), 'LOANED'),
-('Whiteboard Large', 'Office Supplies', 'SN1006', '2022-01-18', 2000.00, 'Meeting Room', 'Good', '/img/board1.png', NOW(), 'AVAILABLE'),
-('Conference Table', 'Furniture', 'SN1007', '2021-09-10', 18000.00, 'Conference Room', 'Good', '/img/table1.png', NOW(), 'AVAILABLE'),
-('Samsung Monitor 27"', 'Electronics', 'SN1008', '2024-02-14', 6000.00, 'Office B', 'Good', '/img/monitor1.png', NOW(), 'LOANED'),
-('Router TP-Link AX', 'Networking', 'SN1009', '2023-12-01', 2500.00, 'Server Room', 'Good', '/img/router1.png', NOW(), 'AVAILABLE'),
-('Office Phone System', 'Electronics', 'SN1010', '2022-10-22', 5000.00, 'Office A', 'Retired', '/img/phone1.png', NOW(), 'RETIRED');
+CREATE TABLE user (
+    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    department VARCHAR(255),
+    email VARCHAR(255) NOT NULL UNIQUE,
+    role ENUM('ADMIN','MANAGER','BORROWER') NOT NULL,
+    password_hash VARCHAR(255),
+    created_at DATETIME,
+    status ENUM('ACTIVE','INACTIVE','DELETED') NOT NULL
+);
 
-INSERT INTO loan (asset_id, user_id, request_date, status, checkout_date, due_date, return_date, approved_by) VALUES
-(2, 3, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY), NULL, 1),
-(4, 5, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 14 DAY), NULL, 2),
-(8, 6, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
-(1, 4, NOW(), 'REJECTED', NULL, NULL, NULL, 1),
-(5, 7, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 3 DAY), NULL, 2),
-(3, 8, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 10 DAY), NULL, 3),
-(7, 9, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
-(9, 10, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 5 DAY), NULL, 1),
-(6, 2, NOW(), 'REJECTED', NULL, NULL, NULL, 2),
-(10, 1, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 20 DAY), NULL, 1);
+CREATE INDEX idx_user_email ON user(email);
 
-INSERT INTO audit_log (user_id, entity_type, entity_id, action, timestamp, old_value, new_value) VALUES
-(1, 'asset', 2, 'UPDATE', NOW(), '{"status":"AVAILABLE"}', '{"status":"LOANED"}'),
-(2, 'loan', 1, 'CREATE', NOW(), NULL, '{"status":"APPROVED"}'),
-(3, 'asset', 5, 'UPDATE', NOW(), '{"condition":"Good"}', '{"condition":"Damaged"}'),
-(4, 'user', 3, 'UPDATE', NOW(), '{"department":"Ops"}', '{"department":"Operations"}'),
-(5, 'loan', 2, 'CREATE', NOW(), NULL, '{"status":"APPROVED"}'),
-(6, 'asset', 8, 'UPDATE', NOW(), '{"status":"AVAILABLE"}', '{"status":"LOANED"}'),
-(7, 'loan', 3, 'CREATE', NOW(), NULL, '{"status":"PENDING"}'),
-(8, 'asset', 10, 'UPDATE', NOW(), '{"status":"AVAILABLE"}', '{"status":"RETIRED"}'),
-(9, 'user', 5, 'UPDATE', NOW(), '{"role":"Borrower"}', '{"role":"Manager"}'),
-(10, 'loan', 5, 'CREATE', NOW(), NULL, '{"status":"APPROVED"}');
+CREATE TABLE asset (
+    asset_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    category VARCHAR(255),
+    serial_number VARCHAR(255) NOT NULL UNIQUE,
+    acquisition_date DATE,
+    cost DECIMAL(10,2),
+    location VARCHAR(255),
+    asset_condition VARCHAR(255),
+    photo_path VARCHAR(255),
+    created_at DATETIME,
+    status ENUM('AVAILABLE','LOANED','RETIRED','RESERVED') NOT NULL
+);
+
+CREATE INDEX idx_asset_status ON asset(status);
+
+CREATE TABLE loan (
+    loan_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+    asset_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+
+    request_date DATETIME,
+
+    status ENUM(
+        'PENDING',
+        'APPROVED',
+        'REJECTED',
+        'RETURNED'
+    ) NOT NULL,
+
+    checkout_date DATETIME,
+    due_date DATETIME,
+    return_date DATETIME,
+
+    approved_by BIGINT,
+
+    CONSTRAINT fk_loan_asset
+        FOREIGN KEY (asset_id)
+        REFERENCES asset(asset_id),
+
+    CONSTRAINT fk_loan_user
+        FOREIGN KEY (user_id)
+        REFERENCES user(user_id),
+
+    CONSTRAINT fk_loan_approved_by
+        FOREIGN KEY (approved_by)
+        REFERENCES user(user_id)
+);
+
+CREATE INDEX idx_loan_status ON loan(status);
+CREATE INDEX idx_loan_user ON loan(user_id);
+CREATE INDEX idx_loan_asset ON loan(asset_id);
+
+CREATE TABLE audit_log (
+    log_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+    user_id BIGINT,
+
+    entity_type VARCHAR(255),
+    entity_id BIGINT,
+
+    action VARCHAR(255),
+
+    timestamp DATETIME,
+
+    old_value TEXT,
+    new_value TEXT,
+
+    CONSTRAINT fk_audit_user
+        FOREIGN KEY (user_id)
+        REFERENCES user(user_id)
+);
+
+INSERT INTO user
+(name, department, email, role, password_hash, created_at, status)
+VALUES
+('Christinah',
+ 'IT',
+ 'christinah@sageassets.co.za',
+ 'ADMIN',
+ 'admin123',
+ NOW(),
+ 'ACTIVE'),
+
+('Chanty',
+ 'Operations',
+ 'chanty@sageassets.co.za',
+ 'MANAGER',
+ 'manager123',
+ NOW(),
+ 'ACTIVE'),
+
+('Romeo',
+ 'Finance',
+ 'romeo@sageassets.co.za',
+ 'MANAGER',
+ 'manager123',
+ NOW(),
+ 'ACTIVE'),
+
+('Aaliyah',
+ 'Human Resources',
+ 'aaliyah@sageassets.co.za',
+ 'MANAGER',
+ 'manager123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Pomni',
+ 'Circus',
+ 'Pomni@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Jax',
+ 'Circus',
+ 'Jax@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Luffy',
+ 'Pirate',
+ 'luffy@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Mob',
+ 'Student',
+ 'mob@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Ichigo',
+ 'Sales',
+ 'ichigo@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Reigen',
+ 'Sales',
+ 'reigen@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Lelouch',
+ 'Human Resources',
+ 'lelouch@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Gon',
+ 'Student',
+ 'gon@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Killua',
+ 'Graphic Design',
+ 'killua@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE'),
+ 
+ ('Eren',
+ 'Finance',
+ 'eren@sageassets.co.za',
+ 'BORROWER',
+ 'borrower123',
+ NOW(),
+ 'ACTIVE');
+
+INSERT INTO asset
+(
+    title,
+    category,
+    serial_number,
+    acquisition_date,
+    cost,
+    location,
+    asset_condition,
+    photo_path,
+    created_at,
+    status
+)
+VALUES
+('AData', 'SSD', 'DL5420-001', '2024-01-10', 800.00, 'Johannesburg Office', 'GOOD', '/uploads/AData SSD.png', NOW(), 'AVAILABLE'),
+('Ugreen', 'SSD', 'EPX200-002', '2023-06-15', 700.00, 'Meeting Room A', 'EXCELLENT', '/uploads/Ugreen SSD.png', NOW(), 'AVAILABLE'),
+
+('Bose', 'Headphones', 'TW-T30-003', '2024-02-20', 2300.00, 'Cape Town Office', 'GOOD', '/uploads/Bose Headphones.png', NOW(), 'AVAILABLE'),
+('Sennheiser', 'Headphones', 'SM27-004', '2022-11-01', 2400.00, 'Durban Office', 'FAIR', '/uploads/Sennheiser Headphones.png', NOW(), 'AVAILABLE'),
+
+('Caydo', 'Projector', 'HP840-005', '2023-09-12', 3000.00, 'Johannesburg Office', 'GOOD', '/uploads/Caydo Projector.png', NOW(), 'AVAILABLE'),
+('SuperSonic', 'Projector', 'CN1500-006', '2022-05-20', 1400.00, 'Marketing Dept', 'GOOD', '/uploads/SuperSonic Projector.jpg', NOW(), 'AVAILABLE'),
+
+('Edifier', 'Speaker', 'MBA-M2-007', '2024-03-05', 1200.00, 'Cape Town Office', 'EXCELLENT', '/uploads/Edifier Speaker.png', NOW(), 'AVAILABLE'),
+('JBL', 'Speaker', 'LMX3-008', '2023-07-18', 1700.00, 'IT Department', 'GOOD', '/uploads/JBL Speaker.png', NOW(), 'AVAILABLE'),
+
+('EPSON', 'Printer', 'DU24-009', '2022-08-10', 2500.00, 'Durban Office', 'FAIR', '/uploads/EPSON Printer.png', NOW(), 'AVAILABLE'),
+('HP', 'Printer', 'LT14-010', '2023-04-22', 1900.00, 'Johannesburg Office', 'GOOD', '/uploads/HP Printer.png', NOW(), 'AVAILABLE'),
+
+('FHD', 'Monitor', 'HPLJ-011', '2021-12-01', 3000.00, 'Admin Office', 'GOOD', '/uploads/FHD Monitor.png', NOW(), 'AVAILABLE'),
+('Philips', 'Monitor', 'SB55-012', '2022-09-15', 1300.00, 'Conference Room', 'EXCELLENT', '/uploads/Philips Monitor.png', NOW(), 'AVAILABLE'),
+
+('Fifine', 'Microphone', 'CR500-013', '2023-02-28', 600.00, 'Server Room', 'GOOD', '/uploads/Fifine Microphone.png', NOW(), 'AVAILABLE'),
+('Hops', 'Microphone', 'ASG-014', '2024-01-25', 1300.00, 'IT Department', 'EXCELLENT', '/uploads/Hops Microphone.png', NOW(), 'AVAILABLE'),
+
+('JAV', 'SmartBoard', 'BQ32-015', '2022-10-05', 2500.00, 'Cape Town Office', 'FAIR', '/uploads/JAV SmartBoard.png', NOW(), 'AVAILABLE'),
+('Keinone', 'SmartBoard', 'MSP8-016', '2023-11-11', 3100.00, 'Johannesburg Office', 'GOOD', '/uploads/Keinone SmartBoard.png', NOW(), 'AVAILABLE'),
+
+('Keychron K2 Pro', 'Keyboard', 'DDS-017', '2023-03-19', 2100.00, 'IT Department', 'GOOD', '/uploads/Keychron K2 Pro Keyboard.png', NOW(), 'AVAILABLE'),
+('T-Wolf T30', 'Keyboard', 'HPWK-018', '2022-06-30', 1600.00, 'Admin Office', 'FAIR', '/uploads/T-Wolf T30 Keyboard.png', NOW(), 'AVAILABLE'),
+
+('RedDragon', 'Mouse', 'ET-019', '2024-02-14', 800.00, 'Durban Office', 'EXCELLENT', '/uploads/RedDragon Mouse.png', NOW(), 'AVAILABLE'),
+('Sony', 'Mouse', 'AN-020', '2023-08-09', 1350.00, 'Cape Town Office', 'GOOD', '/uploads/Sony Mouse.png', NOW(), 'AVAILABLE');
+
+INSERT INTO loan
+(
+    asset_id,
+    user_id,
+    request_date,
+    status,
+    checkout_date,
+    due_date,
+    return_date,
+    approved_by
+)
+VALUES
+-- Pomni (5)
+(1, 5, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 2),
+(2, 5, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+
+-- Jax (6)
+(3, 6, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 2),
+(4, 6, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+
+-- Luffy (7)
+(5, 7, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 3),
+(6, 7, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+
+-- Mob (8)
+(7, 8, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 3),
+(8, 8, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+
+-- Ichigo (9)
+(9, 9, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 4),
+(10, 9, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+
+-- Reigen (10)
+(11, 10, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 4),
+(12, 10, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+
+-- Lelouch (11)
+(13, 11, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 2),
+(14, 11, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+
+-- Gon (12)
+(15, 12, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 3),
+(16, 12, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+
+-- Killua (13)
+(17, 13, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 4),
+(18, 13, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+
+-- Eren (14)
+(19, 14, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 2),
+(20, 14, NOW(), 'PENDING', NULL, NULL, NULL, NULL);
+
+
+
+
+SELECT * FROM user;
+SELECT * FROM asset;
+SELECT * FROM loan;
+SELECT * FROM audit_log;
