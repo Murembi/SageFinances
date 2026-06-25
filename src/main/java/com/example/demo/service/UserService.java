@@ -1,16 +1,20 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.LoginDTO;
+import com.example.demo.dto.LoginResponseDTO;
 import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
 import com.example.demo.exception.*;
 import com.example.demo.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -22,15 +26,13 @@ public class UserService {
     // Inject the UserRepository to interact with the database
     private final UserRepository userRepository;
 
-    // Password encoder removed to avoid dependency on Spring Security here.
+    // BCryptPasswordEncoder is used to hash and verify passwords securely
+    private final BCryptPasswordEncoder encoder ;
 
-   // Constructor-based dependency injection
-   // BCryptPasswordEncoder encoder
-
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.encoder = encoder;
     }
-
     // CREATE
     @Transactional
     public User createUser(User user) {
@@ -49,7 +51,7 @@ public class UserService {
                 .name(user.getName())
                 .department(user.getDepartment())
                 .email(user.getEmail())
-                .passwordHash(user.getPasswordHash())
+                .passwordHash(encoder.encode(user.getPasswordHash()))
                 .createdAt(LocalDateTime.now())
                 .role(User.Role.BORROWER)
                 .status(User.UserStatus.ACTIVE)
@@ -94,6 +96,39 @@ public class UserService {
                 generatedPassword
         );
     }
+    // Update only the user's password
+    public User updateUserPassword(Long id, String newPassword) {
+        User user = getUserById(id);
+        user.setPasswordHash(encoder.encode(newPassword));
+        return userRepository.save(user);
+    }
+
+    //password hashing
+    public LoginResponseDTO login(LoginDTO loginDTO) {
+
+        // 1. Find user by email
+        Optional<User> userOptional = userRepository.findByEmail(loginDTO.getEmail());
+
+        if (userOptional.isEmpty()) {
+            return new LoginResponseDTO("User not found", false);
+        }
+
+        User user = userOptional.get();
+
+        // 2. Check password
+        boolean passwordMatches = encoder.matches(
+                loginDTO.getPassword(),
+                user.getPasswordHash()
+        );
+
+        if (!passwordMatches) {
+            return new LoginResponseDTO("Invalid password", false);
+        }
+
+        // 3. Success login
+        return new LoginResponseDTO("Login successful", true);
+    }
+
     public void resetPassword(
             String email,
             String newPassword,
@@ -110,7 +145,15 @@ public class UserService {
             );
         }
 
-        user.setPasswordHash(newPassword);
+        if (newPassword.length() < 8) {
+            throw new IllegalArgumentException("Password too short");
+        }
+
+        // HASH THE PASSWORD BEFORE SAVING
+        user.setPasswordHash(
+                encoder.encode(newPassword)
+        );
+
         userRepository.save(user);
     }
 
