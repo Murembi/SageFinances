@@ -191,7 +191,7 @@
 <div id="editModal"
      style="display:none;
             position:fixed;
-            top:20%;
+            top:-20%;
             left:35%;
             background:white;
             border:1px solid black;

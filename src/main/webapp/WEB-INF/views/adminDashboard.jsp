@@ -15,7 +15,7 @@
 
 <header class="header">
     <div class="logo">
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
+        <img src="${pageContext.request.contextPath}/images/img.png"
              alt="Logo"
              class="login-logo"
              width="100">
