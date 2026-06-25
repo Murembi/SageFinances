@@ -190,7 +190,7 @@ public class AssetService {
             throw new InvalidAssetActionException("Asset serial number is required.");
         }
 
-        if (dto.getCost() == null || dto.getCost().doubleValue() < 0) {
+        if (dto.getCost() == null || dto.getCost().doubleValue() <= 0) {
             throw new InvalidAssetActionException("Asset cost cannot be negative.");
         }
 
@@ -199,6 +199,14 @@ public class AssetService {
                     dto.getSerialNumber() + " already exists"
             );
         }
+        if (dto.getAcquisitionDate() != null &&
+                dto.getAcquisitionDate().isAfter(LocalDate.now())) {
+
+            throw new InvalidAssetActionException(
+                    "Acquisition date cannot be in the future."
+            );
+        }
+
         Asset asset = new Asset();
 
         asset.setTitle(dto.getTitle());
@@ -211,7 +219,20 @@ public class AssetService {
         asset.setCreatedAt(LocalDateTime.now());
         asset.setStatus(Asset.Status.AVAILABLE);
 
-        if (!imageFile.isEmpty()) {
+        //only allows png and jpeg
+        if (imageFile != null && !imageFile.isEmpty()) {
+
+            String contentType = imageFile.getContentType();
+
+            if (contentType == null ||
+                    !(contentType.equals("image/png") ||
+                            contentType.equals("image/jpeg"))) {
+
+                throw new FileUploadException(
+                        "Only JPG and PNG images are allowed."
+                );
+            }
+
             try {
                 String fileName =
                         System.currentTimeMillis() + "_" +
@@ -223,7 +244,6 @@ public class AssetService {
                 File uploadDir = new File(uploadPath);
                 uploadDir.mkdirs();
 
-                System.out.println("Saving image to: " + uploadPath + fileName);
                 imageFile.transferTo(new File(uploadPath + fileName));
 
                 asset.setPhotoPath("/uploads/" + fileName);

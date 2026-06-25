@@ -27,7 +27,10 @@ public class LoginController {
     }
 
     @GetMapping("/loginpage")
-    public String showLoginPage() {
+    public String showLoginPage(HttpSession session) {
+
+        session.removeAttribute("lastLoginEmail");
+        session.removeAttribute("loginAttempts");
         return "login";
     }
 
@@ -60,8 +63,8 @@ public class LoginController {
         try {
             User user = userService.getUserByLoginDetails(email, password);
 
-            session.setAttribute("loginAttempts", 0);
-            session.setAttribute("lastLoginEmail", null);
+            session.removeAttribute("loginAttempts");
+            session.removeAttribute("lastLoginEmail");
             session.setAttribute("user", user);
 
             if (user.getRole() == User.Role.ADMIN) {
