@@ -88,5 +88,13 @@
     </div>
 
 </div>
+
+<footer class="footer">
+    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a>
+    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
+</footer>
+
+<script src="${pageContext.request.contextPath}/js/register.js"></script>
+
 </body>
 </html>
