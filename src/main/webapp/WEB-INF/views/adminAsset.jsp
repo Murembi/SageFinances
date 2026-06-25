@@ -284,8 +284,6 @@
 
     </main>
 </div>
-<!-- ================= FOOTER (SHARED ACROSS ALL PAGES) ================= -->
-
 <script src="${pageContext.request.contextPath}/js/adminAsset.js"></script>
 </body>
 </html>

@@ -21,7 +21,7 @@
         <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Logo"
              class="dashboard-logo "
-             width="100">
+             >
     </div>
 
     <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
@@ -253,8 +253,6 @@
     </main>
 
 </div>
-
-
 <script src="${pageContext.request.contextPath}/js/manager-dashboard.js"></script>
 </body>
 </html>

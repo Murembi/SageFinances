@@ -72,9 +72,6 @@
                 </a>
             </p>
         </div>
-
-
-<script src="${pageContext.request.contextPath}/js/login.js"></script>
     </div>
     </div>
 </body>

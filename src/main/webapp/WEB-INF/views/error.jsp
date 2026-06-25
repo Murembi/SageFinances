@@ -13,11 +13,6 @@
 
     <p>${errorMessage}</p>
 
-    <!--
-    ADD LATER
-    <a href="${pageContext.request.contextPath}/manager/dashboard">
-        Back to Dashboard
-    </a> -->
 </div>
 
 </body>

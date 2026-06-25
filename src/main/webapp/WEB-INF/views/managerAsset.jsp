@@ -25,8 +25,7 @@
 <h3>All Assets</h3>
 
 <form method="get"
-      action="${pageContext.request.contextPath}/manager/dashboard/assets"
-      style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      action="${pageContext.request.contextPath}/manager/dashboard/assets" >
 
     <!-- SEARCH -->
     <input type="text"
@@ -138,8 +137,5 @@
         }
     %>
 </table>
-
-
-<script src="${pageContext.request.contextPath}/js/managerAsset.js"></script>
 </body>
 </html>

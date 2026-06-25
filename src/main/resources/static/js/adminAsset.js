@@ -19,20 +19,3 @@ function openModal(id, title, category, serial, cost, location, condition, statu
 function closeModal() {
     document.getElementById("editModal").style.display = "none";
 }
-
-//Terms and conditions | Contact Us js
-function openTerms() {
-    document.getElementById("termsModal").style.display = "block";
-}
-
-function closeTerms() {
-    document.getElementById("termsModal").style.display = "none";
-}
-
-function openContact() {
-    document.getElementById("contactModal").style.display = "block";
-}
-
-function closeContact() {
-    document.getElementById("contactModal").style.display = "none";
-}
