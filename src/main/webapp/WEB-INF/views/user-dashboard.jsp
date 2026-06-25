@@ -161,8 +161,8 @@
                              height="80">
                     </td>
                     <td><%= loan.getAssetTitle() %></td>
-                    <td><%= loan.getRequestDate() %></td>
-                    <td><%= loan.getDueDate() %></td>
+                    <td><%= loan.getRequestDate().toLocalDate() %></td>
+                    <td class="due-date"><%= loan.getDueDate().toLocalDate() %></td>
                 </tr>
                 <%
                         }
@@ -202,8 +202,8 @@
                              height="80">
                     </td>
                     <td><%= loan.getAssetName() %></td>
-                    <td><%= loan.getCheckoutDate() %></td>
-                    <td><%= loan.getDueDate() %></td>
+                    <td><%= loan.getCheckoutDate().toLocalDate()%></td>
+                    <td class="due-date"><%= loan.getDueDate().toLocalDate()%></td>
                     <td><%= loan.getStatus() %></td>
                 </tr>
                 <%

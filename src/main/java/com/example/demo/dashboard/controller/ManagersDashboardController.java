@@ -6,10 +6,10 @@ import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.dto.DashboardDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.entity.Loan;
+import com.example.demo.entity.User;
 import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
 import jakarta.servlet.http.HttpSession;
-import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +24,7 @@ import com.example.demo.dashboard.dto.ManagerDashboardDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/manager/dashboard")
@@ -48,6 +49,11 @@ public class ManagersDashboardController {
 //            return "redirect:/loginpage";
 //        }
 
+        User user = (User) session.getAttribute("user");
+
+        if (user == null || user.getRole() != User.Role.MANAGER) {
+            return "redirect:/loginpage";
+        }
         DashboardDTO dashboard = managerDashboardService.getManagerDashboard();
 
 
@@ -79,9 +85,15 @@ public class ManagersDashboardController {
     }
 
     @PostMapping("/return/{id}")
-    public String managerReturnLoan(@PathVariable Long id) {
+    public String managerReturnLoan(@PathVariable Long id,
+                                    RedirectAttributes redirectAttributes) {
 
         loanService.returnLoan(id);
+
+        redirectAttributes.addFlashAttribute(
+                "ManagerDashboardSuccessMessage",
+                "Asset returned successfully."
+        );
 
         return "redirect:/manager/dashboard";
     }
@@ -169,19 +181,37 @@ public class ManagersDashboardController {
     public String createAsset(@ModelAttribute AssetRequestDTO dto,
                               @RequestParam("imageFile") MultipartFile imageFile) {
 
+
         assetService.createAsset(dto, imageFile);
 
         return "redirect:/manager/dashboard/assets";
     }
+
     @PostMapping("/approve")
-    public String approveLoan(@RequestParam Long loanId) {
+    public String approveLoan(@RequestParam Long loanId,
+                              RedirectAttributes redirectAttributes) {
+
         loanService.approveLoan(loanId);
+
+        redirectAttributes.addFlashAttribute(
+                "ManagerDashboardSuccessMessage",
+                "Loan approved successfully."
+        );
+
         return "redirect:/manager/dashboard";
     }
 
     @PostMapping("/reject")
-    public String rejectLoan(@RequestParam Long loanId) {
+    public String rejectLoan(@RequestParam Long loanId,
+                             RedirectAttributes redirectAttributes) {
+
         loanService.rejectLoan(loanId);
+
+        redirectAttributes.addFlashAttribute(
+                "ManagerDashboardSuccessMessage",
+                "Loan rejected successfully."
+        );
+
         return "redirect:/manager/dashboard";
     }
 

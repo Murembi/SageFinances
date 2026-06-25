@@ -4,6 +4,8 @@ import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.exception.AssetAlreadyExistsException;
 import com.example.demo.exception.AssetNotFoundException;
+import com.example.demo.exception.FileUploadException;
+import com.example.demo.exception.InvalidAssetActionException;
 import com.example.demo.repository.AssetRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +31,6 @@ public class AssetService {
     }
 
     // 1 // add 1 asset
-    //DONE
     @Transactional
     public Asset addAsset(Asset asset) {
         asset.setCreatedAt(LocalDateTime.now());
@@ -71,34 +72,6 @@ public class AssetService {
         return asset;
     }
 
-    // 5 // search by title // NO EXCEPTION REQUIRED
-    public List<Asset> searchByTitle(String title) {
-        List<Asset> result = repository.findAll()
-                .stream()
-                .filter(a -> a.getTitle() != null &&
-                        a.getTitle().toLowerCase().contains(title.toLowerCase()))
-                .toList();
-
-        auditLogService.createAuditLog(
-                null, "ASSET", null,
-                "SEARCH_TITLE", null, title
-        );
-
-        return result;
-    }
-
-
-
-
-
-
-
-    //Edit Assets
-    public Asset updateAsset(Asset asset) {
-        return repository.save(asset);
-    }
-
-
     // 14 // update full asset
     public Asset editAsset(Long id, Asset updatedAsset) {
 
@@ -128,27 +101,6 @@ public class AssetService {
 
         return saved;
     }
-
-    // 15 // update title
-    public Asset updateTitle(Long id, String title) {
-        Asset asset = getAssetById(id);
-
-        String old = asset.getTitle();
-        asset.setTitle(title);
-
-        Asset saved = repository.save(asset);
-
-        auditLogService.createAuditLog(
-                null, "ASSET", id,
-                "UPDATE_TITLE", old, title
-        );
-
-        return saved;
-    }
-
-
-
-
 
     // 24 // delete asset // REMOVE
     @Transactional
@@ -193,6 +145,18 @@ public class AssetService {
                                 "Asset with ID " + assetId + " not found."
                         ));
 
+        if (asset.getStatus() == Asset.Status.LOANED) {
+            throw new InvalidAssetActionException(
+                    "Cannot retire an asset that is currently loaned."
+            );
+        }
+
+        if (asset.getStatus() == Asset.Status.RETIRED) {
+            throw new InvalidAssetActionException(
+                    "Asset is already retired."
+            );
+        }
+
         String oldStatus = asset.getStatus().name();
 
         asset.setStatus(Asset.Status.RETIRED);
@@ -214,6 +178,21 @@ public class AssetService {
     //create an asset used both by the manager and admin
     @Transactional
     public Asset createAsset(AssetRequestDTO dto, MultipartFile imageFile) {
+        if (dto.getTitle() == null || dto.getTitle().isBlank()) {
+            throw new InvalidAssetActionException("Asset title is required.");
+        }
+
+        if (dto.getCategory() == null || dto.getCategory().isBlank()) {
+            throw new InvalidAssetActionException("Asset category is required.");
+        }
+
+        if (dto.getSerialNumber() == null || dto.getSerialNumber().isBlank()) {
+            throw new InvalidAssetActionException("Asset serial number is required.");
+        }
+
+        if (dto.getCost() == null || dto.getCost().doubleValue() < 0) {
+            throw new InvalidAssetActionException("Asset cost cannot be negative.");
+        }
 
         if (repository.existsBySerialNumber(dto.getSerialNumber())) {
             throw new AssetAlreadyExistsException( "Asset with serial number " +
@@ -250,7 +229,7 @@ public class AssetService {
                 asset.setPhotoPath("/uploads/" + fileName);
 
             } catch (IOException e) {
-                throw new RuntimeException("Image upload failed");
+                throw new FileUploadException("Image upload failed. Please try again.");
             }
         }
         Asset saved = repository.save(asset);

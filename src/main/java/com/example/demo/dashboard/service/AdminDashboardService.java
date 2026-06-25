@@ -22,31 +22,29 @@ public class AdminDashboardService {
     private final UserRepository userRepository;
 
     public DashboardDTO getAdminDashboard() {
-        //the total number of assest
+        //the total number of asset
         DashboardDTO dto = new DashboardDTO();
 
         dto.setTotalAssets(assetRepository.count());
         dto.setAvailableAssets(
-                // retrieve all the available assest
+                // retrieve all the available asset
                 assetRepository.countByStatus(Asset.Status.AVAILABLE)
         );
         dto.setRetiredAssets(
                 assetRepository.countByStatus(Asset.Status.RETIRED)
         );
         dto.setLoanedAssets(
-                //retrieve number of assest loaned
+                //retrieve number of asset loaned
                 assetRepository.countByStatus(Asset.Status.LOANED)
         );
         dto.setPendingLoans(
-                //loan repo comunicates with the db
+                //loan repo communicates with the db
                 //SELECT COUNT(*) FROM loan WHERE status = 'PENDING';
                 loanRepository.countByStatus(Loan.Status.PENDING)
         );
         dto.setTotalUsers(userRepository.count());
         return dto;
-        // TODO
 
-        //dto.setTotalUsers(userRepository.count());
     }
         public List<AuditLogDTO> getAuditLogs() {
             return auditLogRepository.findAll()

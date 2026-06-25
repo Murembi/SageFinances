@@ -2,12 +2,9 @@ package com.example.demo.service;
 
 
 import com.example.demo.dto.CreateUserRequestDTO;
+import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
-import com.example.demo.exception.AccountInactiveException;
-import com.example.demo.exception.InvalidCredentialsException;
-import com.example.demo.exception.UserAlreadyExistsException;
-import com.example.demo.exception.UserNotFoundException;
-import com.example.demo.repository.LoanRepository;
+import com.example.demo.exception.*;
 import com.example.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -76,12 +74,23 @@ public class UserService {
         if (!dto.getEmail().toLowerCase().endsWith("@sageassets.co.za")) 
         {
             throw new RuntimeException("Email must end with @sageassets.co.za");
+    public UserCreationResponse createUserByAdmin(User user) {
+
+        if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
+            throw new InvalidEmailException(
+                    "Email must end with @sageassets.co.za"
+            );
         }
 
         if (userRepository.existsByEmail(dto.getEmail())) 
         {
             throw new UserAlreadyExistsException("Email " + dto.getEmail() + " already exists.");
         }
+        String generatedPassword = UUID.randomUUID()
+                .toString()
+                .replace("-", "")
+                .substring(0, 8);
+
 
 
 
@@ -133,13 +142,44 @@ public class UserService {
 
       
 
-        emailService.sendHtmlEmail(
-    "hmonwabise@gmail.com",
-    "Your Profile has been created",
-    htmlBody
+       
 );
         //return userRepository.save(newUser);  //send the email before saving
         return savedUser; //email succeeds and database save too
+        User newUser = User.builder()
+                .name(user.getName())
+                .department(user.getDepartment())
+                .email(user.getEmail())
+                .passwordHash(generatedPassword)
+                .createdAt(LocalDateTime.now())
+                .role(user.getRole())
+                .status(User.UserStatus.ACTIVE)
+                .build();
+
+        User savedUser = userRepository.save(newUser);
+        return new UserCreationResponse(
+                savedUser,
+                generatedPassword
+        );
+    }
+    public void resetPassword(
+            String email,
+            String newPassword,
+            String confirmPassword) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException(
+                "No user found with email: " + email
+        ));
+
+        if (!newPassword.equals(confirmPassword)) {
+            throw new InvalidCredentialsException(
+                    "Passwords do not match."
+            );
+        }
+
+        user.setPasswordHash(newPassword);
+        userRepository.save(user);
     }
 
     // READ
@@ -158,7 +198,7 @@ public class UserService {
                     "Account is inactive."
             );
         }
-        // Compare provided password with stored password (should be hashed in production)
+
         if (user.getPasswordHash() != null && user.getPasswordHash().equals(password)) {
             return user;
         }
@@ -173,45 +213,6 @@ public class UserService {
                  id ));
     }
 
-    //
-    // the entire user
-    public User updateUser(Long id, User updatedUser) {
-        User existingUser = getUserById(id);
-        existingUser.setName(updatedUser.getName());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setDepartment(updatedUser.getDepartment());
-        existingUser.setRole(updatedUser.getRole());
-        return userRepository.save(existingUser);
-    }
-
-    // UPDATE SPECIFIC THINGS ABOUT THE USER
-    // Update only the user's name
-    public User updateUserName(Long id, String newName) {
-        User user = getUserById(id);
-        user.setName(newName);
-        return userRepository.save(user);
-    }
-
-    // Update only the user's department
-    public User updateUserDepartment(Long id, String newDepartment) {
-        User user = getUserById(id);
-        user.setDepartment(newDepartment);
-        return userRepository.save(user);
-    }
-
-    // Update only the user's email
-    public User updateUserEmail(Long id, String newEmail) {
-        User user = getUserById(id);
-        user.setEmail(newEmail);
-        return userRepository.save(user);
-    }
-
-    // Update only the user's password
-    public User updateUserPassword(Long id, String newPassword) {
-        User user = getUserById(id);
-        user.setPasswordHash(newPassword);
-        return userRepository.save(user);
-    }
 
     // Update only the user's role
     //used

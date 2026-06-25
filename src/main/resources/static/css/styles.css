@@ -235,7 +235,8 @@ tr:hover {
 }
 
 .rejected,
-.damaged {
+.damaged,
+.due-date{
     background: #F8D7DA;
     color: #721C24;
 }
@@ -722,7 +723,8 @@ button,
     color: white;
 }
 
-.reject-btn {
+.reject-btn,
+.due-date{
     background: #FEE2E2;
     color: #991B1B;
 }
@@ -751,4 +753,33 @@ td form {
         padding: 20px;
     }
 }
-.footer
+
+.toast-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--green-dark);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(47, 93, 80, 0.2);
+    z-index: 9999;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.toast-message {
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}

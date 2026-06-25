@@ -46,15 +46,7 @@ public class AuditLogService {
 
         return repository.save(log);
     }
-
-    public List<AuditLog> getAllLogs() {
-        return repository.findAll();
-    }
-
-    public AuditLog getLogById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Audit log not found"));
-    }
+    
 
 
     //search

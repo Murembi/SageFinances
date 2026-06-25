@@ -75,6 +75,11 @@
         <div class="login-contact">
             <span>Need help?</span>
             <a href="#">Contact Support</a>
+            <p>
+                <a href="${pageContext.request.contextPath}/forgot-password">
+                    Forgot Password?
+                </a>
+            </p>
         </div>
 
 

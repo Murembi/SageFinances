@@ -66,11 +66,6 @@
                 </a>
             </li>
 
-            <li>
-                <a href="${pageContext.request.contextPath}/settings">
-                    Settings
-                </a>
-            </li>
 
         </ul>
 
@@ -146,6 +141,23 @@
     </table>
 </section>
 
+
+        <c:if test="${not empty generatedPassword}">
+            <div class="toast-message">
+
+                <h4>User Created Successfully</h4>
+
+                <p><strong>Email:</strong> ${generatedEmail}</p>
+
+                <p><strong>Password:</strong> ${generatedPassword}</p>
+
+                <p class="credentials-note">
+                    Please provide these credentials to the user.
+                </p>
+
+            </div>
+        </c:if>
+
 <section class="card">
 
     <c:if test="${not empty errorMessages}">
@@ -177,12 +189,12 @@
             <option value="BORROWER">BORROWER</option>
         </select>
 
-        <label>Password</label>
-        <input type="password" name="passwordHash" required>
-
         <button type="submit">Create User</button>
     </form>
 </section>
+
+    </main>
+</div>
 
 <footer class="footer">
     <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a>
