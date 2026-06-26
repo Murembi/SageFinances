@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 
-<body>
+<body class="dashboard-page">
 
 <header class="header">
     <div class="logo">

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -21,18 +22,22 @@ public class EmailService
 
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
+    @Value("${spring.mail.username}")
+    private String fromEmail;
+
     public EmailService(JavaMailSender mailSender) 
     {
         this.mailSender = mailSender;
     }
 
-    @Async
+    @Async("taskExecutor")
     public void sendEmail(String to, String subject, String body)
     {
         try
         {
             SimpleMailMessage message = new SimpleMailMessage();
 
+            message.setFrom(fromEmail);
             message.setTo(to);
             message.setSubject(subject);
             message.setText(body);
@@ -50,7 +55,7 @@ public class EmailService
         
     }
 
-    @Async
+    @Async("taskExecutor")
     public void sendHtmlEmail(String to, String subject, String htmlBody)
     {
         try
@@ -58,7 +63,7 @@ public class EmailService
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             
-            helper.setFrom("sageassets8@gmail.com");
+            helper.setFrom(fromEmail);
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(htmlBody, true);

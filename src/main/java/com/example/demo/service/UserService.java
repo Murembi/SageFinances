@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.CreateUserRequestDTO;
+import com.example.demo.service.EmailService;
 import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
 import com.example.demo.exception.*;
@@ -21,14 +23,16 @@ public class UserService {
 
     // Inject the UserRepository to interact with the database
     private final UserRepository userRepository;
+    private final EmailService emailService;
 
     // Password encoder removed to avoid dependency on Spring Security here.
 
    // Constructor-based dependency injection
    // BCryptPasswordEncoder encoder
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, EmailService emailService) {
         this.userRepository = userRepository;
+        this.emailService = emailService;
     }
 
     // CREATE
@@ -60,11 +64,34 @@ public class UserService {
 
                 .build();
 
-        return userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);
+
+        String htmlBody = """
+        <html>
+        <body style="font-family: Arial, sans-serif; color:#2E2E2E; max-width: 500px;">
+            <h2 style="color: #2F5D50;">Welcome to Sage Assets</h2>
+            <p>Good day %s,</p>
+            <p>Thank you for registering on the Asset Management System. Your account is now active.</p>
+            <p>You can now log in and start managing assets.</p>
+            <p style="margin-top: 24px;">
+                <a href="http://localhost:8083/loginpage" 
+                   style="background: #2F5D50; color: white; padding: 10px 18px; 
+                   border-radius: 8px; text-decoration: none;">
+                    Log In Now
+                </a>
+            </p>
+        </body>
+        </html>
+        """.formatted(savedUser.getName());
+
+        emailService.sendHtmlEmail(savedUser.getEmail(), "Welcome to Sage Assets", htmlBody);
+
+        return savedUser;
     }
 
     @Transactional
-    public UserCreationResponse createUserByAdmin(User user) {
+    public UserCreationResponse createUserByAdmin(User user)
+    {
 
         if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
             throw new InvalidEmailException(
@@ -93,6 +120,34 @@ public class UserService {
                 .build();
 
         User savedUser = userRepository.save(newUser);
+
+        String htmlBody = """
+        <html>
+        <body style="font-family: Arial, sans-serif; color:#2E2E2E; max-width: 500px;">
+
+            <h2 style="color: #2F5D50;">Welcome to the Asset Management System</h2>
+
+            <p>Good day %s,</p>
+
+            <p>An administrator has created a profile for you on the Asset Management System.</p>
+                <table style="background: #F1F7F3; border-radius: 8px; padding: 16px; margin: 16px 0;">
+                    <tr><td style="padding: 4px 12px;"><strong>Email:</strong></td><td style="padding: 4px 12px;">%s</td></tr>
+                    <tr><td style="padding: 4px 12px;"><strong>Login Password:</strong></td><td style="padding: 4px 12px;">%s</td></tr>
+                </table>
+
+            <p>Please log in and change your password as soon as possible.</p>
+            <p style="margin-top: 24px;">
+                <a href="http://localhost:8083/loginpage"
+                        style="background: #2F5D50; color: white; padding: 10px 18px;
+                        border-radius: 8px; text-decoration: none;">
+                    Log In Now
+                </a>
+            </p>
+        </body>
+        </html>
+        """.formatted(savedUser.getName(), savedUser.getEmail(), generatedPassword);
+        emailService.sendHtmlEmail(savedUser.getEmail(), "Your Asset Management System Account", htmlBody);
+
         return new UserCreationResponse(
                 savedUser,
                 generatedPassword

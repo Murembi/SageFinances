@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 
-<body>
+<body class="dashboard-page">
 
 <div id="customAlert" class="alert"></div>
 
