@@ -15,9 +15,9 @@
 
 <header class="header">
     <div class="logo">
-        <img src="${pageContext.request.contextPath}/images/img.png"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Logo"
-             class="login-logo"
+             class="dashboard-logo"
              width="100">
     </div>
 
@@ -55,10 +55,9 @@
     <main class="main-content">
 
         <section class="dashboard-header">
-            <h1>Admin Dashboard</h1>
-            <p>Username: ${username} | Role: ${userRole}</p>
+            <h1>Welcome, ${username}</h1>
+            <p>Role: ${userRole}</p>
         </section>
-
         <section class="manager-dashboard-cards">
             <div class="dashboard-grid">
 
@@ -98,8 +97,5 @@
     </main>
 
 </div>
-
-<script src="${pageContext.request.contextPath}/js/adminDashboard.js"></script>
-
 </body>
 </html>

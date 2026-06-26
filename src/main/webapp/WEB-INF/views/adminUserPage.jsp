@@ -15,9 +15,9 @@
 
 <header class="header">
     <div>
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Logo"
-             class="logo-img">
+             class="dashboard-logo">
     </div>
 
     <div>
@@ -161,7 +161,9 @@
 <section class="card">
     <h3>Register New User</h3>
 
-    <form action="${pageContext.request.contextPath}/admin/users/create" method="post">
+    <form action="${pageContext.request.contextPath}/admin/users/create"
+          method="post"
+          class="register-user-form">
 
         <label>Name</label>
         <input type="text" name="name" required>

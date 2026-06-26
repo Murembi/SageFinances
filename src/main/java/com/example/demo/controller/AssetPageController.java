@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.service.AssetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -47,8 +49,11 @@ public class AssetPageController {
 
     // CREATE ASSET (FROM JSP FORM)
     @PostMapping("/create")
-    public String createAsset(@ModelAttribute Asset asset) {
-        service.addAsset(asset);
+    public String createAsset(@ModelAttribute AssetRequestDTO dto,
+                              @RequestParam("imageFile") MultipartFile imageFile) {
+
+        service.createAsset(dto, imageFile);
+
         return "redirect:/admin/assets";
     }
     // EDIT ASSET (FROM JSP BUTTON)

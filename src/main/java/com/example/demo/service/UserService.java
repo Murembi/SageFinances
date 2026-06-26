@@ -36,6 +36,10 @@ public class UserService {
     // CREATE
     @Transactional
     public User createUser(User user) {
+
+        validatePassword(user.getPasswordHash());
+
+
         if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
             throw new RuntimeException(
                     "Email must end with @sageassets.co.za"
@@ -222,6 +226,19 @@ public class UserService {
                 .toList();
     }
     //cannot delete a user because of the foreign key
+    private void validatePassword(String password) {
 
+        if (password == null || password.isBlank()) {
+            throw new IllegalArgumentException("Password is required.");
+        }
 
+        String passwordPattern =
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&!#^()_+\\-=]).{8,}$";
+
+        if (!password.matches(passwordPattern)) {
+            throw new IllegalArgumentException(
+                    "Password must be at least 8 characters long and contain an uppercase letter, lowercase letter, number, and special character."
+            );
+        }
+    }
 }

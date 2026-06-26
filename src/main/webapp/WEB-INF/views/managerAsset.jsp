@@ -25,8 +25,7 @@
 <h3>All Assets</h3>
 
 <form method="get"
-      action="${pageContext.request.contextPath}/manager/dashboard/assets"
-      style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      action="${pageContext.request.contextPath}/manager/dashboard/assets" >
 
     <!-- SEARCH -->
     <input type="text"
@@ -44,8 +43,6 @@
             </option>
         </c:forEach>
     </select>
-
-    <!-- CONDITION -->
     <select name="condition">
         <option value="">All Conditions</option>
         <c:forEach var="cond" items="${conditions}">
@@ -55,8 +52,6 @@
             </option>
         </c:forEach>
     </select>
-
-    <!-- STATUS -->
     <select name="status">
         <option value="">All Status</option>
         <c:forEach var="s" items="${statuses}">
@@ -138,8 +133,5 @@
         }
     %>
 </table>
-
-
-<script src="${pageContext.request.contextPath}/js/managerAsset.js"></script>
 </body>
 </html>

@@ -87,10 +87,8 @@
         <button type="submit" class="btn-primary">
             Add Asset
         </button>
-
     </form>
 
 </div>
-<script src="${pageContext.request.contextPath}/js/addAsset.js"></script>
 </body>
 </html>
