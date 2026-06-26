@@ -43,8 +43,6 @@
             </option>
         </c:forEach>
     </select>
-
-    <!-- CONDITION -->
     <select name="condition">
         <option value="">All Conditions</option>
         <c:forEach var="cond" items="${conditions}">
@@ -54,8 +52,6 @@
             </option>
         </c:forEach>
     </select>
-
-    <!-- STATUS -->
     <select name="status">
         <option value="">All Status</option>
         <c:forEach var="s" items="${statuses}">
