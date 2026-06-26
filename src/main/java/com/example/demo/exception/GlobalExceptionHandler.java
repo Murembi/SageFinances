@@ -108,13 +108,49 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
+    @ExceptionHandler(InvalidEmailException.class)
+    public String handleInvalidEmail(
+            InvalidEmailException ex,
+            Model model) {
+
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public String handleInvalidCredentials(
+            InvalidCredentialsException ex,
+            Model model) {
+
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(AccountInactiveException.class)
+    public String handleAccountInactive(
+            AccountInactiveException ex,
+            Model model) {
+
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(UnauthorizedActionException.class)
+    public String handleUnauthorizedAction(
+            UnauthorizedActionException ex,
+            Model model) {
+
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error";
+    }
+
 
     @ExceptionHandler(FileUploadException.class)
     public String handleFileUpload(
             FileUploadException ex,
             Model model) {
 
-        model.addAttribute("error", ex.getMessage());
+        model.addAttribute("errorMessage", ex.getMessage());
         return "error";
     }
 
@@ -123,7 +159,7 @@ public class GlobalExceptionHandler {
             InvalidAssetActionException ex,
             Model model) {
 
-        model.addAttribute("error", ex.getMessage());
+        model.addAttribute("errorMessage", ex.getMessage());
         return "error";
     }
 }

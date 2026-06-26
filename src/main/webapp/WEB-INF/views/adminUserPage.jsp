@@ -11,7 +11,7 @@
           href="${pageContext.request.contextPath}/css/styles.css?v=10">
 </head>
 
-<body>
+<body class="dashboard-page">
 
 <header class="header">
     <div>
@@ -69,10 +69,9 @@
 
         </ul>
 
-        <a href="${pageContext.request.contextPath}/loginpage"
-           class="btn logout-btn">
-            Log Out
-        </a>
+        <form action="${pageContext.request.contextPath}/logout" method="post">
+            <button type="submit" class="logout-btn">Log Out</button>
+        </form>
 
     </aside>
 
@@ -158,6 +157,12 @@
                     Close
                 </button>
 
+            </div>
+        </c:if>
+
+        <c:if test="${not empty errorMessage}">
+            <div class="error-message" style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+                ${errorMessage}
             </div>
         </c:if>
 
