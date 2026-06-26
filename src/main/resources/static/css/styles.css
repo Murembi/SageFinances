@@ -816,3 +816,24 @@ td form {
     z-index: 9999;
     transition: opacity .5s ease;
 }
+.credentials-popup {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    width: 320px;
+    background:  #D4EDDA;
+    border-radius: 5px;
+    padding: 20px;
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
