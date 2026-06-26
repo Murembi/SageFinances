@@ -3,7 +3,7 @@ function clearSearch() {
 }
 // Edit Modal Popup Function
 
-function openModal(id, title, category, serial, cost, location, condition) {
+function openModal(id, title, category, serial, cost, location, condition, status) {
 
     document.getElementById("editId").value = id;
     document.getElementById("editTitle").value = title;
@@ -16,24 +16,18 @@ function openModal(id, title, category, serial, cost, location, condition) {
 
     document.getElementById("editModal").style.display = "block";
 }
-
 function closeModal() {
     document.getElementById("editModal").style.display = "none";
 }
+window.addEventListener("load", function () {
 
-//Terms and conditions | Contact Us js
-function openTerms() {
-    document.getElementById("termsModal").style.display = "block";
-}
+    const popup = document.getElementById("successPopup");
 
-function closeTerms() {
-    document.getElementById("termsModal").style.display = "none";
-}
+    if (popup) {
 
-function openContact() {
-    document.getElementById("contactModal").style.display = "block";
-}
+        setTimeout(function () {
+            popup.style.display = "none";
+        }, 5000);
 
-function closeContact() {
-    document.getElementById("contactModal").style.display = "none";
-}
+    }
+});

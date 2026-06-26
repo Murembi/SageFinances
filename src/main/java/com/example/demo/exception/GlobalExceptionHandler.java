@@ -107,4 +107,23 @@ public class GlobalExceptionHandler {
 
         return "error";
     }
+
+
+    @ExceptionHandler(FileUploadException.class)
+    public String handleFileUpload(
+            FileUploadException ex,
+            Model model) {
+
+        model.addAttribute("error", ex.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(InvalidAssetActionException.class)
+    public String handleInvalidAssetAction(
+            InvalidAssetActionException ex,
+            Model model) {
+
+        model.addAttribute("error", ex.getMessage());
+        return "error";
+    }
 }

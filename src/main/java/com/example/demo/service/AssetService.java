@@ -4,6 +4,8 @@ import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.entity.Asset;
 import com.example.demo.exception.AssetAlreadyExistsException;
 import com.example.demo.exception.AssetNotFoundException;
+import com.example.demo.exception.FileUploadException;
+import com.example.demo.exception.InvalidAssetActionException;
 import com.example.demo.repository.AssetRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,7 +87,6 @@ public class AssetService {
         existing.setCost(updatedAsset.getCost());
         existing.setLocation(updatedAsset.getLocation());
         existing.setCondition(updatedAsset.getCondition());
-        existing.setPhotoPath(updatedAsset.getPhotoPath());
         existing.setStatus(updatedAsset.getStatus());
 
         Asset saved = repository.save(existing);
@@ -143,6 +144,18 @@ public class AssetService {
                                 "Asset with ID " + assetId + " not found."
                         ));
 
+        if (asset.getStatus() == Asset.Status.LOANED) {
+            throw new InvalidAssetActionException(
+                    "Cannot retire an asset that is currently loaned."
+            );
+        }
+
+        if (asset.getStatus() == Asset.Status.RETIRED) {
+            throw new InvalidAssetActionException(
+                    "Asset is already retired."
+            );
+        }
+
         String oldStatus = asset.getStatus().name();
 
         asset.setStatus(Asset.Status.RETIRED);
@@ -164,12 +177,35 @@ public class AssetService {
     //create an asset used both by the manager and admin
     @Transactional
     public Asset createAsset(AssetRequestDTO dto, MultipartFile imageFile) {
+        if (dto.getTitle() == null || dto.getTitle().isBlank()) {
+            throw new InvalidAssetActionException("Asset title is required.");
+        }
+
+        if (dto.getCategory() == null || dto.getCategory().isBlank()) {
+            throw new InvalidAssetActionException("Asset category is required.");
+        }
+
+        if (dto.getSerialNumber() == null || dto.getSerialNumber().isBlank()) {
+            throw new InvalidAssetActionException("Asset serial number is required.");
+        }
+
+        if (dto.getCost() == null || dto.getCost().doubleValue() <= 0) {
+            throw new InvalidAssetActionException("Asset cost cannot be negative.");
+        }
 
         if (repository.existsBySerialNumber(dto.getSerialNumber())) {
             throw new AssetAlreadyExistsException( "Asset with serial number " +
                     dto.getSerialNumber() + " already exists"
             );
         }
+        if (dto.getAcquisitionDate() != null &&
+                dto.getAcquisitionDate().isAfter(LocalDate.now())) {
+
+            throw new InvalidAssetActionException(
+                    "Acquisition date cannot be in the future."
+            );
+        }
+
         Asset asset = new Asset();
 
         asset.setTitle(dto.getTitle());
@@ -182,7 +218,20 @@ public class AssetService {
         asset.setCreatedAt(LocalDateTime.now());
         asset.setStatus(Asset.Status.AVAILABLE);
 
-        if (!imageFile.isEmpty()) {
+        //only allows png and jpeg
+        if (imageFile != null && !imageFile.isEmpty()) {
+
+            String contentType = imageFile.getContentType();
+
+            if (contentType == null ||
+                    !(contentType.equals("image/png") ||
+                            contentType.equals("image/jpeg"))) {
+
+                throw new FileUploadException(
+                        "Only JPG and PNG images are allowed."
+                );
+            }
+
             try {
                 String fileName =
                         System.currentTimeMillis() + "_" +
@@ -194,13 +243,12 @@ public class AssetService {
                 File uploadDir = new File(uploadPath);
                 uploadDir.mkdirs();
 
-                System.out.println("Saving image to: " + uploadPath + fileName);
                 imageFile.transferTo(new File(uploadPath + fileName));
 
                 asset.setPhotoPath("/uploads/" + fileName);
 
             } catch (IOException e) {
-                throw new RuntimeException("Image upload failed");
+                throw new FileUploadException("Image upload failed. Please try again.");
             }
         }
         Asset saved = repository.save(asset);

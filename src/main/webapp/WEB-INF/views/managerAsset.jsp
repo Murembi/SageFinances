@@ -25,16 +25,11 @@
 <h3>All Assets</h3>
 
 <form method="get"
-      action="${pageContext.request.contextPath}/manager/dashboard/assets"
-      style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-
-    <!-- SEARCH -->
+      action="${pageContext.request.contextPath}/manager/dashboard/assets" >
     <input type="text"
            name="keyword"
            placeholder="Search assets..."
            value="${keyword}">
-
-    <!-- LOCATION -->
     <select name="location">
         <option value="">All Locations</option>
         <c:forEach var="loc" items="${locations}">
@@ -44,8 +39,6 @@
             </option>
         </c:forEach>
     </select>
-
-    <!-- CONDITION -->
     <select name="condition">
         <option value="">All Conditions</option>
         <c:forEach var="cond" items="${conditions}">
@@ -55,8 +48,6 @@
             </option>
         </c:forEach>
     </select>
-
-    <!-- STATUS -->
     <select name="status">
         <option value="">All Status</option>
         <c:forEach var="s" items="${statuses}">
@@ -66,10 +57,7 @@
             </option>
         </c:forEach>
     </select>
-
-    <!-- BUTTONS -->
     <button type="submit">Search</button>
-
     <a href="${pageContext.request.contextPath}/manager/dashboard/assets">
         <button type="button">Reset</button>
     </a>
@@ -138,8 +126,5 @@
         }
     %>
 </table>
-
-
-<script src="${pageContext.request.contextPath}/js/managerAsset.js"></script>
 </body>
 </html>

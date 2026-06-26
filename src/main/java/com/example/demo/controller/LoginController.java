@@ -27,7 +27,10 @@ public class LoginController {
     }
 
     @GetMapping("/loginpage")
-    public String showLoginPage() {
+    public String showLoginPage(HttpSession session) {
+
+        session.removeAttribute("lastLoginEmail");
+        session.removeAttribute("loginAttempts");
         return "login";
     }
 
@@ -37,24 +40,56 @@ public class LoginController {
             @RequestParam String password,
             HttpSession session,Model model
             ) {
-        try{
+        Integer attempts = (Integer) session.getAttribute("loginAttempts");
+        String lastEmail = (String) session.getAttribute("lastLoginEmail");
 
-        User user = userService.getUserByLoginDetails(email, password);
-        session.setAttribute("user", user);
-
-        // redirection after logging
-        if (user.getRole() == User.Role.ADMIN) {
-            return "redirect:/admin/dashboard";
+        if (attempts == null) {
+            attempts = 0;
         }
 
-        if (user.getRole() == User.Role.MANAGER) {
-            return "redirect:/manager/dashboard";
+        // reset attempts if trying a different user/email
+        if (lastEmail == null || !lastEmail.equals(email)) {
+            attempts = 0;
+            session.setAttribute("loginAttempts", 0);
+            session.setAttribute("lastLoginEmail", email);
         }
-        return "redirect:/user-dashboard";
 
-    } catch (RuntimeException e) {
+        if (attempts >= 3) {
+            model.addAttribute("error",
+                    "Too many failed login attempts. Please contact the administrator.");
+            return "login";
+        }
 
-            model.addAttribute("error", e.getMessage());
+        try {
+            User user = userService.getUserByLoginDetails(email, password);
+
+            session.removeAttribute("loginAttempts");
+            session.removeAttribute("lastLoginEmail");
+            session.setAttribute("user", user);
+
+            if (user.getRole() == User.Role.ADMIN) {
+                return "redirect:/admin/dashboard";
+            }
+
+            if (user.getRole() == User.Role.MANAGER) {
+                return "redirect:/manager/dashboard";
+            }
+
+            return "redirect:/user-dashboard";
+
+        } catch (RuntimeException e) {
+
+            attempts++;
+            session.setAttribute("loginAttempts", attempts);
+            session.setAttribute("lastLoginEmail", email);
+
+            if (attempts >= 3) {
+                model.addAttribute("error",
+                        "Too many failed login attempts. Please contact the administrator.");
+            } else {
+                model.addAttribute("error",
+                        "Invalid credentials. Attempts left: " + (3 - attempts));
+            }
 
             return "login";
         }
@@ -94,8 +129,45 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public String logout(HttpSession session) { //calss the logout method
+    public String logout(HttpSession session) { //calls the logout method
         session.invalidate(); //destroy the session
         return "redirect:/loginpage";
     }
+
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage() {
+        return "forgot-password";
+    }
+
+    @PostMapping("/forgot-password")
+    public String resetPassword(
+            @RequestParam String email,
+            @RequestParam String newPassword,
+            @RequestParam String confirmPassword,
+            Model model) {
+
+        try {
+
+            userService.resetPassword(
+                    email,
+                    newPassword,
+                    confirmPassword
+            );
+
+            model.addAttribute(
+                    "successMessage",
+                    "Password updated successfully."
+            );
+
+        } catch (RuntimeException e) {
+
+            model.addAttribute(
+                    "error",
+                    e.getMessage()
+            );
+        }
+
+        return "forgot-password";
+    }
 }
+

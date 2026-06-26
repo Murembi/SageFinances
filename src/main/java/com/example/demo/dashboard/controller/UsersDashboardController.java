@@ -52,6 +52,9 @@ public class UsersDashboardController {
         model.addAttribute("loanedAssets",
                 userDashboardService.getMyLoanedAssets(user.getUserId()));
 
+        model.addAttribute("username", user.getName());
+        model.addAttribute("userRole", user.getRole());
+
         return "user-dashboard";
     }
 

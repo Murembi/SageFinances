@@ -15,9 +15,9 @@
 
 <header class="header">
     <div>
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Logo"
-             class="logo-img">
+             class="dashboard-logo">
     </div>
 
     <div>
@@ -78,13 +78,6 @@
 
     <main class="main-content">
 
-        <c:if test="${not empty generatedPassword}">
-            <div class="popup success">
-                <strong>User Created Successfully</strong><br>
-                Email: ${generatedEmail}<br>
-                Password: ${generatedPassword}
-            </div>
-        </c:if>
 <section class="card">
     <h3>Search Users</h3>
 
@@ -148,10 +141,32 @@
     </table>
 </section>
 
+
+        <c:if test="${not empty generatedPassword}">
+            <div id="credentialsPopup" class="credentials-popup">
+
+                <h4>User Created Successfully</h4>
+
+                <p><strong>Email:</strong> ${generatedEmail}</p>
+
+                <p><strong>Password:</strong> ${generatedPassword}</p>
+
+                <p class="credentials-note">
+                    Please provide these credentials to the user.
+                </p>
+                <button type="button" id="closeCredentialsPopup">
+                    Close
+                </button>
+
+            </div>
+        </c:if>
+
 <section class="card">
     <h3>Register New User</h3>
 
-    <form action="${pageContext.request.contextPath}/admin/users/create" method="post">
+    <form action="${pageContext.request.contextPath}/admin/users/create"
+          method="post"
+          class="register-user-form">
 
         <label>Name</label>
         <input type="text" name="name" required>

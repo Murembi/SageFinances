@@ -40,7 +40,7 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     List<Loan> findByUser_NameContainingIgnoreCase(String name);
     List<Loan> findByAsset_TitleContainingIgnoreCase(String title);
-
+    int countByUser_UserIdAndStatusIn(Long userId, List<Loan.Status> statuses);
     @Query("""
         select l from Loan l
         join fetch l.user

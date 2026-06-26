@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.dashboard.dto.PendingLoanDTO;
 import com.example.demo.dashboard.service.ManagerDashboardService;
-import com.example.demo.dashboard.dto.ManagerDashboardDTO;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,15 +38,6 @@ public class ManagersDashboardController {
     @GetMapping
     public String managerDashboard(Model model, HttpSession session) {
 
-        //NEEDS FIXING
-//        if (session.getAttribute("userId") == null) {
-//            return "redirect:/loginpage";
-//        }
-
-        //NEEDS FIXING
-//        if (!session.getAttribute("userRole").toString().equals("MANAGER")) {
-//            return "redirect:/loginpage";
-//        }
 
         User user = (User) session.getAttribute("user");
 
@@ -80,6 +70,9 @@ public class ManagersDashboardController {
                 managerDashboardService.getPendingLoans();
 
         model.addAttribute("loanRequests", pendingLoansList);
+        model.addAttribute("username", user.getName());
+        model.addAttribute("userRole", user.getRole());
+
 
         return "manager-dashboard";
     }
@@ -180,6 +173,7 @@ public class ManagersDashboardController {
     @PostMapping("/assets/add")
     public String createAsset(@ModelAttribute AssetRequestDTO dto,
                               @RequestParam("imageFile") MultipartFile imageFile) {
+
 
         assetService.createAsset(dto, imageFile);
 

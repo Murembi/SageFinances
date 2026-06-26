@@ -66,17 +66,12 @@
                     Create Account
                 </a>
             </p>
+            <p>
+                <a href="${pageContext.request.contextPath}/forgot-password">
+                    Forgot Password?
+                </a>
+            </p>
         </div>
-
-
-<!-- ================= CONTACT POPUP ================= -->
-        <div class="login-contact">
-            <span>Need help?</span>
-            <a href="#">Contact Support</a>
-        </div>
-
-
-<script src="${pageContext.request.contextPath}/js/login.js"></script>
     </div>
     </div>
 </body>

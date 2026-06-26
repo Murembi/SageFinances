@@ -3,6 +3,7 @@ package com.example.demo.dashboard.controller;
 import com.example.demo.dashboard.service.AdminDashboardService;
 import com.example.demo.dto.UserCreationResponse;
 import com.example.demo.entity.User;
+import com.example.demo.service.AssetService;
 import com.example.demo.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ public class AdminsDashboardController {
 
     private final AdminDashboardService adminDashboardService;
     private final UserService userService;
+    private final AssetService assetService;
+
 
     @GetMapping("/admin/dashboard")
     public String adminDashboard(HttpSession session, Model model) {
@@ -36,26 +39,31 @@ public class AdminsDashboardController {
         model.addAttribute("dashboard", adminDashboardService.getAdminDashboard());
 
         // shared UI info
-        model.addAttribute("username", "admin");
-        model.addAttribute("userRole", "ADMIN");
+        model.addAttribute("username", user.getName());
+        model.addAttribute("userRole", user.getRole());
 
         return "adminDashboard";
     }
+
     @PostMapping("/admin/users/create")
     public String createUserFromAdmin(@ModelAttribute User user,
-                                      Model model) {
+                                      RedirectAttributes redirectAttributes) {
 
         UserCreationResponse response =
                 userService.createUserByAdmin(user);
 
-        model.addAttribute("generatedEmail", response.getUser().getEmail());
-        model.addAttribute("generatedPassword", response.getGeneratedPassword());
+        redirectAttributes.addFlashAttribute(
+                "generatedEmail",
+                response.getUser().getEmail()
+        );
 
-        model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("username", "admin");
-        model.addAttribute("userRole", "ADMIN");
+        redirectAttributes.addFlashAttribute(
+                "generatedPassword",
+                response.getGeneratedPassword()
+        );
 
-        return "adminUserPage";
+
+        return "redirect:/admin/users";
     }
 
 }

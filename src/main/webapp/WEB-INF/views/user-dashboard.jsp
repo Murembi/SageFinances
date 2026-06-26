@@ -19,10 +19,9 @@
 
 <header class="header">
     <div class="logo">
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Logo"
-             class="login-logo"
-             width="100">
+             class="dashboard-logo">
     </div>
 
     <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
@@ -47,8 +46,7 @@
     <main class="main-content">
 
         <section class="dashboard-header">
-            <h1>User Dashboard</h1>
-            <p>Welcome back, ${username}</p>
+            <h1>Welcome, ${username}</h1>
         </section>
 
         <section class="manager-dashboard-cards">
@@ -141,7 +139,7 @@
                     <th>Image</th>
                     <th>Asset Name</th>
                     <th>Request Date</th>
-                    <th>Due Date</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
 
@@ -150,22 +148,35 @@
                     List<PendingLoanDTO> pendingLoans =
                             (List<PendingLoanDTO>) request.getAttribute("pendingLoans");
 
-                    if (pendingLoans != null) {
+                    if (pendingLoans != null && !pendingLoans.isEmpty()) {
                         for (PendingLoanDTO loan : pendingLoans) {
                 %>
                 <tr>
                     <td>
                         <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
                              alt="<%= loan.getAssetTitle() %>"
-                             width="80"
-                             height="80">
+                             width="100"
+                             height="100">
                     </td>
+
                     <td><%= loan.getAssetTitle() %></td>
-                    <td><%= loan.getRequestDate() %></td>
-                    <td><%= loan.getDueDate() %></td>
+
+                    <td>
+                        <%= loan.getRequestDate() != null
+                                ? loan.getRequestDate().toLocalDate()
+                                : "-" %>
+                    </td>
+
+                    <td><%= loan.getStatus() %></td>
                 </tr>
                 <%
-                        }
+                    }
+                } else {
+                %>
+                <tr>
+                    <td colspan="4">No pending loans found.</td>
+                </tr>
+                <%
                     }
                 %>
                 </tbody>
@@ -173,7 +184,7 @@
         </section>
 
         <section class="table-section">
-            <h2>My Loaned Assets</h2>
+            <h2>Approved Loans</h2>
 
             <table>
                 <thead>
@@ -191,34 +202,50 @@
                     List<MyLoanedAssetDTO> loanedAssets =
                             (List<MyLoanedAssetDTO>) request.getAttribute("loanedAssets");
 
-                    if (loanedAssets != null) {
+                    if (loanedAssets != null && !loanedAssets.isEmpty()) {
                         for (MyLoanedAssetDTO loan : loanedAssets) {
                 %>
                 <tr>
                     <td>
                         <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
                              alt="<%= loan.getAssetName() %>"
-                             width="80"
-                             height="80">
+                             width="100"
+                             height="100">
                     </td>
+
                     <td><%= loan.getAssetName() %></td>
-                    <td><%= loan.getCheckoutDate() %></td>
-                    <td><%= loan.getDueDate() %></td>
+
+                    <td>
+                        <%= loan.getCheckoutDate() != null
+                                ? loan.getCheckoutDate().toLocalDate()
+                                : "-" %>
+                    </td>
+
+                    <td class="due-date">
+                        <%= loan.getDueDate() != null
+                                ? loan.getDueDate().toLocalDate()
+                                : "-" %>
+                    </td>
+
                     <td><%= loan.getStatus() %></td>
                 </tr>
                 <%
-                        }
+                    }
+                } else {
+                %>
+                <tr>
+                    <td colspan="5">No approved loans found.</td>
+                </tr>
+                <%
                     }
                 %>
                 </tbody>
             </table>
         </section>
 
+
     </main>
 
 </div>
-
-<script src="${pageContext.request.contextPath}/js/user-dashboard.js"></script>
-
 </body>
 </html>

@@ -18,10 +18,10 @@
 <!-- HEADER -->
 <header class="header">
     <div class="logo">
-        <img src="${pageContext.request.contextPath}/images/img_1.png"
+        <img src="${pageContext.request.contextPath}/images/sage.png"
              alt="Logo"
-             class="login-logo"
-             width="100">
+             class="dashboard-logo "
+             >
     </div>
 
     <span class="header-text">ASSET MANAGEMENT SYSTEM</span>
@@ -61,7 +61,9 @@
         </c:if>
 
         <section class="dashboard-header">
-            <h1>Manager Dashboard</h1>
+            <h1>Welcome, ${username}</h1>
+            <p>Role: ${userRole}</p>
+        </section>
         </section>
 
         <!-- DASHBOARD CARDS -->
@@ -163,36 +165,7 @@
 
         </section>
 
-        <!-- RETURNED ASSETS TABLE -->
-        <section class="table-section">
 
-            <h2>Returned Assets</h2>
-
-            <table>
-                <thead>
-                <tr>
-                    <th>Loan ID</th>
-                    <th>Asset</th>
-                    <th>Borrower</th>
-                    <th>Return Date</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <c:forEach items="${returnedLoans}" var="loan">
-                    <tr>
-                        <td>${loan.loanId}</td>
-                        <td>${loan.asset.title}</td>
-                        <td>${loan.user.name}</td>
-                        <td>${loan.returnDate}</td>
-                        <td>${loan.status}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-
-        </section>
 
         <!-- LOANS OVERDUE TABLE -->
         <section class="table-section">
@@ -202,6 +175,7 @@
         <table border="1">
             <tr>
                 <th>Loan ID</th>
+                <th>Image</th>
                 <th>User</th>
                 <th>Asset</th>
                 <th>Request Date</th>
@@ -212,6 +186,19 @@
             <c:forEach items="${overdueLoanList}" var="loan">
                 <tr>
                     <td>${loan.loanId}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${not empty loan.asset.photoPath}">
+                                <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                                     alt="Asset Image"
+                                     width="80">
+                            </c:when>
+                            <c:otherwise>
+                                No image
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+
                     <td>${loan.user.name}</td>
                     <td>${loan.asset.title}</td>
                     <td>${loan.requestDate}</td>
@@ -226,6 +213,7 @@
                         <thead>
                             <tr>
                                 <th>Asset Name</th>
+                                <th>Image</th>
                                 <th>Borrower</th>
                                 <th>Request Date</th>
                                 <th>Due Date</th>
@@ -240,6 +228,18 @@
                             <tr>
 
                                 <td>${req.assetTitle}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${not empty loan.asset.photoPath}">
+                                            <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                                                 alt="Asset Image"
+                                                 width="80">
+                                        </c:when>
+                                        <c:otherwise>
+                                            No image
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td>${req.borrowerName}</td>
                                 <td>${req.requestDate}</td>
                                 <td>${req.dueDate}</td>
@@ -282,8 +282,6 @@
     </main>
 
 </div>
-
-
 <script src="${pageContext.request.contextPath}/js/manager-dashboard.js"></script>
 </body>
 </html>

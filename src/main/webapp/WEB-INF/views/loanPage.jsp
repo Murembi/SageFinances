@@ -14,9 +14,9 @@
 <body>
 
 <header class="header">
-    <img src="${pageContext.request.contextPath}/images/img_1.png"
+    <img src="${pageContext.request.contextPath}/images/sage.png"
          alt="Logo"
-         class="logo-img">
+         class="dashboard-logo">
 
     <div>
         <h2 class="header-title">Admin Loans</h2>
@@ -57,6 +57,7 @@
             <table>
                 <tr>
                     <th>Loan ID</th>
+                    <th>Image</th>
                     <th>User</th>
                     <th>Asset</th>
                     <th>Status</th>
@@ -67,6 +68,17 @@
                 <c:forEach items="${loans}" var="loan">
                     <tr>
                         <td>${loan.loanId}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${not empty loan.asset.photoPath}">
+                                    <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                                         alt="${loan.asset.title}"
+                                         class="asset-thumbnail">
+                                </c:when>
+                                <c:otherwise>No image</c:otherwise>
+                            </c:choose>
+                        </td>
+
                         <td>${loan.user.name}</td>
                         <td>${loan.asset.title}</td>
                         <td><span class="status approved">${loan.status}</span></td>
@@ -140,6 +152,7 @@
             <table>
                 <tr>
                     <th>Loan ID</th>
+                    <th>Image</th>
                     <th>User</th>
                     <th>Asset</th>
                     <th>Status</th>
@@ -149,6 +162,16 @@
                 <c:forEach items="${returnedLoans}" var="loan">
                     <tr>
                         <td>${loan.loanId}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${not empty loan.asset.photoPath}">
+                                    <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                                         alt="${loan.asset.title}"
+                                         class="asset-thumbnail">
+                                </c:when>
+                                <c:otherwise>No image</c:otherwise>
+                            </c:choose>
+                        </td>
                         <td>${loan.user.name}</td>
                         <td>${loan.asset.title}</td>
                         <td><span class="status returned">${loan.status}</span></td>
