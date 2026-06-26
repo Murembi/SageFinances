@@ -87,7 +87,6 @@ public class AssetService {
         existing.setCost(updatedAsset.getCost());
         existing.setLocation(updatedAsset.getLocation());
         existing.setCondition(updatedAsset.getCondition());
-        existing.setPhotoPath(updatedAsset.getPhotoPath());
         existing.setStatus(updatedAsset.getStatus());
 
         Asset saved = repository.save(existing);

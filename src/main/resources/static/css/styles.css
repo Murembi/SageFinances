@@ -803,3 +803,16 @@ td form {
     padding: 10px 16px;
     font-size: 14px;
 }
+
+.success-popup {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    transition: opacity .5s ease;
+}

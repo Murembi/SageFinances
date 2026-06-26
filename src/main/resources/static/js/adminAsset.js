@@ -19,3 +19,15 @@ function openModal(id, title, category, serial, cost, location, condition, statu
 function closeModal() {
     document.getElementById("editModal").style.display = "none";
 }
+window.addEventListener("load", function () {
+
+    const popup = document.getElementById("successPopup");
+
+    if (popup) {
+
+        setTimeout(function () {
+            popup.style.display = "none";
+        }, 5000);
+
+    }
+});
