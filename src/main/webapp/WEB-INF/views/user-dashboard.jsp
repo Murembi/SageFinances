@@ -170,14 +170,13 @@
                     <td><%= loan.getStatus() %></td>
                 </tr>
                 <%
-                    }
-                } else {
+                        }
+                    } else {
                 %>
                 <tr>
                     <td colspan="4">No pending loans found.</td>
                 </tr>
                 <%
-                        }
                     }
                 %>
                 </tbody>
