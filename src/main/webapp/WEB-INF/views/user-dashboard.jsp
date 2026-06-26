@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 
-<body>
+<body class="dashboard-page">
 
 <header class="header">
     <div class="logo">
@@ -177,6 +177,7 @@
                     <td colspan="4">No pending loans found.</td>
                 </tr>
                 <%
+                        }
                     }
                 %>
                 </tbody>
@@ -247,5 +248,13 @@
     </main>
 
 </div>
+
+<footer class="footer">
+    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a>
+    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
+</footer>
+
+<script src="${pageContext.request.contextPath}/js/user-dashboard.js"></script>
+
 </body>
 </html>

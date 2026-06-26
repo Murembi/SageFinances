@@ -11,7 +11,7 @@
           href="${pageContext.request.contextPath}/css/styles.css?v=10">
 </head>
 
-<body>
+<body class="dashboard-page">
 
 <header class="header">
     <img src="${pageContext.request.contextPath}/images/sage.png"
@@ -37,10 +37,9 @@
             <li><a href="${pageContext.request.contextPath}/admin/auditlog">Audit Log</a></li>
         </ul>
 
-        <a href="${pageContext.request.contextPath}/loginpage"
-           class="btn logout-btn">
-            Log out
-        </a>
+        <form action="${pageContext.request.contextPath}/logout" method="post">
+            <button type="submit" class="logout-btn">Log Out</button>
+        </form>
     </aside>
 
     <main class="main-content">

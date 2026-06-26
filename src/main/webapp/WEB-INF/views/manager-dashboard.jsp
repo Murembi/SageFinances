@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 
-<body>
+<body class="dashboard-page">
 
 <div id="customAlert" class="alert"></div>
 
@@ -282,6 +282,12 @@
     </main>
 
 </div>
+
+<footer class="footer">
+    <a href="${pageContext.request.contextPath}/terms">Terms & Conditions</a>
+    <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
+</footer>
+
 <script src="${pageContext.request.contextPath}/js/manager-dashboard.js"></script>
 </body>
 </html>
