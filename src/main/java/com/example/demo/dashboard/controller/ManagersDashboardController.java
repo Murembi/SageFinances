@@ -39,15 +39,6 @@ public class ManagersDashboardController {
     @GetMapping
     public String managerDashboard(Model model, HttpSession session) {
 
-        //NEEDS FIXING
-//        if (session.getAttribute("userId") == null) {
-//            return "redirect:/loginpage";
-//        }
-
-        //NEEDS FIXING
-//        if (!session.getAttribute("userRole").toString().equals("MANAGER")) {
-//            return "redirect:/loginpage";
-//        }
 
         User user = (User) session.getAttribute("user");
 
@@ -80,6 +71,9 @@ public class ManagersDashboardController {
                 managerDashboardService.getPendingLoans();
 
         model.addAttribute("loanRequests", pendingLoansList);
+        model.addAttribute("username", user.getName());
+        model.addAttribute("userRole", user.getRole());
+
 
         return "manager-dashboard";
     }

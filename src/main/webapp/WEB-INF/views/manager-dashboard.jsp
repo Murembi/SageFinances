@@ -61,7 +61,9 @@
         </c:if>
 
         <section class="dashboard-header">
-            <h1>Manager Dashboard</h1>
+            <h1>Welcome, ${username}</h1>
+            <p>Role: ${userRole}</p>
+        </section>
         </section>
 
         <!-- DASHBOARD CARDS -->
@@ -173,6 +175,7 @@
         <table border="1">
             <tr>
                 <th>Loan ID</th>
+                <th>Image</th>
                 <th>User</th>
                 <th>Asset</th>
                 <th>Request Date</th>
@@ -183,6 +186,19 @@
             <c:forEach items="${overdueLoanList}" var="loan">
                 <tr>
                     <td>${loan.loanId}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${not empty loan.asset.photoPath}">
+                                <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                                     alt="Asset Image"
+                                     width="80">
+                            </c:when>
+                            <c:otherwise>
+                                No image
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+
                     <td>${loan.user.name}</td>
                     <td>${loan.asset.title}</td>
                     <td>${loan.requestDate}</td>
@@ -197,6 +213,7 @@
                         <thead>
                             <tr>
                                 <th>Asset Name</th>
+                                <th>Image</th>
                                 <th>Borrower</th>
                                 <th>Request Date</th>
                                 <th>Due Date</th>
@@ -211,6 +228,18 @@
                             <tr>
 
                                 <td>${req.assetTitle}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${not empty loan.asset.photoPath}">
+                                            <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                                                 alt="Asset Image"
+                                                 width="80">
+                                        </c:when>
+                                        <c:otherwise>
+                                            No image
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td>${req.borrowerName}</td>
                                 <td>${req.requestDate}</td>
                                 <td>${req.dueDate}</td>

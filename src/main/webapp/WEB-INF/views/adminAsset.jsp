@@ -49,14 +49,15 @@
         <section class="dashboard-header">
             <h1>Admin Assets</h1>
             <p>
-                Username: ${username} |
-                Role: ${userRole}
+                Add an Asset
             </p>
         </section>
 
         <section class="table-section">
 
-<form action="${pageContext.request.contextPath}/admin/assets/create" method="post">
+            <form action="${pageContext.request.contextPath}/admin/assets/create"
+                  method="post"
+                  enctype="multipart/form-data">
 
     <div class="form-group">
         <label>Title</label>
@@ -72,20 +73,41 @@
         <label>Serial Number</label>
         <input type="text" name="serialNumber" required>
     </div>
+                <div class="form-group">
+                    <label>Acquisition Date</label>
+                    <input type="date"
+                           name="acquisitionDate"
+                           max="<%= java.time.LocalDate.now() %>"
+                           required>
+                </div>
 
     <div class="form-group">
         <label>Cost</label>
-        <input type="number" step="0.01" name="cost">
+        <input type="number" step="0.01" min="1" name="cost" required>
     </div>
 
     <div class="form-group">
         <label>Location</label>
-        <input type="text" name="location" name="title" required>
+        <input type="text" name="location" required>
     </div>
 
     <div class="form-group">
         <label>Condition</label>
-        <input type="text" name="condition" name="title" required>
+        <select name="assetCondition" required>
+            <option value="">Select Condition</option>
+            <option value="NEW">New</option>
+            <option value="GOOD">Good</option>
+            <option value="FAIR">Fair</option>
+            <option value="DAMAGED">Damaged</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Asset Photo</label>
+        <input type="file"
+               name="imageFile"
+               accept="image/*"
+               required>
     </div>
 
     <button type="submit" class="login-btn" >
@@ -95,9 +117,7 @@
 </form>
         </section>
 
-
-
-<!-- ================= SEARCH ================= -->
+        <!-- ================= SEARCH ================= -->
         <section class="table-section">
 <h3>All Assets</h3>
 

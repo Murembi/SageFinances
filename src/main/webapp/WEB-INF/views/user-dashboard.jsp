@@ -46,8 +46,8 @@
     <main class="main-content">
 
         <section class="dashboard-header">
-            <h1>User Dashboard</h1>
-            <p>Welcome back, ${username}</p>
+            <h1>Welcome, ${username}</h1>
+            <p>Role: ${userRole}</p>
         </section>
 
         <section class="manager-dashboard-cards">
@@ -156,8 +156,8 @@
                     <td>
                         <img src="<%= request.getContextPath() + loan.getPhotoPath() %>"
                              alt="<%= loan.getAssetTitle() %>"
-                             width="80"
-                             height="80">
+                             width="100"
+                             height="100">
                     </td>
                     <td><%= loan.getAssetTitle() %></td>
                     <td><%= loan.getRequestDate().toLocalDate() %></td>

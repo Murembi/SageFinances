@@ -161,7 +161,9 @@
 <section class="card">
     <h3>Register New User</h3>
 
-    <form action="${pageContext.request.contextPath}/admin/users/create" method="post">
+    <form action="${pageContext.request.contextPath}/admin/users/create"
+          method="post"
+          class="register-user-form">
 
         <label>Name</label>
         <input type="text" name="name" required>

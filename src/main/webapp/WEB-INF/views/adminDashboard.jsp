@@ -55,10 +55,9 @@
     <main class="main-content">
 
         <section class="dashboard-header">
-            <h1>Admin Dashboard</h1>
-            <p>Username: ${username} | Role: ${userRole}</p>
+            <h1>Welcome, ${username}</h1>
+            <p>Role: ${userRole}</p>
         </section>
-
         <section class="manager-dashboard-cards">
             <div class="dashboard-grid">
 

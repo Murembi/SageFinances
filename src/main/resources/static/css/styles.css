@@ -773,3 +773,33 @@ td form {
 .modal-group select{
     width:100%;
 }
+.register-user-form {
+    width: 450px;
+}
+
+.register-user-form label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.register-user-form input,
+.register-user-form select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.register-user-form small {
+    font-size: 12px;
+    color: #666;
+    display: block;
+    margin-top: -8px;
+    margin-bottom: 12px;
+}
+
+.register-user-form button {
+    padding: 10px 16px;
+    font-size: 14px;
+}
