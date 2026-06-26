@@ -143,7 +143,7 @@
 
 
         <c:if test="${not empty generatedPassword}">
-            <div class="toast-message">
+            <div id="credentialsPopup" class="credentials-popup">
 
                 <h4>User Created Successfully</h4>
 
@@ -154,6 +154,9 @@
                 <p class="credentials-note">
                     Please provide these credentials to the user.
                 </p>
+                <button type="button" id="closeCredentialsPopup">
+                    Close
+                </button>
 
             </div>
         </c:if>

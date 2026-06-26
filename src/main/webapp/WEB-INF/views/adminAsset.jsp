@@ -22,9 +22,6 @@
     </span>
 </header>
 
-
-
-<!-- ================= NAVIGATION (SHARED) ================= -->
 <div class="container">
 
     <aside class="sidebar">
@@ -46,6 +43,11 @@
     </aside>
 
     <main class="main-content">
+        <c:if test="${not empty successMessage}">
+            <div id="successPopup" class="success-popup">
+                    ${successMessage}
+            </div>
+        </c:if>
         <section class="dashboard-header">
             <h1>Admin Assets</h1>
             <p>
@@ -116,8 +118,6 @@
 
 </form>
         </section>
-
-        <!-- ================= SEARCH ================= -->
         <section class="table-section">
 <h3>All Assets</h3>
 
@@ -128,7 +128,6 @@
            placeholder="Search assets..."
            value="${keyword}">
 
-    <!-- Location Filter -->
     <select name="location">
 
         <option value="">All Locations</option>
@@ -142,7 +141,6 @@
 
     </select>
 
-    <!-- Condition Filter -->
     <select name="condition">
 
         <option value="">All Conditions</option>
@@ -155,8 +153,6 @@
         </c:forEach>
 
     </select>
-
-    <!-- Status Filter -->
     <select name="status">
         <option value="">All Status</option>
 
@@ -176,9 +172,6 @@
 
 </form>
 
-
-
-<!-- ================= TABLE ================= -->
 
 <table border="1">
 
@@ -237,14 +230,6 @@
                         )">
                     Edit
                 </button>
-
-                |
-
-                <form action="${pageContext.request.contextPath}/admin/assets/delete/${a.assetId}"
-                      method="post"
-                      style="display:inline;">
-
-                    <button type="submit">Delete</button>
 
                 </form>
 

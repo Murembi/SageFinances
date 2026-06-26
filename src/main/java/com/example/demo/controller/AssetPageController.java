@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -71,9 +72,14 @@ public class AssetPageController {
 
     // UPDATE ASSET (FROM JSP BUTTON)
     @PostMapping("/update")
-    public String updateAsset(@ModelAttribute Asset asset) {
+    public String updateAsset(@ModelAttribute Asset asset, RedirectAttributes redirectAttributes
+                             ) {
 
         service.editAsset(asset.getAssetId(), asset);
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Asset edited successfully."
+        );
 
         return "redirect:/admin/assets";
     }

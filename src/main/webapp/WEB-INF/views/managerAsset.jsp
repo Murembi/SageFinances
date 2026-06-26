@@ -26,14 +26,10 @@
 
 <form method="get"
       action="${pageContext.request.contextPath}/manager/dashboard/assets" >
-
-    <!-- SEARCH -->
     <input type="text"
            name="keyword"
            placeholder="Search assets..."
            value="${keyword}">
-
-    <!-- LOCATION -->
     <select name="location">
         <option value="">All Locations</option>
         <c:forEach var="loc" items="${locations}">
@@ -61,10 +57,7 @@
             </option>
         </c:forEach>
     </select>
-
-    <!-- BUTTONS -->
     <button type="submit">Search</button>
-
     <a href="${pageContext.request.contextPath}/manager/dashboard/assets">
         <button type="button">Reset</button>
     </a>

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,19 +47,23 @@ public class AdminsDashboardController {
 
     @PostMapping("/admin/users/create")
     public String createUserFromAdmin(@ModelAttribute User user,
-                                      Model model) {
+                                      RedirectAttributes redirectAttributes) {
 
         UserCreationResponse response =
                 userService.createUserByAdmin(user);
 
-        model.addAttribute("generatedEmail", response.getUser().getEmail());
-        model.addAttribute("generatedPassword", response.getGeneratedPassword());
+        redirectAttributes.addFlashAttribute(
+                "generatedEmail",
+                response.getUser().getEmail()
+        );
 
-        model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("username", "admin");
-        model.addAttribute("userRole", "ADMIN");
+        redirectAttributes.addFlashAttribute(
+                "generatedPassword",
+                response.getGeneratedPassword()
+        );
 
-        return "adminUserPage";
+
+        return "redirect:/admin/users";
     }
 
 }
