@@ -96,7 +96,7 @@ VALUES
  'IT',
  'christinah@sageassets.co.za',
  'ADMIN',
- 'admin123',
+ '$2a$10$yNIc7uR9gclsnLVLDtZEF.aAEHWhI6ydZLD18ZZumY6G1mVCUYfqq',
  NOW(),
  'ACTIVE'),
 
@@ -104,7 +104,7 @@ VALUES
  'Operations',
  'chanty@sageassets.co.za',
  'MANAGER',
- 'manager123',
+ '$2a$10$L6mG2R8GDyfcpIjUzT5Fg.NZt9T7E.HYBfBNInrtFjEarya8rk/Fm',
  NOW(),
  'ACTIVE'),
 
@@ -112,7 +112,7 @@ VALUES
  'Finance',
  'romeo@sageassets.co.za',
  'MANAGER',
- 'manager123',
+ '$2a$10$NcX3S6kFZoHMmXmm//3iButTM0mnhyBxf1Hi1FX91lgw1ijHQNYkW',
  NOW(),
  'ACTIVE'),
 
@@ -120,87 +120,87 @@ VALUES
  'Human Resources',
  'aaliyah@sageassets.co.za',
  'MANAGER',
- 'manager123',
+ '$2a$10$P7UfsGwHmUX6yffj939OoeEshAq6mvpiw2pFRjToaKkVnMJZ6gf0.',
  NOW(),
  'ACTIVE'),
- 
+
  ('Pomni',
  'Circus',
- 'Pomni@sageassets.co.za',
+ 'pomni@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$blWMOR.v7gRbghVNG1MqUuNNMamACQT5a.WtAdmihCgDzVwn0SRce',
  NOW(),
  'ACTIVE'),
- 
+
  ('Jax',
  'Circus',
- 'Jax@sageassets.co.za',
+ 'jax@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$ZbhKE4J6HzTtrZk1Q4i9SeYFYJuw8pTqGhkW4a8xK4CtKlPWIvl2S',
  NOW(),
  'ACTIVE'),
- 
+
  ('Luffy',
  'Pirate',
  'luffy@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$7CvPcV2QIvG4XdjTvzxiveOs8uFWV.iVQHmjMYqZpCRdcx0NtxK1W',
  NOW(),
  'ACTIVE'),
- 
+
  ('Mob',
  'Student',
  'mob@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$RQ.8MJYc4I5lgTkzn19ktOuJViZorlRp/YnEwbdMVtqA9rU8TWDlm',
  NOW(),
  'ACTIVE'),
- 
+
  ('Ichigo',
  'Sales',
  'ichigo@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$n2jxkEIn0pGkj5oDk1Yfg.uPSV9E9ZPGAAhJPdrU9dkqR4h9WIgNW',
  NOW(),
  'ACTIVE'),
- 
+
  ('Reigen',
  'Sales',
  'reigen@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$/oIuULAtZLrLBaIVCZADLuH3LaS8BOaFhElGpKI5Ia4ihS9Js738e',
  NOW(),
  'ACTIVE'),
- 
+
  ('Lelouch',
  'Human Resources',
  'lelouch@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$5tCbT8lESkuYiSzVfPfuS.ZDq2.2zhvEvjXTudoZKqY/mCVnE/bEK',
  NOW(),
  'ACTIVE'),
- 
+
  ('Gon',
  'Student',
  'gon@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$qhgskHdCwJTnf3pMApD8H.GjkcjkuI91K2mUo/QatdcEkJgrWLrwm',
  NOW(),
  'ACTIVE'),
- 
+
  ('Killua',
  'Graphic Design',
  'killua@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$p1IJzd5akB4PB579JK7ybeGktOHRB6WS0Jl94Q1Xg4ps0HQCVPZMy',
  NOW(),
  'ACTIVE'),
- 
+
  ('Eren',
  'Finance',
  'eren@sageassets.co.za',
  'BORROWER',
- 'borrower123',
+ '$2a$10$51Dms/ttAnAp9ALTFdhEPe3AkYdUmwFjcvkC8KlY5AqYcVqoHAGL.',
  NOW(),
  'ACTIVE');
 
@@ -218,36 +218,67 @@ INSERT INTO asset
     status
 )
 VALUES
-('AData', 'SSD', 'DL5420-001', '2024-01-10', 800.00, 'Johannesburg Office', 'GOOD', '/uploads/AData SSD.png', NOW(), 'AVAILABLE'),
-('Ugreen', 'SSD', 'EPX200-002', '2023-06-15', 700.00, 'Meeting Room A', 'EXCELLENT', '/uploads/Ugreen SSD.png', NOW(), 'AVAILABLE'),
+('AData', 'SSD', 'DL5420-001', '2024-01-10', 800.00, 'Johannesburg Office', 'GOOD', '/uploads/AData SSD.png', NOW(), 'LOANED'),
+('Ugreen', 'SSD', 'EPX200-002', '2023-06-15', 700.00, 'Meeting Room A', 'EXCELLENT', '/uploads/Ugreen SSD.png', NOW(), 'LOANED'),
 
-('Bose', 'Headphones', 'TW-T30-003', '2024-02-20', 2300.00, 'Cape Town Office', 'GOOD', '/uploads/Bose Headphones.png', NOW(), 'AVAILABLE'),
-('Sennheiser', 'Headphones', 'SM27-004', '2022-11-01', 2400.00, 'Durban Office', 'FAIR', '/uploads/Sennheiser Headphones.png', NOW(), 'AVAILABLE'),
+('Bose', 'Headphones', 'TW-T30-003', '2024-02-20', 2300.00, 'Cape Town Office', 'GOOD', '/uploads/Bose Headphones.png', NOW(), 'LOANED'),
+('Sennheiser', 'Headphones', 'SM27-004', '2022-11-01', 2400.00, 'Durban Office', 'FAIR', '/uploads/Sennheiser Headphones.png', NOW(), 'LOANED'),
 
-('Caydo', 'Projector', 'HP840-005', '2023-09-12', 3000.00, 'Johannesburg Office', 'GOOD', '/uploads/Caydo Projector.png', NOW(), 'AVAILABLE'),
-('SuperSonic', 'Projector', 'CN1500-006', '2022-05-20', 1400.00, 'Marketing Dept', 'GOOD', '/uploads/SuperSonic Projector.jpg', NOW(), 'AVAILABLE'),
+('Caydo', 'Projector', 'HP840-005', '2023-09-12', 3000.00, 'Johannesburg Office', 'GOOD', '/uploads/Caydo Projector.png', NOW(), 'LOANED'),
+('SuperSonic', 'Projector', 'CN1500-006', '2022-05-20', 1400.00, 'Marketing Dept', 'GOOD', '/uploads/SuperSonic Projector.jpg', NOW(), 'LOANED'),
 
-('Edifier', 'Speaker', 'MBA-M2-007', '2024-03-05', 1200.00, 'Cape Town Office', 'EXCELLENT', '/uploads/Edifier Speaker.png', NOW(), 'AVAILABLE'),
-('JBL', 'Speaker', 'LMX3-008', '2023-07-18', 1700.00, 'IT Department', 'GOOD', '/uploads/JBL Speaker.png', NOW(), 'AVAILABLE'),
+('Edifier', 'Speaker', 'MBA-M2-007', '2024-03-05', 1200.00, 'Cape Town Office', 'EXCELLENT', '/uploads/Edifier Speaker.png', NOW(), 'LOANED'),
+('JBL', 'Speaker', 'LMX3-008', '2023-07-18', 1700.00, 'IT Department', 'GOOD', '/uploads/JBL Speaker.png', NOW(), 'LOANED'),
 
-('EPSON', 'Printer', 'DU24-009', '2022-08-10', 2500.00, 'Durban Office', 'FAIR', '/uploads/EPSON Printer.png', NOW(), 'AVAILABLE'),
-('HP', 'Printer', 'LT14-010', '2023-04-22', 1900.00, 'Johannesburg Office', 'GOOD', '/uploads/HP Printer.png', NOW(), 'AVAILABLE'),
+('EPSON', 'Printer', 'DU24-009', '2022-08-10', 2500.00, 'Durban Office', 'FAIR', '/uploads/EPSON Printer.png', NOW(), 'LOANED'),
+('HP', 'Printer', 'LT14-010', '2023-04-22', 1900.00, 'Johannesburg Office', 'GOOD', '/uploads/HP Printer.png', NOW(), 'LOANED'),
 
-('FHD', 'Monitor', 'HPLJ-011', '2021-12-01', 3000.00, 'Admin Office', 'GOOD', '/uploads/FHD Monitor.png', NOW(), 'AVAILABLE'),
-('Philips', 'Monitor', 'SB55-012', '2022-09-15', 1300.00, 'Conference Room', 'EXCELLENT', '/uploads/Philips Monitor.png', NOW(), 'AVAILABLE'),
+('FHD', 'Monitor', 'HPLJ-011', '2021-12-01', 3000.00, 'Admin Office', 'GOOD', '/uploads/FHD Monitor.png', NOW(), 'RESERVED'),
+('Philips', 'Monitor', 'SB55-012', '2022-09-15', 1300.00, 'Conference Room', 'EXCELLENT', '/uploads/Philips Monitor.png', NOW(), 'RESERVED'),
 
-('Fifine', 'Microphone', 'CR500-013', '2023-02-28', 600.00, 'Server Room', 'GOOD', '/uploads/Fifine Microphone.png', NOW(), 'AVAILABLE'),
-('Hops', 'Microphone', 'ASG-014', '2024-01-25', 1300.00, 'IT Department', 'EXCELLENT', '/uploads/Hops Microphone.png', NOW(), 'AVAILABLE'),
+('Fifine', 'Microphone', 'CR500-013', '2023-02-28', 600.00, 'Server Room', 'GOOD', '/uploads/Fifine Microphone.png', NOW(), 'RESERVED'),
+('Hops', 'Microphone', 'ASG-014', '2024-01-25', 1300.00, 'IT Department', 'EXCELLENT', '/uploads/Hops Microphone.png', NOW(), 'RESERVED'),
 
-('JAV', 'SmartBoard', 'BQ32-015', '2022-10-05', 2500.00, 'Cape Town Office', 'FAIR', '/uploads/JAV SmartBoard.png', NOW(), 'AVAILABLE'),
-('Keinone', 'SmartBoard', 'MSP8-016', '2023-11-11', 3100.00, 'Johannesburg Office', 'GOOD', '/uploads/Keinone SmartBoard.png', NOW(), 'AVAILABLE'),
+('JAV', 'SmartBoard', 'BQ32-015', '2022-10-05', 2500.00, 'Cape Town Office', 'FAIR', '/uploads/JAV SmartBoard.png', NOW(), 'RESERVED'),
+('Keinone', 'SmartBoard', 'MSP8-016', '2023-11-11', 3100.00, 'Johannesburg Office', 'GOOD', '/uploads/Keinone SmartBoard.png', NOW(), 'RESERVED'),
 
-('Keychron K2 Pro', 'Keyboard', 'DDS-017', '2023-03-19', 2100.00, 'IT Department', 'GOOD', '/uploads/Keychron K2 Pro Keyboard.png', NOW(), 'AVAILABLE'),
-('T-Wolf T30', 'Keyboard', 'HPWK-018', '2022-06-30', 1600.00, 'Admin Office', 'FAIR', '/uploads/T-Wolf T30 Keyboard.png', NOW(), 'AVAILABLE'),
+('Keychron K2 Pro', 'Keyboard', 'DDS-017', '2023-03-19', 2100.00, 'IT Department', 'GOOD', '/uploads/Keychron K2 Pro Keyboard.png', NOW(), 'RESERVED'),
+('T-Wolf T30', 'Keyboard', 'HPWK-018', '2022-06-30', 1600.00, 'Admin Office', 'FAIR', '/uploads/T-Wolf T30 Keyboard.png', NOW(), 'RESERVED'),
 
-('RedDragon', 'Mouse', 'ET-019', '2024-02-14', 800.00, 'Durban Office', 'EXCELLENT', '/uploads/RedDragon Mouse.png', NOW(), 'AVAILABLE'),
-('Sony', 'Mouse', 'AN-020', '2023-08-09', 1350.00, 'Cape Town Office', 'GOOD', '/uploads/Sony Mouse.png', NOW(), 'AVAILABLE');
+('RedDragon', 'Mouse', 'ET-019', '2024-02-14', 800.00, 'Durban Office', 'EXCELLENT', '/uploads/RedDragon Mouse.png', NOW(), 'RESERVED'),
+('Sony', 'Mouse', 'AN-020', '2023-08-09', 1350.00, 'Cape Town Office', 'GOOD', '/uploads/Sony Mouse.png', NOW(), 'RESERVED'),
 
+
+
+('BFile', 'SSD', 'DL5420-0012', '2024-01-10', 800.00, 'Johannesburg Office', 'GOOD', '/uploads/AData SSD.png', NOW(), 'AVAILABLE'),
+('StoreG', 'SSD', 'EPX200-0022', '2023-06-15', 700.00, 'Meeting Room A', 'EXCELLENT', '/uploads/Ugreen SSD.png', NOW(), 'AVAILABLE'),
+
+('SkullCandy', 'Headphones', 'TW-T30-0032', '2024-02-20', 2300.00, 'Cape Town Office', 'GOOD', '/uploads/Bose Headphones.png', NOW(), 'AVAILABLE'),
+('Cloud9', 'Headphones', 'SM27-0042', '2022-11-01', 2400.00, 'Durban Office', 'FAIR', '/uploads/Sennheiser Headphones.png', NOW(), 'AVAILABLE'),
+
+('Casio', 'Projector', 'HP840-0052', '2023-09-12', 3000.00, 'Johannesburg Office', 'GOOD', '/uploads/Caydo Projector.png', NOW(), 'AVAILABLE'),
+('Hydra', 'Projector', 'CN1500-0062', '2022-05-20', 1400.00, 'Marketing Dept', 'GOOD', '/uploads/SuperSonic Projector.jpg', NOW(), 'AVAILABLE'),
+
+('Modifier', 'Speaker', 'MBA-M2-0072', '2024-03-05', 1200.00, 'Cape Town Office', 'EXCELLENT', '/uploads/Edifier Speaker.png', NOW(), 'AVAILABLE'),
+('Baster', 'Speaker', 'LMX3-0082', '2023-07-18', 1700.00, 'IT Department', 'GOOD', '/uploads/JBL Speaker.png', NOW(), 'AVAILABLE'),
+
+('IBN', 'Printer', 'DU24-0092', '2022-08-10', 2500.00, 'Durban Office', 'FAIR', '/uploads/EPSON Printer.png', NOW(), 'AVAILABLE'),
+('Yamaha', 'Printer', 'LT14-0102', '2023-04-22', 1900.00, 'Johannesburg Office', 'GOOD', '/uploads/HP Printer.png', NOW(), 'AVAILABLE'),
+
+('Asus', 'Monitor', 'HPLJ-0112', '2021-12-01', 3000.00, 'Admin Office', 'GOOD', '/uploads/FHD Monitor.png', NOW(), 'AVAILABLE'),
+('AlienWare', 'Monitor', 'SB55-0122', '2022-09-15', 1300.00, 'Conference Room', 'EXCELLENT', '/uploads/Philips Monitor.png', NOW(), 'AVAILABLE'),
+
+('Scream', 'Microphone', 'CR500-0132', '2023-02-28', 600.00, 'Server Room', 'GOOD', '/uploads/Fifine Microphone.png', NOW(), 'AVAILABLE'),
+('Adapt', 'Microphone', 'ASG-0142', '2024-01-25', 1300.00, 'IT Department', 'EXCELLENT', '/uploads/Hops Microphone.png', NOW(), 'AVAILABLE'),
+
+('Uligy', 'SmartBoard', 'BQ32-0152', '2022-10-05', 2500.00, 'Cape Town Office', 'FAIR', '/uploads/JAV SmartBoard.png', NOW(), 'AVAILABLE'),
+('Kitboard', 'SmartBoard', 'MSP8-0162', '2023-11-11', 3100.00, 'Johannesburg Office', 'GOOD', '/uploads/Keinone SmartBoard.png', NOW(), 'AVAILABLE'),
+
+('Gamdias', 'Keyboard', 'DDS-0172', '2023-03-19', 2100.00, 'IT Department', 'GOOD', '/uploads/Keychron K2 Pro Keyboard.png', NOW(), 'AVAILABLE'),
+('Glorious', 'Keyboard', 'HPWK-0182', '2022-06-30', 1600.00, 'Admin Office', 'FAIR', '/uploads/T-Wolf T30 Keyboard.png', NOW(), 'AVAILABLE'),
+
+('ViperO', 'Mouse', 'ET-0192', '2024-02-14', 800.00, 'Durban Office', 'EXCELLENT', '/uploads/RedDragon Mouse.png', NOW(), 'AVAILABLE'),
+('Logitech', 'Mouse', 'AN-0202', '2023-08-09', 1350.00, 'Cape Town Office', 'GOOD', '/uploads/Sony Mouse.png', NOW(), 'AVAILABLE');
 INSERT INTO loan
 (
     asset_id,
@@ -260,45 +291,45 @@ INSERT INTO loan
     approved_by
 )
 VALUES
--- Pomni (5)
-(1, 5, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 2),
-(2, 5, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+-- Pomni (user_id 5)
+(1, 5, '2026-06-01 09:00:00', 'APPROVED', '2026-06-02 09:00:00', '2026-06-23 09:00:00', NULL, 2),
+(20, 5, '2026-06-01 09:00:00', 'PENDING', NULL, NULL, NULL, NULL),
 
--- Jax (6)
-(3, 6, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 2),
-(4, 6, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+-- Jax (user_id 6)
+(2, 6, '2026-06-02 10:00:00', 'APPROVED', '2026-06-03 10:00:00', '2026-06-24 10:00:00', NULL, 2),
+(19, 6, '2026-06-02 10:00:00', 'PENDING', NULL, NULL, NULL, NULL),
 
--- Luffy (7)
-(5, 7, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 3),
-(6, 7, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+-- Luffy (user_id 7)
+(3, 7, '2026-06-03 11:00:00', 'APPROVED', '2026-06-04 11:00:00', '2026-06-25 11:00:00', NULL, 3),
+(18, 7, '2026-06-03 11:00:00', 'PENDING', NULL, NULL, NULL, NULL),
 
--- Mob (8)
-(7, 8, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 3),
-(8, 8, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+-- Mob (user_id 8)
+(4, 8, '2026-06-04 08:30:00', 'APPROVED', '2026-06-05 08:30:00', '2026-06-26 08:30:00', NULL, 3),
+(17, 8, '2026-06-04 08:30:00', 'PENDING', NULL, NULL, NULL, NULL),
 
--- Ichigo (9)
-(9, 9, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 4),
-(10, 9, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+-- Ichigo (user_id 9)
+(5, 9, '2026-06-05 09:15:00', 'APPROVED', '2026-06-06 09:15:00', '2026-06-27 09:15:00', NULL, 4),
+(16, 9, '2026-06-05 09:15:00', 'PENDING', NULL, NULL, NULL, NULL),
 
--- Reigen (10)
-(11, 10, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 4),
-(12, 10, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+-- Reigen (user_id 10)
+(6, 10, '2026-06-06 13:00:00', 'APPROVED', '2026-06-07 13:00:00', '2026-06-28 13:00:00', NULL, 4),
+(15, 10, '2026-06-06 13:00:00', 'PENDING', NULL, NULL, NULL, NULL),
 
--- Lelouch (11)
-(13, 11, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 2),
-(14, 11, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+-- Lelouch (user_id 11)
+(7, 11, '2026-06-07 14:00:00', 'APPROVED', '2026-06-08 14:00:00', '2026-06-29 14:00:00', NULL, 2),
+(14, 11, '2026-06-07 14:00:00', 'PENDING', NULL, NULL, NULL, NULL),
 
--- Gon (12)
-(15, 12, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 3),
-(16, 12, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+-- Gon (user_id 12)
+(8, 12, '2026-06-08 15:00:00', 'APPROVED', '2026-06-09 15:00:00', '2026-06-30 15:00:00', NULL, 3),
+(13, 12, '2026-06-08 15:00:00', 'PENDING', NULL, NULL, NULL, NULL),
 
--- Killua (13)
-(17, 13, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 4),
-(18, 13, NOW(), 'PENDING', NULL, NULL, NULL, NULL),
+-- Killua (user_id 13)
+(9, 13, '2026-06-09 16:00:00', 'APPROVED', '2026-06-10 16:00:00', '2026-07-01 16:00:00', NULL, 4),
+(12, 13, '2026-06-09 16:00:00', 'PENDING', NULL, NULL, NULL, NULL),
 
--- Eren (14)
-(19, 14, NOW(), 'APPROVED', NOW(), DATE_ADD(NOW(), INTERVAL 21 DAY), NULL, 2),
-(20, 14, NOW(), 'PENDING', NULL, NULL, NULL, NULL);
+-- Eren (user_id 14)
+(10, 14, '2026-06-10 09:00:00', 'APPROVED', '2026-06-11 09:00:00', '2026-07-02 09:00:00', NULL, 2),
+(11, 14, '2026-06-10 09:00:00', 'PENDING', NULL, NULL, NULL, NULL);
 
 
 

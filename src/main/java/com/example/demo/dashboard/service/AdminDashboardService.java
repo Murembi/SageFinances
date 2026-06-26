@@ -9,6 +9,7 @@ import com.example.demo.repository.AuditLogRepository;
 import com.example.demo.repository.LoanRepository;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AdminDashboardService {
+
     private final LoanRepository loanRepository;
+
     private final AssetRepository assetRepository;
     private final AuditLogRepository auditLogRepository;
     private final UserRepository userRepository;
