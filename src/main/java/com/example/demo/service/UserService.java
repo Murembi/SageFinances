@@ -68,6 +68,8 @@ public class UserService {
     @Transactional
     public UserCreationResponse createUserByAdmin(User user) {
 
+
+
         if (!user.getEmail().toLowerCase().endsWith("@sageassets.co.za")) {
             throw new InvalidEmailException(
                     "Email must end with @sageassets.co.za"
@@ -88,7 +90,7 @@ public class UserService {
                 .name(user.getName())
                 .department(user.getDepartment())
                 .email(user.getEmail())
-                .passwordHash(generatedPassword)
+                .passwordHash(encoder.encode(generatedPassword))
                 .createdAt(LocalDateTime.now())
                 .role(user.getRole())
                 .status(User.UserStatus.ACTIVE)
