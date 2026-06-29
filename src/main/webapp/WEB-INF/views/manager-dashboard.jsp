@@ -164,10 +164,6 @@
             </table>
 
         </section>
-
-
-
-        <!-- LOANS OVERDUE TABLE -->
         <section class="table-section">
 
         <h2>Overdue Loans</h2>

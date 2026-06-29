@@ -61,8 +61,7 @@ public class UsersDashboardController {
     @PostMapping("/request-loans")
     public String requestLoans(
             @RequestParam(value = "assetIds", required = false) List<Long> assetIds,
-            HttpSession session,
-            User currentUser) {
+            HttpSession session) {
 
         User user = (User) session.getAttribute("user");
 
@@ -79,9 +78,9 @@ public class UsersDashboardController {
             loanService.createMultipleLoanRequests(
                     user.getUserId(),
                     assetIds,
-                    currentUser
+                    user
             );
-        } catch (IllegalStateException e) {
+        } catch (Exception e) {
             session.setAttribute("errorMessage", e.getMessage());
             return "redirect:/dashboard";
         }
