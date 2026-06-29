@@ -285,7 +285,7 @@ public class UserService {
                 )
                 .toList();
     }
-    //cannot delete a user because of the foreign key
+    //cannot delete a user because of the foreign key :3
     private void validatePassword(String password) {
 
         if (password == null || password.isBlank()) {

@@ -77,10 +77,27 @@
         <section class="table-section">
             <h2>Available Assets</h2>
 
-            <form id="loanRequestForm"
-                  action="${pageContext.request.contextPath}/request-loans"
-                  method="post">
 
+            <form method="get" action="${pageContext.request.contextPath}/dashboard">
+
+                <input type="text"
+                       name="keyword"
+                       placeholder="Search assets..."
+                       value="${keyword}" />
+
+
+
+                <button type="submit">Search</button>
+
+
+                <a href="${pageContext.request.contextPath}/dashboard">
+                    <button type="button">Reset</button>
+                </a>
+
+            </form>
+            <form id="loanRequestForm"
+                              action="${pageContext.request.contextPath}/request-loans"
+                              method="post">
                 <table>
                     <thead>
                     <tr>
