@@ -70,6 +70,16 @@
                     <h2>Pending Requests</h2>
                     <p>${myPendingRequests}</p>
                 </div>
+                <div class="stat-card">
+                    <h2>Loan Capacity</h2>
+                    <p>${myLoans + myPendingRequests} / 6</p>
+
+                    <div class="capacity-bar">
+                        <div class="capacity-fill"
+                             style="width: ${(myLoans + myPendingRequests) * 100 / 6}%;">
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </section>
