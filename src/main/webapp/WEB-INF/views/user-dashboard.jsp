@@ -49,6 +49,10 @@
             <h1>Welcome, ${username}</h1>
         </section>
 
+        <div id="loanToast" class="toast-message" style="display:none;">
+            You can only have 6 active loans at a time.
+        </div>
+
         <section class="manager-dashboard-cards">
             <div class="dashboard-grid">
 
@@ -73,7 +77,9 @@
         <section class="table-section">
             <h2>Available Assets</h2>
 
-            <form action="${pageContext.request.contextPath}/request-loans" method="post">
+            <form id="loanRequestForm"
+                  action="${pageContext.request.contextPath}/request-loans"
+                  method="post">
 
                 <table>
                     <thead>
@@ -253,7 +259,7 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </footer>
 
-<script src="${pageContext.request.contextPath}/js/user-dashboard.js"></script>
+<script src="${pageContext.request.contextPath}/js/userDashboard.js"></script>
 
 </body>
 </html>
