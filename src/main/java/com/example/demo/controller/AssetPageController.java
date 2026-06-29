@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.entity.Asset;
+import com.example.demo.entity.User;
 import com.example.demo.service.AssetService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,9 +53,12 @@ public class AssetPageController {
     // CREATE ASSET (FROM JSP FORM)
     @PostMapping("/create")
     public String createAsset(@ModelAttribute AssetRequestDTO dto,
-                              @RequestParam("imageFile") MultipartFile imageFile) {
+                              @RequestParam("imageFile") MultipartFile imageFile,
+                              HttpSession session) {
 
-        service.createAsset(dto, imageFile);
+        User currentUser = (User) session.getAttribute("user");
+
+        service.createAsset(dto, imageFile, currentUser);
 
         return "redirect:/admin/assets";
     }
@@ -72,10 +77,13 @@ public class AssetPageController {
 
     // UPDATE ASSET (FROM JSP BUTTON)
     @PostMapping("/update")
-    public String updateAsset(@ModelAttribute Asset asset, RedirectAttributes redirectAttributes
-                             ) {
+    public String updateAsset(@ModelAttribute Asset asset, RedirectAttributes redirectAttributes,
+                             HttpSession session) {
 
-        service.editAsset(asset.getAssetId(), asset);
+        User currentUser = (User) session.getAttribute("user");
+
+        service.editAsset(asset.getAssetId(), asset, currentUser);
+
         redirectAttributes.addFlashAttribute(
                 "successMessage",
                 "Asset edited successfully."
@@ -87,8 +95,11 @@ public class AssetPageController {
     // REMOVE CANT DELETE AN ASSET
     // DELETE ASSET (FROM JSP BUTTON)
     @PostMapping("/delete/{id}")
-    public String deleteAsset(@PathVariable Long id) {
-        service.deleteAsset(id);
+    public String deleteAsset(@PathVariable Long id, HttpSession session) {
+
+        User currentUser = (User) session.getAttribute("user");
+
+        service.deleteAsset(id, currentUser);
         return "redirect:/admin/assets";
     }
 }

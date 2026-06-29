@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.AssetRequestDTO;
 import com.example.demo.entity.Asset;
+import com.example.demo.entity.User;
 import com.example.demo.exception.AssetAlreadyExistsException;
 import com.example.demo.exception.AssetNotFoundException;
 import com.example.demo.exception.FileUploadException;
@@ -32,14 +33,14 @@ public class AssetService {
 
     // 1 // add 1 asset
     @Transactional
-    public Asset addAsset(Asset asset) {
+    public Asset addAsset(Asset asset, User currentUser) {
         asset.setCreatedAt(LocalDateTime.now());
         asset.setAcquisitionDate(LocalDate.now());
         asset.setStatus(Asset.Status.AVAILABLE);
         Asset saved = repository.save(asset);
 
         auditLogService.createAuditLog(
-                null, "ASSET", saved.getAssetId(),
+                currentUser, "ASSET", saved.getAssetId(),
                 "CREATE", null, "Asset added"
         );
 
@@ -73,7 +74,7 @@ public class AssetService {
     }
 
     // 14 // update full asset
-    public Asset editAsset(Long id, Asset updatedAsset) {
+    public Asset editAsset(Long id, Asset updatedAsset, User currentUser) {
 
         Asset existing = getAssetById(id);
         String oldValue = existing.toString();
@@ -92,7 +93,7 @@ public class AssetService {
         Asset saved = repository.save(existing);
 
         auditLogService.createAuditLog(
-                null, "ASSET", id,
+                currentUser, "ASSET", id,
                 "UPDATE_FULL",
                 oldValue,
                 "Updated Asset"
@@ -103,12 +104,14 @@ public class AssetService {
 
     // 24 // delete asset // REMOVE
     @Transactional
-    public void deleteAsset(Long id) {
+    public void deleteAsset(Long id, User currentUser) {
 
         Asset asset = getAssetById(id);
 
         auditLogService.createAuditLog(
-                null, "ASSET", id,
+                currentUser,
+                "ASSET",
+                id,
                 "DELETE",
                 asset.toString(),
                 null
@@ -136,7 +139,7 @@ public class AssetService {
 
     //USED
     @Transactional
-    public void retireAsset(Long assetId) {
+    public void retireAsset(Long assetId, User currentUser) {
 
         Asset asset = repository.findById(assetId)
                 .orElseThrow(() ->
@@ -163,7 +166,7 @@ public class AssetService {
         repository.save(asset);
 
         auditLogService.createAuditLog(
-                null,
+                currentUser,
                 "ASSET",
                 assetId,
                 "RETIRE",
@@ -176,7 +179,7 @@ public class AssetService {
     //USED
     //create an asset used both by the manager and admin
     @Transactional
-    public Asset createAsset(AssetRequestDTO dto, MultipartFile imageFile) {
+    public Asset createAsset(AssetRequestDTO dto, MultipartFile imageFile, User currentUser) {
         if (dto.getTitle() == null || dto.getTitle().isBlank()) {
             throw new InvalidAssetActionException("Asset title is required.");
         }
@@ -254,7 +257,7 @@ public class AssetService {
         Asset saved = repository.save(asset);
 
         auditLogService.createAuditLog(
-                null,
+                currentUser,
                 "ASSET",
                 saved.getAssetId(),
                 "CREATE",

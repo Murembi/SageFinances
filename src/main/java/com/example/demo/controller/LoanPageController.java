@@ -41,12 +41,12 @@ public class LoanPageController {
 
         model.addAttribute(
                 "loans",
-                loanService.getLoansByStatus(Loan.Status.APPROVED));
+                loanService.getLoansByStatus(Loan.Status.APPROVED, user));
 
         model.addAttribute(
                 "requests",
                 loanService.getLoansByStatus(
-                        Loan.Status.PENDING));
+                        Loan.Status.PENDING, user));
 
         model.addAttribute("returnedLoans",
                 loanService.getReturnedLoans());
@@ -71,7 +71,7 @@ public class LoanPageController {
         dto.setUserId(userId);
         dto.setAssetId(assetId);
 
-        loanService.createLoanRequest(dto);
+        loanService.createLoanRequest(dto, user);
 
         return "redirect:/admin/loans";
     }
@@ -89,7 +89,7 @@ public class LoanPageController {
                 "adminLoanPageSuccessMessage",
                 "Asset returned successfully."
         );
-        loanService.returnLoan(id);
+        loanService.returnLoan(id, user);
 
         return "redirect:/admin/loans";
     }
@@ -103,7 +103,7 @@ public class LoanPageController {
         if (user == null || user.getRole() != User.Role.ADMIN) {
             return "redirect:/loginpage";
         }
-        loanService.approveLoan(id);
+        loanService.approveLoan(id, user);
 
         redirectAttributes.addFlashAttribute(
                 "adminLoanPageSuccessMessage",
@@ -121,7 +121,7 @@ public class LoanPageController {
         if (user == null || user.getRole() != User.Role.ADMIN) {
             return "redirect:/loginpage";
         }
-        loanService.rejectLoan(id);
+        loanService.rejectLoan(id, user);
 
         redirectAttributes.addFlashAttribute(
                 "adminLoanPageSuccessMessage",
@@ -139,7 +139,7 @@ public class LoanPageController {
         if (user == null || user.getRole() != User.Role.ADMIN) {
             return "redirect:/loginpage";
         }
-        loanService.deleteLoan(id);
+        loanService.deleteLoan(id, user);
 
         return "redirect:/admin/loans";
     }
