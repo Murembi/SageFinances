@@ -1,6 +1,7 @@
 package com.example.demo.dashboard.controller;
 
 import com.example.demo.dto.DashboardDTO;
+import com.example.demo.service.AssetService;
 import com.example.demo.service.LoanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +23,15 @@ public class UsersDashboardController {
 
     private final UserDashboardService userDashboardService;
     private final LoanService loanService;
+    private final AssetService assetService;
 
+    //:3
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model) {
+    public String dashboard(
+            HttpSession session,
+            Model model,
+            @RequestParam(required = false) String keyword
+    ){
 
         User user = (User) session.getAttribute("user");
 
@@ -44,7 +51,7 @@ public class UsersDashboardController {
 
         // table
         model.addAttribute("availableAssets",
-                userDashboardService.getAvailableAssets());
+                userDashboardService.searchAvailableAssets(keyword));
 
         model.addAttribute("pendingLoans",
                 userDashboardService.getMyPendingRequests(user.getUserId()));
@@ -54,6 +61,7 @@ public class UsersDashboardController {
 
         model.addAttribute("username", user.getName());
         model.addAttribute("userRole", user.getRole());
+        model.addAttribute("keyword", keyword);
 
         return "user-dashboard";
     }
@@ -61,8 +69,7 @@ public class UsersDashboardController {
     @PostMapping("/request-loans")
     public String requestLoans(
             @RequestParam(value = "assetIds", required = false) List<Long> assetIds,
-            HttpSession session,
-            User currentUser) {
+            HttpSession session) {
 
         User user = (User) session.getAttribute("user");
 
@@ -79,9 +86,9 @@ public class UsersDashboardController {
             loanService.createMultipleLoanRequests(
                     user.getUserId(),
                     assetIds,
-                    currentUser
+                    user
             );
-        } catch (IllegalStateException e) {
+        } catch (Exception e) {
             session.setAttribute("errorMessage", e.getMessage());
             return "redirect:/dashboard";
         }

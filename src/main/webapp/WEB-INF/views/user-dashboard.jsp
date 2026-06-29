@@ -46,8 +46,12 @@
     <main class="main-content">
 
         <section class="dashboard-header">
-            <h1>Welcome, ${username}</h1>
+            <h1>Welcome, ${user.name}</h1>
         </section>
+
+        <div id="loanToast" class="toast-message" style="display:none;">
+            You can only have 6 active loans at a time.
+        </div>
 
         <section class="manager-dashboard-cards">
             <div class="dashboard-grid">
@@ -66,6 +70,16 @@
                     <h2>Pending Requests</h2>
                     <p>${myPendingRequests}</p>
                 </div>
+                <div class="stat-card">
+                    <h2>Loan Capacity</h2>
+                    <p>${myLoans + myPendingRequests} / 6</p>
+
+                    <div class="capacity-bar">
+                        <div class="capacity-fill"
+                             style="width: ${(myLoans + myPendingRequests) * 100 / 6}%;">
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </section>
@@ -73,8 +87,27 @@
         <section class="table-section">
             <h2>Available Assets</h2>
 
-            <form action="${pageContext.request.contextPath}/request-loans" method="post">
 
+            <form method="get" action="${pageContext.request.contextPath}/dashboard">
+
+                <input type="text"
+                       name="keyword"
+                       placeholder="Search assets..."
+                       value="${keyword}" />
+
+
+
+                <button type="submit">Search</button>
+
+
+                <a href="${pageContext.request.contextPath}/dashboard">
+                    <button type="button">Reset</button>
+                </a>
+
+            </form>
+            <form id="loanRequestForm"
+                              action="${pageContext.request.contextPath}/request-loans"
+                              method="post">
                 <table>
                     <thead>
                     <tr>
@@ -253,7 +286,7 @@
     <a href="${pageContext.request.contextPath}/contact">Contact Us</a>
 </footer>
 
-<script src="${pageContext.request.contextPath}/js/user-dashboard.js"></script>
+<script src="${pageContext.request.contextPath}/js/userDashboard.js"></script>
 
 </body>
 </html>

@@ -118,7 +118,28 @@ public class UserDashboardService {
         return list;
     }
 
+    //for the searchbar
+    public List<AvailableAssetDTO> searchAvailableAssets(String keyword) {
 
+        List<Asset> assets = assetRepository.findByStatus(Asset.Status.AVAILABLE);
+
+        return assets.stream()
+                .filter(a ->
+                        keyword == null || keyword.isBlank() ||
+                                a.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
+                                a.getCategory().toLowerCase().contains(keyword.toLowerCase())
+                )
+                .map(asset -> {
+                    AvailableAssetDTO dto = new AvailableAssetDTO();
+                    dto.setAssetId(asset.getAssetId());
+                    dto.setAssetName(asset.getTitle());
+                    dto.setCategory(asset.getCategory());
+                    dto.setStatus(asset.getStatus().name());
+                    dto.setPhotoPath(asset.getPhotoPath());
+                    return dto;
+                })
+                .toList();
+    }
 
 
 }

@@ -15,7 +15,6 @@
 
 <div id="customAlert" class="alert"></div>
 
-<!-- HEADER -->
 <header class="header">
     <div class="logo">
         <img src="${pageContext.request.contextPath}/images/sage.png"
@@ -164,10 +163,6 @@
             </table>
 
         </section>
-
-
-
-        <!-- LOANS OVERDUE TABLE -->
         <section class="table-section">
 
         <h2>Overdue Loans</h2>
@@ -230,8 +225,8 @@
                                 <td>${req.assetTitle}</td>
                                 <td>
                                     <c:choose>
-                                        <c:when test="${not empty loan.asset.photoPath}">
-                                            <img src="${pageContext.request.contextPath}${loan.asset.photoPath}"
+                                        <c:when test="${not empty req.photoPath}">
+                                            <img src="${pageContext.request.contextPath}${req.photoPath}"
                                                  alt="Asset Image"
                                                  width="80">
                                         </c:when>
