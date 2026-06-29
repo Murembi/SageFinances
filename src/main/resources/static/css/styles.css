@@ -487,6 +487,7 @@ body
 .container {
     display: flex;
     flex: 1;
+    min-width: 0;
 }
 
 /* Sidebar */
@@ -539,6 +540,7 @@ body
 .main-content {
     flex: 1;
     padding: 28px;
+    min-width: 0;
 }
 
 .dashboard-header {
@@ -712,6 +714,7 @@ td form {
 {
     .container {
         flex-direction: column;
+        min-width: 0;
     }
 
     .sidebar {
@@ -720,6 +723,7 @@ td form {
 
     .main-content {
         padding: 20px;
+        min-width: 0;
     }
 }
 

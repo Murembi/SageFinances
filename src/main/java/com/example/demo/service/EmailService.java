@@ -77,8 +77,6 @@ public class EmailService
         catch(MessagingException e)
         {
             logger.error("Failed to send HTML email to {}", to, e);
-
-            // will NOT roll back the user-creation transaction
         }
     }
 
