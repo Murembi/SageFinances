@@ -43,14 +43,7 @@ public class LoanService {
         Loan loan = loanRepository.findById(loanId)
                 .orElseThrow(() -> new LoanNotFoundException(
                          loanId ));
-        auditLogService.createAuditLog(
-                null,
-                "LOAN",
-                loanId,
-                "READ",
-                null,
-                Loan.Status.APPROVED.name() //previous method contained whole loan object
-        );
+
 
         return loan;
     }
@@ -59,7 +52,7 @@ public class LoanService {
     //runs when the user request for the loan in the controller layer
     //then the manager will approve to approved/rejected
     @Transactional
-    public Loan createLoanRequest(LoanRequestDTO dto){
+    public Loan createLoanRequest(LoanRequestDTO dto, User currentUser){
 
         //prevents empty requests
         //user id must exists
@@ -137,7 +130,7 @@ public class LoanService {
         Loan saved = loanRepository.save(loan);
 
         auditLogService.createAuditLog(
-                null,
+                currentUser,
                 "LOAN",
                 saved.getLoanId(),
                 "CREATE",
@@ -152,7 +145,8 @@ public class LoanService {
 
     public void createMultipleLoanRequests(
             Long userId,
-            List<Long> assetIds) {
+            List<Long> assetIds,
+            User currentUser) {
 
         for (Long assetId : assetIds) {
 
@@ -160,13 +154,22 @@ public class LoanService {
             dto.setUserId(userId);
             dto.setAssetId(assetId);
 
-            createLoanRequest(dto);
+            createLoanRequest(dto, currentUser);
         }
+
+        auditLogService.createAuditLog(
+                currentUser,
+                "LOAN",
+                null,
+                "BULK_CREATE",
+                null,
+                "Created multiple loan requests: " + assetIds.size()
+        );
     }
     // different methods for approving and rejecting a loan
     //APPROVING A LOAN
     @Transactional
-    public Loan approveLoan(Long loanId) {
+    public Loan approveLoan(Long loanId, User currentUser) {
 
         Loan loan = getLoanById(loanId);
 
@@ -189,7 +192,7 @@ public class LoanService {
         Loan saved = loanRepository.save(loan);
 
         auditLogService.createAuditLog(
-                loan.getUser(),
+                currentUser,
                 "LOAN",
                 loanId,
                 "APPROVE",
@@ -202,7 +205,7 @@ public class LoanService {
 
     //REJECTING A LOAN
     @Transactional
-    public Loan rejectLoan(Long loanId){
+    public Loan rejectLoan(Long loanId, User currentUser){
 
         Loan loan = getLoanById(loanId);
 
@@ -220,7 +223,7 @@ public class LoanService {
 
         // AUDIT LOG ADDED
         auditLogService.createAuditLog(
-                loan.getUser(),
+                currentUser,
                 "LOAN",
                 loanId,
                 "REJECT",
@@ -232,12 +235,12 @@ public class LoanService {
     }
 
     @Transactional
-    public void deleteLoan(Long id) {
+    public void deleteLoan(Long id, User currentUser) {
 
         Loan loan = getLoanById(id);
 
         auditLogService.createAuditLog(
-                null,
+                currentUser,
                 "LOAN",
                 id,
                 "DELETE",
@@ -252,12 +255,12 @@ public class LoanService {
 
     //finding the loans by status
     //PENDING, APPROVED OR REJECTED
-    public List<Loan> getLoansByStatus(Loan.Status status) {
+    public List<Loan> getLoansByStatus(Loan.Status status, User currentUser) {
 
         List<Loan> loans = loanRepository.findByStatusWithUserAndAsset(status);
 
         auditLogService.createAuditLog(
-                null,
+                currentUser,
                 "LOAN",
                 null,
                 "FILTER_STATUS",
@@ -273,7 +276,7 @@ public class LoanService {
     }
 
     @Transactional
-    public Loan returnLoan(Long loanId) {
+    public Loan returnLoan(Long loanId, User currentUser) {
 
         Loan loan = getLoanById(loanId);
         // only approved loans can be returned
@@ -285,6 +288,15 @@ public class LoanService {
         loan.setStatus(Loan.Status.RETURNED);
         loan.setReturnDate(LocalDateTime.now());
         loan.getAsset().setStatus(Asset.Status.AVAILABLE);
+
+        auditLogService.createAuditLog(
+                currentUser,
+                "LOAN",
+                loanId,
+                "RETURN",
+                Loan.Status.APPROVED.name(),
+                Loan.Status.RETURNED.name()
+        );
 
         return loanRepository.save(loan);
     }

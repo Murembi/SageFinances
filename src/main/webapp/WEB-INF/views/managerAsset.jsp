@@ -75,33 +75,7 @@
     </a>
 
 </form>
-            <form method="get" action="${pageContext.request.contextPath}/manager/dashboard/assets" class="search-form">
-                <input type="text" name="keyword" placeholder="Search assets..." value="${keyword}">
 
-                <select name="location">
-                    <option value="">All Locations</option>
-                    <c:forEach var="loc" items="${locations}">
-                        <option value="${loc}" ${loc == location ? 'selected' : ''}>${loc}</option>
-                    </c:forEach>
-                </select>
-
-                <select name="condition">
-                    <option value="">All Conditions</option>
-                    <c:forEach var="cond" items="${conditions}">
-                        <option value="${cond}" ${cond == condition ? 'selected' : ''}>${cond}</option>
-                    </c:forEach>
-                </select>
-
-                <select name="status">
-                    <option value="">All Status</option>
-                    <c:forEach var="s" items="${statuses}">
-                        <option value="${status == s ? 'selected' : ''}">${s}</option>
-                    </c:forEach>
-                </select>
-
-                <button type="submit">Search</button>
-                <a href="${pageContext.request.contextPath}/manager/dashboard/assets" class="btn btn-light" style="text-decoration: none;">Reset</a>
-            </form>
         </section>
 
         <section class="card">

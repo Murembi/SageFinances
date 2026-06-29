@@ -58,7 +58,7 @@ public class ManagersDashboardController {
         model.addAttribute("pendingLoans", dashboard.getPendingLoans());
         model.addAttribute("retiredAssets", dashboard.getRetiredAssets());
         model.addAttribute("approvedLoanList",
-                loanService.getLoansByStatus(Loan.Status.APPROVED));
+                loanService.getLoansByStatus(Loan.Status.APPROVED, user));
         model.addAttribute("overdueLoans", dashboard.getOverdueLoans());
 
         model.addAttribute(
@@ -79,9 +79,11 @@ public class ManagersDashboardController {
 
     @PostMapping("/return/{id}")
     public String managerReturnLoan(@PathVariable Long id,
-                                    RedirectAttributes redirectAttributes) {
+                                    RedirectAttributes redirectAttributes,
+                                    HttpSession session) {
 
-        loanService.returnLoan(id);
+        User user = (User) session.getAttribute("user");
+        loanService.returnLoan(id, user);
 
         redirectAttributes.addFlashAttribute(
                 "ManagerDashboardSuccessMessage",
@@ -120,9 +122,9 @@ public class ManagersDashboardController {
 
     @PostMapping("/assets/retire")
     public String retireAsset(
-            @RequestParam Long assetId) {
-
-        assetService.retireAsset(assetId);
+            @RequestParam Long assetId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        assetService.retireAsset(assetId, user);
 
         return "redirect:/manager/dashboard/assets";
     }
@@ -172,19 +174,21 @@ public class ManagersDashboardController {
 
     @PostMapping("/assets/add")
     public String createAsset(@ModelAttribute AssetRequestDTO dto,
-                              @RequestParam("imageFile") MultipartFile imageFile) {
+                              @RequestParam("imageFile") MultipartFile imageFile,
+                              HttpSession session) {
 
-
-        assetService.createAsset(dto, imageFile);
+        User user = (User) session.getAttribute("user");
+        assetService.createAsset(dto, imageFile, user);
 
         return "redirect:/manager/dashboard/assets";
     }
 
     @PostMapping("/approve")
     public String approveLoan(@RequestParam Long loanId,
-                              RedirectAttributes redirectAttributes) {
-
-        loanService.approveLoan(loanId);
+                              RedirectAttributes redirectAttributes,
+                              HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        loanService.approveLoan(loanId, user);
 
         redirectAttributes.addFlashAttribute(
                 "ManagerDashboardSuccessMessage",
@@ -196,9 +200,10 @@ public class ManagersDashboardController {
 
     @PostMapping("/reject")
     public String rejectLoan(@RequestParam Long loanId,
-                             RedirectAttributes redirectAttributes) {
-
-        loanService.rejectLoan(loanId);
+                             RedirectAttributes redirectAttributes,
+                             HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        loanService.rejectLoan(loanId, user);
 
         redirectAttributes.addFlashAttribute(
                 "ManagerDashboardSuccessMessage",
