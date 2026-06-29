@@ -46,7 +46,7 @@
     <main class="main-content">
 
         <section class="dashboard-header">
-            <h1>Welcome, ${username}</h1>
+            <h1>Welcome, ${user.name}</h1>
         </section>
 
         <div id="loanToast" class="toast-message" style="display:none;">

@@ -15,7 +15,6 @@
 
 <div id="customAlert" class="alert"></div>
 
-<!-- HEADER -->
 <header class="header">
     <div class="logo">
         <img src="${pageContext.request.contextPath}/images/sage.png"
