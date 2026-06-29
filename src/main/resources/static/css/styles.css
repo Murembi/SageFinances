@@ -1,4 +1,5 @@
-:root {
+:root 
+{
     --bg: #FAF9F6;
     --card: #FFFFFF;
     --green-light: #CFE8D5;
@@ -9,17 +10,32 @@
     --border: #E5E7EB;
 }
 
-* {
+* 
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body.dashboard-page {
+[data-theme="dark"] 
+{
+    --bg: #1A1D1B;
+    --card: #242824;
+    --green-light: #2E4A3B;
+    --green-medium: #4D8066;
+    --green-dark: #7FCBA4;
+    --text: #E8E8E6;
+    --muted: #9CA3AF;
+    --border: #3A3F3B;
+}
+
+body.dashboard-page 
+{
     padding: 0;
 }
 
-body {
+body 
+{
     font-family: "Segoe UI", Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
@@ -29,21 +45,26 @@ body {
     min-height: 100vh;
 }
 
-/* PAGE TITLE */
-h1,
-.page-title {
+/* page title */
+h1, .page-title 
+{
     color: var(--green-dark);
     margin-bottom: 25px;
 }
 
-h2,
-h3 {
+h2, h3 
+{
     color: var(--green-dark);
     margin-bottom: 15px;
 }
 
-/* HEADER */
-.header {
+/* header */
+.header 
+{
+    position: fixed;
+    top: 0; /* header to stay at the top */
+    width: 100%;
+    z-index: 1000; /* header should be above sidebar and dashboard content when scrolling */
     background: var(--card);
     border-bottom: 1px solid var(--border);
     padding: 18px 25px;
@@ -54,6 +75,20 @@ h3 {
     justify-content: space-between;
     height: 72px;
     gap: 18px;
+}
+
+.login-theme
+{
+    position: fixed;
+    top: 5px;
+    left: 5px;
+}
+
+.login-theme
+{
+    position: fixed;
+    top: 5px;
+    left: 15px;
 }
 
 .logo-img {
@@ -83,15 +118,17 @@ h3 {
     color: var(--muted);
 }
 
-/* NAVIGATION */
-.navbar {
+/* Navigation */
+.navbar 
+{
     background: var(--green-light);
     padding: 14px 20px;
     border-radius: 12px;
     margin-bottom: 25px;
 }
 
-.navbar a {
+.navbar a 
+{
     color: var(--green-dark);
     text-decoration: none;
     font-weight: 600;
@@ -104,12 +141,14 @@ h3 {
 
 
 
-/* FORMS */
-form {
+/* forms */
+form 
+{
     margin-bottom: 25px;
 }
 
-label {
+label 
+{
     display: block;
     font-weight: 600;
     margin-top: 12px;
@@ -117,9 +156,8 @@ label {
     color: var(--green-dark);
 }
 
-input,
-select,
-textarea {
+input, select, textarea 
+{
     width: 100%;
     padding: 11px 12px;
     border: 1px solid var(--border);
@@ -129,22 +167,22 @@ textarea {
     margin-bottom: 12px;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
+input:focus, select:focus, textarea:focus
+{
     outline: none;
     border-color: var(--green-medium);
     box-shadow: 0 0 0 3px rgba(168, 213, 186, 0.35);
 }
 
-input[type="checkbox"] {
+input[type="checkbox"] 
+{
     width: auto;
     margin: 0;
 }
 
-/* BUTTONS */
-button,
-.btn {
+/* Buttons */
+button, .btn 
+{
     background: var(--green-dark);
     color: white;
     border: none;
@@ -171,7 +209,7 @@ button:hover,
     color: white;
 }
 
-/* TABLES */
+/* table */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -182,7 +220,8 @@ table {
     border: 1px solid var(--border);
 }
 
-th {
+th 
+{
     background: var(--green-dark);
     color: white;
     text-align: left;
@@ -190,16 +229,18 @@ th {
     font-weight: 600;
 }
 
-td {
+td 
+{
     padding: 13px;
     border-bottom: 1px solid var(--border);
 }
 
-tr:hover {
+tr:hover 
+{
     background: #F7FBF8;
 }
 
-/* STATUS LABELS */
+/* Status labels */
 .status {
     padding: 6px 12px;
     border-radius: 20px;
@@ -212,35 +253,37 @@ tr:hover {
     color: #856404;
 }
 
-.approved,
-.available {
+.approved, .available 
+{
     background: #D4EDDA;
     color: #155724;
 }
 
-.rejected,
-.damaged,
-.due-date{
+.rejected, .damaged, .due-date
+{
     background: #F8D7DA;
     color: #721C24;
 }
 
-.returned {
+.returned 
+{
     background: #D1ECF1;
     color: #0C5460;
 }
 
-.loaned {
+.loaned 
+{
     background: #EDE9FE;
     color: #5B21B6;
 }
 
-.retired {
+.retired 
+{
     background: #E5E7EB;
     color: #374151;
 }
 
-/* FOOTER */
+/* footer */
 .footer {
     padding: 18px;
     text-align: center;
@@ -258,7 +301,7 @@ tr:hover {
     text-decoration: underline;
 }
 
-/* MOBILE */
+/* Mobile */
 @media (max-width: 768px) 
 {
     body {
@@ -329,14 +372,17 @@ tr:hover {
     }
 }
 
-/*  LOGIN PAGE */
+/*  Login page */
 
-.login-page {
+.login-page 
+{
     min-height: 100vh;
     padding: 0;
     background: #F8F6F1;
 }
-    .login-container {
+    
+.login-container 
+{
     width: 100%;
     max-width: 430px;
     padding: 20px;
@@ -347,37 +393,40 @@ tr:hover {
     margin: 0 auto;
 }
 
-    .login-card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 22px;
-        padding: 24px 28px;
-        text-align: center;
-        box-shadow: 0 18px 45px rgba(47, 93, 80, 0.14);
-    }
+.login-card 
+{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 24px 28px;
+    text-align: center;
+    box-shadow: 0 18px 45px rgba(47, 93, 80, 0.14);
+}
 
-  
+.login-card h1 
+{
+    font-size: 28px;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+}
 
-    .login-card h1 {
-        font-size: 28px;
-        color: var(--green-dark);
-        margin-bottom: 8px;
-    }
+.login-subtitle 
+{
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 28px;
+}
 
-    .login-subtitle {
-        color: var(--muted);
-        font-size: 15px;
-        margin-bottom: 28px;
-    }
+.login-card form 
+{
+    margin-bottom: 18px;
+    text-align: left;
+}
 
-    .login-card form {
-        margin-bottom: 18px;
-        text-align: left;
-    }
-
-    .login-card .form-group {
-        margin-bottom: 16px;
-    }
+.login-card .form-group 
+{
+    margin-bottom: 16px;
+}
 
     .login-card label {
         margin-top: 0;
@@ -402,7 +451,8 @@ tr:hover {
         font-size: 16px;
     }
 
-    .error-box {
+    .error-box 
+    {
         background: #F8D7DA;
         color: #721C24;
         border: 1px solid #F5C2C7;
@@ -413,13 +463,15 @@ tr:hover {
         text-align: center;
     }
 
-    .register-link {
+    .register-link 
+    {
         margin-top: 18px;
         font-size: 14px;
         color: var(--muted);
     }
 
-    .register-link a {
+    .register-link a 
+    {
         color: var(--green-dark);
         font-weight: 700;
         text-decoration: none;
@@ -434,25 +486,29 @@ tr:hover {
         display: none;
     }
 
-    /* MOBILE LOGIN */
+    /* mobile login page */
     @media (max-width: 480px) 
     {
         
-        .login-container {
+        .login-container 
+        {
             max-width: 100%;
             padding: 18px;
         }
 
-        .login-card {
+        .login-card 
+        {
             padding: 30px 22px;
             border-radius: 5px;
         }
 
-        .login-card h1 {
+        .login-card h1 
+        {
             font-size: 24px;
         }
 
-        .login-logo {
+        .login-logo 
+        {
             width: 82px;
         }
 
@@ -471,8 +527,9 @@ tr:hover {
             flex-direction: column;
         }
     }
-/* DASHBOARDS */
 
+
+/* Layout */
 body 
 {
     margin: 0;
@@ -481,17 +538,22 @@ body
     color: #2E2E2E;
 }
 
-
-
-/* Layout */
-.container {
+.container 
+{
     display: flex;
     flex: 1;
     min-width: 0;
 }
 
-/* Sidebar */
-.sidebar {
+.sidebar 
+{
+    position: fixed;
+    top: 72px; /* start right under the header */
+    left: 0;
+    width: 220px;
+    height: calc(100vh - 72px);
+    overflow-y: auto; /* in case sidebar menu itself gets long */
+    
     margin-top: 20px;
     margin-bottom: 20px;
     width: 220px;
@@ -503,14 +565,16 @@ body
 }
 
 
-.sidebar-menu {
+.sidebar-menu 
+{
     list-style: none;
     padding: 20px;
     margin: 0;
     flex-grow: 1;
 }
 
-.sidebar-menu a {
+.sidebar-menu a 
+{
     display: block;
     color: #2F5D50;
     text-decoration: none;
@@ -520,11 +584,13 @@ body
     font-weight: 600;
 }
 
-.sidebar-menu a:hover {
+.sidebar-menu a:hover 
+{
     background: #CFE8D5;
 }
 
-.logout-btn {
+.logout-btn 
+{
     width: 100%;
     margin-top: auto;
     padding: 11px;
@@ -536,18 +602,23 @@ body
     cursor: pointer;
 }
 
-/* Main */
-.main-content {
+/* Main content in the dashbaord*/
+.main-content 
+{
+    margin-top: 72px; /* to start under the fixed header */
+    margin-left: 220px; /* in case sidebar menu itself gets long */
     flex: 1;
     padding: 28px;
     min-width: 0;
 }
 
-.dashboard-header {
+.dashboard-header 
+{
     margin-bottom: 22px;
 }
 
-.dashboard-header h1 {
+.dashboard-header h1 
+{
     margin: 0 0 6px;
     color: #2F5D50;
     font-size: 28px;
@@ -583,7 +654,7 @@ body
     color: #2F5D50;
 }
 
-/* DASHBOARD CARDS */
+/* dashboard cards */
 .dashboard-cards,
 .dashboard-grid {
     display: grid;
@@ -592,8 +663,8 @@ body
     margin-bottom: 30px;
 }
 
-.card,
-.stat-card {
+.card, .stat-card 
+{
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 10px;
