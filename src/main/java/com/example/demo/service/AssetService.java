@@ -183,7 +183,7 @@ public class AssetService {
         if (dto.getTitle() == null || dto.getTitle().isBlank()) {
             throw new InvalidAssetActionException("Asset title is required.");
         }
-
+        // validation for creating an asset
         if (dto.getCategory() == null || dto.getCategory().isBlank()) {
             throw new InvalidAssetActionException("Asset category is required.");
         }
@@ -225,7 +225,7 @@ public class AssetService {
         if (imageFile != null && !imageFile.isEmpty()) {
 
             String contentType = imageFile.getContentType();
-
+            //validates the file before upload
             if (contentType == null ||
                     !(contentType.equals("image/png") ||
                             contentType.equals("image/jpeg"))) {
@@ -239,15 +239,15 @@ public class AssetService {
                 String fileName =
                         System.currentTimeMillis() + "_" +
                                 imageFile.getOriginalFilename();
-
+                // create a new file unique file name
                 String uploadPath =
                         System.getProperty("user.dir") + "/src/main/webapp/uploads/";
-
+                // Creates a Java File object that represents the uploads directory
                 File uploadDir = new File(uploadPath);
                 uploadDir.mkdirs();
 
                 imageFile.transferTo(new File(uploadPath + fileName));
-
+                //the path it stores the images
                 asset.setPhotoPath("/uploads/" + fileName);
 
             } catch (IOException e) {
