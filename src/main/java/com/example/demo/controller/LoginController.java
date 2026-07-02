@@ -28,7 +28,7 @@ public class LoginController {
 
     @GetMapping("/loginpage")
     public String showLoginPage(HttpSession session) {
-
+        // removes any prevoius login attempt information
         session.removeAttribute("lastLoginEmail");
         session.removeAttribute("loginAttempts");
         return "login";
@@ -47,7 +47,7 @@ public class LoginController {
             attempts = 0;
         }
 
-        // reset attempts if trying a different user/email
+        // reset attempts if trying a different user or email
         if (lastEmail == null || !lastEmail.equals(email)) {
             attempts = 0;
             session.setAttribute("loginAttempts", 0);
@@ -66,7 +66,7 @@ public class LoginController {
             session.removeAttribute("loginAttempts");
             session.removeAttribute("lastLoginEmail");
             session.setAttribute("user", user);
-
+            // stores the logged-in user in the session
             if (user.getRole() == User.Role.ADMIN) {
                 return "redirect:/admin/dashboard";
             }
