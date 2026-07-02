@@ -109,7 +109,9 @@ public class UserService {
             throw new UserAlreadyExistsException(
                     "Email " + user.getEmail() + " already exists."
             );
-        }
+        } 
+        //generate randon password
+        // make it 8 characters
         String generatedPassword = UUID.randomUUID()
                 .toString()
                 .replace("-", "")
@@ -227,7 +229,8 @@ public class UserService {
     }
 
     public User getUserByLoginDetails(String email, String password) {
-
+//does authentification before logging
+        // validates the users email
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new InvalidCredentialsException("Invalid credentials."));
 
